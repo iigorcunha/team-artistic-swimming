@@ -6,6 +6,7 @@ import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
 import ChatSideBanner from '../../components/ChatSideBanner/ChatSideBanner';
+import Board from '../../components/Board/Board';
 import { useEffect } from 'react';
 
 export default function Dashboard(): JSX.Element {
@@ -32,6 +33,7 @@ export default function Dashboard(): JSX.Element {
       <CssBaseline />
       <Grid item className={classes.drawerWrapper}>
         <ChatSideBanner loggedInUser={loggedInUser} />
+        <Board />
       </Grid>
     </Grid>
   );
