@@ -1,10 +1,6 @@
-export interface Card {
-  id: string;
-  name: string;
-  image: string;
-}
+import { Card, Column } from '../interface/Column';
 
-export const column: Card[] = [
+const column1: Card[] = [
   {
     id: 'joe',
     name: 'Big joe',
@@ -30,4 +26,36 @@ export const column: Card[] = [
     name: 'Rick Piper',
     image: 'https://picsum.photos/id/231/200/300',
   },
+];
+
+const column2: Card[] = [
+  {
+    id: 'graham',
+    name: 'Frank Graham',
+    image: 'https://picsum.photos/id/209/200/300',
+  },
+  {
+    id: 'czar',
+    name: 'Fatai Czar',
+    image: 'https://picsum.photos/id/221/200/300',
+  },
+  {
+    id: 'philip',
+    name: 'Mark Philip',
+    image: 'https://picsum.photos/id/130/200/300',
+  },
+  {
+    id: 'john',
+    name: 'Neal John',
+    image: 'https://picsum.photos/id/214/200/300',
+  },
+  {
+    id: 'valentina',
+    name: 'Van Valentina',
+    image: 'https://picsum.photos/id/201/200/300',
+  },
+];
+export const columns: Column[] = [
+  { cards: column1, id: 'column1' },
+  { cards: column2, id: 'column2' },
 ];
