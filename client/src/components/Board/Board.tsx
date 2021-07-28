@@ -1,46 +1,55 @@
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { column } from '../../mocks/mockBoardData';
+import { FC, useState } from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
+import { Column } from '../../interface/Column';
+import BoardColumn from '../BoardColumn/BoardColumn';
+import useStyles from './useStyles';
 
-export default function Board(): JSX.Element {
-  const handleOnDragEnd = () => {
-    // if(!result.destination) return
-    // const itemsArrangement = Array.from(characters)
+interface BoardProps {
+  columns: Column[];
+}
+const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
+  const [board, setBoard] = useState(columns);
+  const classes = useStyles();
+
+  const handleOnDragEnd = (result: any) => {
+    const { destination, source, draggableId } = result;
+    if (!destination) return;
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
+      return;
+    }
+    const start: any = board.find((e) => e.id === source.droppableId);
+    const finish: any = board.find((e) => e.id === destination.droppableId);
+    if (start.id === finish.id) {
+      const [newArrangement] = start.cards.splice(source.index, 1);
+      start.cards.splice(destination.index, 0, newArrangement);
+      // console.log(start.cards);
+      // setBoard(columns => [...columns, ]);
+      return;
+    }
+    console.log('Diffrent Column');
+    // const itemsArrangement = Array.from(board)
     // const [newItemArrangement] = itemsArrangement.splice(result.source.index, 1)
     // itemsArrangement.splice(result.destination.index, 0, newItemArrangement)
-
-    // setCharacters(itemsArrangement)
-    console.log('draged');
+    const [newArrangement] = start.cards.splice(source.index, 1);
+    finish.cards.splice(destination.index, 0, newArrangement);
+    // setBoard(itemsArrangement)
+    console.log(start);
+    console.log(result);
   };
 
   return (
     <div>
       <h1>Board</h1>
       <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="characters">
-          {(provided) => (
-            <ul className="items" {...provided.droppableProps} ref={provided.innerRef}>
-              {column.map((e, index) => (
-                <Draggable key={e.id} draggableId={e.id} index={index}>
-                  {(provided) => (
-                    <li
-                      className="item"
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      ref={provided.innerRef}
-                    >
-                      <img src={e.image} alt={e.name} />
-                      <p>{e.name}</p>
-                    </li>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </ul>
-          )}
-        </Droppable>
+        <div className={classes.board}>
+          {board.map((column, index) => (
+            <BoardColumn key={index} column={column.cards} droppableId={column.id} title={column.title} />
+          ))}
+        </div>
       </DragDropContext>
-
       <p className="copyright">copyright robert 2021</p>
     </div>
   );
-}
+};
+
+export default Board;
