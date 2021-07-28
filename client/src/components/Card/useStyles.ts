@@ -1,9 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
-  board: {
-    display: 'flex',
-    height: '100vh',
+  card: {
+    width: 235,
+    height: 80,
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 5,
+    backgroundColor: 'white',
   },
 }));
 
