@@ -16,8 +16,12 @@ exports.listBoard = asyncHandler(async (req, res, next) => {
       path: 'cards'
     }
   });
-  
 
+  if(!board) {
+    throw new Error("No board found with given id");
+  }
+
+  
   res.status(200).json({ board });
 });
 
@@ -37,13 +41,9 @@ exports.handleBoard = asyncHandler(async (req, res, next) => {
       columnUpdated = await BoardColumn.create({
         name: column.name,
       });
-    }
-
-    if (columnExists) {
+    } else {
       columnUpdated = columnExists;
     }
-
- 
 
       // If cards are sent in column body do the process to find or create the cards.
       if (column.cards) {
@@ -97,7 +97,11 @@ exports.deleteColumn = asyncHandler(async (req, res, next) => {
     }))
   }
 
-  await BoardColumn.deleteOne({ _id: column._id })
+  const deletedBoard = await BoardColumn.deleteOne({ _id: column._id })
+
+  if(deletedBoard.deletedCount === 0){
+    throw new Error("Board can't be deleted with given id")
+  }
 
   res.status(204).send()
 })
@@ -105,7 +109,11 @@ exports.deleteColumn = asyncHandler(async (req, res, next) => {
 exports.deleteCard = asyncHandler(async (req, res, next) => {
   const { card } = req.body;
 
-  await Card.deleteOne({ _id: card._id })
+  
+    const deletedCard = await Card.deleteOne({ _id: card._id })
+    if(deletedCard.deletedCount === 0){
+      throw new Error("Card can't be deleted with given id")
+    }
 
-  res.status(204).send()
+    res.status(204).send()
 })
