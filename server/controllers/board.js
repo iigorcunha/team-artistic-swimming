@@ -97,10 +97,10 @@ exports.deleteColumn = asyncHandler(async (req, res, next) => {
     }))
   }
 
-  const deletedBoard = await BoardColumn.deleteOne({ _id: column._id })
+  const deletedColumn = await BoardColumn.deleteOne({ _id: column._id })
 
-  if(deletedBoard.deletedCount === 0){
-    throw new Error("Board can't be deleted with given id")
+  if(deletedColumn.deletedCount === 0){
+    throw new Error("Column can't be deleted with given id")
   }
 
   res.status(204).send()
