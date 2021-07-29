@@ -5,6 +5,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { Card } from '../../interface/Column';
 import BoardCard from '../Card/Card';
 import useStyles from './useStyles';
+import FormDialog from '../DialogBox/DialogBox';
 
 interface ColumnProps {
   column: Card[];
@@ -29,7 +30,7 @@ const BoardColumn: FC<ColumnProps> = ({ column, droppableId, title, index }): JS
                   <BoardCard key={e.id} card={e} index={index} />
                 ))}
                 {provided.placeholder}
-                <Button color="primary">Add a card</Button>
+                <FormDialog />
               </ul>
             )}
           </Droppable>
