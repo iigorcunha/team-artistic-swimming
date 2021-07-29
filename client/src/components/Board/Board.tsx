@@ -27,7 +27,13 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
       console.log('Adding');
       return;
     }
+    if (result.type === 'column') {
+      const [reorderedColumn] = board.splice(source.index, 1);
+      board.splice(destination.index, 0, reorderedColumn);
+      return;
+    }
     const start: any = board.find((e) => e.id === source.droppableId);
+    console.log({ start });
     const finish: any = board.find((e) => e.id === destination.droppableId);
     if (start.id === finish.id) {
       const [newArrangement] = start.cards.splice(source.index, 1);
@@ -67,7 +73,7 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
           {(provided) => (
             <div className={classes.board} {...provided.droppableProps} ref={provided.innerRef}>
               <AddColumnWidget droppableId="addColumnLeft" showing={showingWidgetLeft} />
-              <Grid container xs={12}>
+              <Grid container>
                 {board.map((column, index) => (
                   <BoardColumn
                     key={index}
