@@ -4,7 +4,7 @@ const useStyles = makeStyles(() => ({
   badge: {
     width: 50,
     height: 5,
-    borderRadius: 50,
+    borderRadius: '20%',
   },
 }));
 

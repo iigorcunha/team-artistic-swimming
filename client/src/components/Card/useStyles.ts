@@ -6,6 +6,7 @@ const useStyles = makeStyles(() => ({
     height: 80,
     borderRadius: 5,
     padding: 10,
+    margin: 0,
     marginBottom: 5,
     backgroundColor: 'white',
   },

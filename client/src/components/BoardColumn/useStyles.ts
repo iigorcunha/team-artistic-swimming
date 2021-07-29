@@ -1,21 +1,25 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
-  columnContainer: {},
+  columnContainer: {
+    marginLeft: 10,
+  },
   column: {
     listStyleType: 'none',
     width: 250,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: 4,
     backgroundColor: '#d0dbf2',
-    marginLeft: 10,
+    padding: 0,
+    margin: 0,
+    marginBottom: 15,
   },
   columnTitle: {
-    paddingTop: 5,
-    paddingBottom: 5,
+    padding: 10,
+    width: 250,
     fontWeight: 'bold',
+    backgroundColor: '#d0dbf2',
   },
 }));
 
