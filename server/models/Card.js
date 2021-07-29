@@ -7,6 +7,13 @@ const cardSchema = new mongoose.Schema({
   },
   description: {
     type: String,
+  },
+  deadline: {
+    type: Date,
+  },
+  colorCode: {
+    type: String,
+    enum: ["red", "green", "blue", "yellow", null]
   }
 }, {
   timestamps: true
