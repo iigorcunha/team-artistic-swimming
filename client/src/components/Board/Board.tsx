@@ -4,7 +4,7 @@ import { Column } from '../../interface/Column';
 import BoardColumn from '../BoardColumn/BoardColumn';
 import AddColumnWidget from '../AddColumnWidget/AddColumnWidget';
 import useStyles from './useStyles';
-import { Grid } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 
 interface BoardProps {
   columns: Column[];
@@ -18,7 +18,7 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
   const handleOnDragEnd = (result: any) => {
     setShowingWidgetLeft(false);
     setShowingWidgetRight(false);
-    const { destination, source, draggableId } = result;
+    const { destination, source } = result;
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
@@ -28,30 +28,24 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
       return;
     }
     if (result.type === 'column') {
-      const [reorderedColumn] = board.splice(source.index, 1);
-      board.splice(destination.index, 0, reorderedColumn);
+      const columnArrangement = Array.from(board);
+      const [draggedColumn] = columnArrangement.splice(source.index, 1);
+      columnArrangement.splice(destination.index, 0, draggedColumn);
+      setBoard(columnArrangement);
       return;
     }
     const start: any = board.find((e) => e.id === source.droppableId);
-    console.log({ start });
     const finish: any = board.find((e) => e.id === destination.droppableId);
     if (start.id === finish.id) {
-      const [newArrangement] = start.cards.splice(source.index, 1);
-      start.cards.splice(destination.index, 0, newArrangement);
-      // console.log(start.cards);
-      // setBoard(columns => [...columns, ]);
+      const [draggedCard] = start.cards.splice(source.index, 1);
+      start.cards.splice(destination.index, 0, draggedCard);
       return;
     }
-    console.log(finish);
-    // const itemsArrangement = Array.from(board)
-    // const [newItemArrangement] = itemsArrangement.splice(result.source.index, 1)
-    // itemsArrangement.splice(result.destination.index, 0, newItemArrangement)
-    const [newArrangement] = start.cards.splice(source.index, 1);
-    finish.cards.splice(destination.index, 0, newArrangement);
-    // setBoard(itemsArrangement)
-    console.log(start);
-    console.log(result);
+    const [draggedCard] = start.cards.splice(source.index, 1);
+    finish.cards.splice(destination.index, 0, draggedCard);
+    return;
   };
+
   const handleOnDragUpdate = (update: any) => {
     if (!update.destination) return;
     if (update.destination.droppableId === 'addColumnLeft') {
@@ -67,7 +61,6 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
   };
   return (
     <div>
-      <h1>Board</h1>
       <DragDropContext onDragEnd={handleOnDragEnd} onDragUpdate={handleOnDragUpdate}>
         <Droppable droppableId="allColumns" direction="horizontal" type="column">
           {(provided) => (
@@ -75,13 +68,9 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
               <AddColumnWidget droppableId="addColumnLeft" showing={showingWidgetLeft} />
               <Grid container>
                 {board.map((column, index) => (
-                  <BoardColumn
-                    key={index}
-                    column={column.cards}
-                    droppableId={column.id}
-                    title={column.title}
-                    index={index}
-                  />
+                  <Box key={column.id}>
+                    <BoardColumn column={column.cards} droppableId={column.id} title={column.title} index={index} />
+                  </Box>
                 ))}
               </Grid>
               <AddColumnWidget droppableId="addColumnRight" showing={showingWidgetRight} />
@@ -90,7 +79,6 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
           )}
         </Droppable>
       </DragDropContext>
-      <p className="copyright">copyright robert 2021</p>
     </div>
   );
 };
