@@ -5,7 +5,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     width: '90vw',
     height: '100vh',
-    marginLeft: 20,
+    marginTop: 20,
     justifyContent: 'space-between',
   },
 }));
