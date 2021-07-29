@@ -1,3 +1,4 @@
+import { Typography } from '@material-ui/core';
 import { FC } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { Card } from '../../interface/Column';
@@ -21,8 +22,9 @@ const BoardCard: FC<CardProps> = ({ card, index }): JSX.Element => {
             {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
-            <CardBadge color={card.color}/>
-            <p>{card.name}</p>
+            <CardBadge color={card.color} />
+            <Typography className={classes.cardName}>{card.name}</Typography>
+            {card.deadline ? <Typography color="textSecondary">{card.deadline}</Typography> : null}
           </li>
         )}
       </Draggable>

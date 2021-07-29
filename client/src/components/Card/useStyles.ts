@@ -10,6 +10,11 @@ const useStyles = makeStyles(() => ({
     marginBottom: 5,
     backgroundColor: 'white',
   },
+  cardName: {
+    fontWeight: 'bold',
+    marginTop: 8,
+    marginBottom: 6,
+  },
 }));
 
 export default useStyles;
