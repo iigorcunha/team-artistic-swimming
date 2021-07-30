@@ -1,11 +1,10 @@
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import { FC } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { Card } from '../../interface/Column';
 import BoardCard from '../Card/Card';
 import useStyles from './useStyles';
-import FormDialog from '../DialogBox/DialogBox';
+import NewCardDialogBox from '../NewCardDialogBox/NewCardDialogBox';
 
 interface ColumnProps {
   column: Card[];
@@ -30,7 +29,7 @@ const BoardColumn: FC<ColumnProps> = ({ column, droppableId, title, index }): JS
                   <BoardCard key={e.id} card={e} index={index} />
                 ))}
                 {provided.placeholder}
-                <FormDialog />
+                <NewCardDialogBox />
               </ul>
             )}
           </Droppable>

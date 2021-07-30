@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { FC, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,28 +7,18 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default function FormDialog(): JSX.Element {
-  const [open, setOpen] = useState(false);
+interface DialogFormProps {
+  open: boolean;
+  handleClose: () => void;
+}
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+const NewColumnDialogBox: FC<DialogFormProps> = ({ open, handleClose }): JSX.Element => {
   return (
     <div>
-      <Button color="primary" onClick={handleClickOpen}>
-        Add a card
-      </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates occasionally.
-          </DialogContentText>
+          <DialogContentText>Form for a new Column</DialogContentText>
           <TextField autoFocus margin="dense" id="name" label="Email Address" type="email" fullWidth />
         </DialogContent>
         <DialogActions>
@@ -42,4 +32,6 @@ export default function FormDialog(): JSX.Element {
       </Dialog>
     </div>
   );
-}
+};
+
+export default NewColumnDialogBox;

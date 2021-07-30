@@ -5,12 +5,14 @@ import BoardColumn from '../BoardColumn/BoardColumn';
 import AddColumnWidget from '../AddColumnWidget/AddColumnWidget';
 import useStyles from './useStyles';
 import { Grid, Box } from '@material-ui/core';
+import NewColumnDialogBox from '../NewColumnDialogBox/NewColumnDialogBox';
 
 interface BoardProps {
   columns: Column[];
 }
 const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
   const [board, setBoard] = useState(columns);
+  const [openNewColumnDialog, setOpenNewColumnDialog] = useState(false);
   const [showingWidgetLeft, setShowingWidgetLeft] = useState(false);
   const [showingWidgetRight, setShowingWidgetRight] = useState(false);
   const classes = useStyles();
@@ -25,6 +27,7 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
     }
     if (destination.droppableId === 'addColumnLeft' || destination.droppableId === 'addColumnRight') {
       console.log('Adding');
+      setOpenNewColumnDialog(true);
       return;
     }
     if (result.type === 'column') {
@@ -59,6 +62,11 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
       return;
     }
   };
+
+  const handleCloseAddColumnDialog = () => {
+    setOpenNewColumnDialog(false);
+  };
+
   return (
     <div>
       <DragDropContext onDragEnd={handleOnDragEnd} onDragUpdate={handleOnDragUpdate}>
@@ -79,6 +87,7 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
           )}
         </Droppable>
       </DragDropContext>
+      <NewColumnDialogBox open={openNewColumnDialog} handleClose={handleCloseAddColumnDialog} />
     </div>
   );
 };
