@@ -18,6 +18,7 @@ exports.listBoard = asyncHandler(async (req, res, next) => {
   });
 
   if(!board) {
+    res.status(404);
     throw new Error("No board found with given id");
   }
 
@@ -100,7 +101,8 @@ exports.deleteColumn = asyncHandler(async (req, res, next) => {
   const deletedColumn = await BoardColumn.deleteOne({ _id: column._id })
 
   if(deletedColumn.deletedCount === 0){
-    throw new Error("Column can't be deleted with given id")
+    res.status(404);
+    throw new Error("Column can't be deleted with given id");
   }
 
   res.status(204).send()
@@ -112,7 +114,8 @@ exports.deleteCard = asyncHandler(async (req, res, next) => {
   
     const deletedCard = await Card.deleteOne({ _id: card._id })
     if(deletedCard.deletedCount === 0){
-      throw new Error("Card can't be deleted with given id")
+      res.status(404);
+      throw new Error("Card can't be deleted with given id");
     }
 
     res.status(204).send()
