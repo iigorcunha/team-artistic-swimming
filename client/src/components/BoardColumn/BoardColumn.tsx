@@ -29,7 +29,7 @@ const BoardColumn: FC<ColumnProps> = ({ column, droppableId, title, index }): JS
                   <BoardCard key={e.id} card={e} index={index} />
                 ))}
                 {provided.placeholder}
-                <Button color="primary">Add a card</Button>
+                <Button className={classes.addCardButton}>Add a card...</Button>
               </ul>
             )}
           </Droppable>

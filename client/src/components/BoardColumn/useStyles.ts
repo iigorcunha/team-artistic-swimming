@@ -23,6 +23,11 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#d0dbf2',
     borderRadius: '5px 5px 0 0',
   },
+  addCardButton: {
+    width: 100,
+    alignSelf: 'start',
+    color: '#818ba1',
+  },
 }));
 
 export default useStyles;
