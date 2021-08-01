@@ -1,11 +1,13 @@
 import { FC } from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import * as yup from 'yup';
+import { Formik, Form } from 'formik';
+import TextField from '@material-ui/core/TextField';
 
 interface DialogFormProps {
   open: boolean;
@@ -19,7 +21,36 @@ const NewColumnDialogBox: FC<DialogFormProps> = ({ open, handleClose }): JSX.Ele
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
         <DialogContent>
           <DialogContentText>Form for a new Column</DialogContentText>
-          <TextField autoFocus margin="dense" id="name" label="Email Address" type="email" fullWidth />
+          <Formik
+            initialValues={{ title: '' }}
+            validationSchema={yup.object({
+              title: yup.string().required('Title is required'),
+            })}
+            onSubmit={(values, { setSubmitting }) => {
+              console.log(values);
+              setSubmitting(false);
+              handleClose();
+            }}
+          >
+            {({ isSubmitting, touched, errors, values, handleChange }) => (
+              <Form>
+                <TextField
+                  fullWidth
+                  id="title"
+                  name="title"
+                  label="title"
+                  type="text"
+                  value={values.title}
+                  onChange={handleChange}
+                  error={touched.title && Boolean(errors.title)}
+                  helperText={touched.title && errors.title}
+                />
+                <button type="submit" disabled={isSubmitting}>
+                  Submit
+                </button>
+              </Form>
+            )}
+          </Formik>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

@@ -6,9 +6,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import useStyles from './useStyles';
 
 export default function NewCardDialogBox(): JSX.Element {
   const [open, setOpen] = useState(false);
+  const classes = useStyles();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -19,9 +21,9 @@ export default function NewCardDialogBox(): JSX.Element {
   };
 
   return (
-    <div>
-      <Button color="primary" onClick={handleClickOpen}>
-        Add a card
+    <div className={classes.dialogContainer}>
+      <Button className={classes.addCardButton} onClick={handleClickOpen}>
+        Add a card...
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
