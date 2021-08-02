@@ -1,20 +1,18 @@
 import { FC, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { Column } from '../../interface/Column';
 import BoardColumn from '../BoardColumn/BoardColumn';
 import AddColumnWidget from '../AddColumnWidget/AddColumnWidget';
 import useStyles from './useStyles';
 import { Grid, Box } from '@material-ui/core';
 import NewColumnDialogBox from '../NewColumnDialogBox/NewColumnDialogBox';
+import { useBoard } from '../../context/useBoardContext';
 
-interface BoardProps {
-  columns: Column[];
-}
-const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
-  const [board, setBoard] = useState(columns);
+const Board: FC = (): JSX.Element => {
+  const { board, updateBoard } = useBoard();
   const [openNewColumnDialog, setOpenNewColumnDialog] = useState(false);
   const [showingWidgetLeft, setShowingWidgetLeft] = useState(false);
   const [showingWidgetRight, setShowingWidgetRight] = useState(false);
+  const [newColumnDetails, setNewColumnDetails] = useState({});
   const classes = useStyles();
 
   const handleOnDragEnd = (result: any) => {
@@ -26,7 +24,17 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
       return;
     }
     if (destination.droppableId === 'addColumnLeft' || destination.droppableId === 'addColumnRight') {
-      console.log('Adding');
+      const boardArrangement = Array.from(board);
+      const draggedCardColumn: any = boardArrangement.find((e) => e.id === source.droppableId);
+      const [draggedCard] = draggedCardColumn.cards.splice(source.index, 1);
+      const details = {
+        position: destination.droppableId === 'addColumnLeft' ? 'left' : 'right',
+        boardArrangement,
+        draggedCardColumn,
+        draggedCard,
+        draggedCardIndex: source.index,
+      };
+      setNewColumnDetails({ ...details });
       setOpenNewColumnDialog(true);
       return;
     }
@@ -34,7 +42,7 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
       const columnArrangement = Array.from(board);
       const [draggedColumn] = columnArrangement.splice(source.index, 1);
       columnArrangement.splice(destination.index, 0, draggedColumn);
-      setBoard(columnArrangement);
+      updateBoard(columnArrangement);
       return;
     }
     const start: any = board.find((e) => e.id === source.droppableId);
@@ -87,7 +95,11 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
           )}
         </Droppable>
       </DragDropContext>
-      <NewColumnDialogBox open={openNewColumnDialog} handleClose={handleCloseAddColumnDialog} />
+      <NewColumnDialogBox
+        open={openNewColumnDialog}
+        handleClose={handleCloseAddColumnDialog}
+        details={newColumnDetails}
+      />
     </div>
   );
 };

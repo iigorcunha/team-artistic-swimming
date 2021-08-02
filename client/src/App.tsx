@@ -5,7 +5,7 @@ import Login from './pages/Login/Login';
 import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
-import { SocketProvider } from './context/useSocketContext';
+import { BoardProvider } from './context/useBoardContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 
 import './App.css';
@@ -16,7 +16,7 @@ function App(): JSX.Element {
       <BrowserRouter>
         <SnackBarProvider>
           <AuthProvider>
-            <SocketProvider>
+            <BoardProvider>
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
@@ -27,7 +27,7 @@ function App(): JSX.Element {
                   <Redirect to="/login" />
                 </Route>
               </Switch>
-            </SocketProvider>
+            </BoardProvider>
           </AuthProvider>
         </SnackBarProvider>
       </BrowserRouter>

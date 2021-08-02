@@ -8,16 +8,24 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import * as yup from 'yup';
 import { Formik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
+import { useBoard } from '../../context/useBoardContext';
 
 interface DialogFormProps {
   open: boolean;
   handleClose: () => void;
+  details: any;
 }
 
-const NewColumnDialogBox: FC<DialogFormProps> = ({ open, handleClose }): JSX.Element => {
+const NewColumnDialogBox: FC<DialogFormProps> = ({ open, handleClose, details }): JSX.Element => {
+  const { updateBoard } = useBoard();
+  const doHandleClose = () => {
+    details.draggedCardColumn.cards.splice(details.draggedCardIndex, 0, details.draggedCard);
+    handleClose();
+  };
+
   return (
     <div>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog open={open} onClose={doHandleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
         <DialogContent>
           <DialogContentText>Form for a new Column</DialogContentText>
@@ -27,8 +35,18 @@ const NewColumnDialogBox: FC<DialogFormProps> = ({ open, handleClose }): JSX.Ele
               title: yup.string().required('Title is required'),
             })}
             onSubmit={(values, { setSubmitting }) => {
-              console.log(values);
               setSubmitting(false);
+              if (details.position === 'left') {
+                updateBoard([
+                  { cards: [{ ...details.draggedCard }], id: values.title, title: values.title },
+                  ...details.boardArrangement,
+                ]);
+              } else {
+                updateBoard([
+                  ...details.boardArrangement,
+                  { cards: [{ ...details.draggedCard }], id: values.title, title: values.title },
+                ]);
+              }
               handleClose();
             }}
           >
@@ -53,10 +71,10 @@ const NewColumnDialogBox: FC<DialogFormProps> = ({ open, handleClose }): JSX.Ele
           </Formik>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={doHandleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={doHandleClose} color="primary">
             Subscribe
           </Button>
         </DialogActions>
