@@ -50,10 +50,12 @@ const Board: FC = (): JSX.Element => {
     if (start.id === finish.id) {
       const [draggedCard] = start.cards.splice(source.index, 1);
       start.cards.splice(destination.index, 0, draggedCard);
+      updateBoard(board);
       return;
     }
     const [draggedCard] = start.cards.splice(source.index, 1);
     finish.cards.splice(destination.index, 0, draggedCard);
+    updateBoard(board);
     return;
   };
 
