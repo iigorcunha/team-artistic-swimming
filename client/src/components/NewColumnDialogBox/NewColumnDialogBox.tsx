@@ -10,13 +10,13 @@ import { Formik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import { useBoard } from '../../context/useBoardContext';
 
-interface DialogFormProps {
+interface ColumnDialogFormProps {
   open: boolean;
   handleClose: () => void;
   details: any;
 }
 
-const NewColumnDialogBox: FC<DialogFormProps> = ({ open, handleClose, details }): JSX.Element => {
+const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ open, handleClose, details }): JSX.Element => {
   const { updateBoard } = useBoard();
   const doHandleClose = () => {
     details.draggedCardColumn.cards.splice(details.draggedCardIndex, 0, details.draggedCard);
@@ -63,9 +63,9 @@ const NewColumnDialogBox: FC<DialogFormProps> = ({ open, handleClose, details })
                   error={touched.title && Boolean(errors.title)}
                   helperText={touched.title && errors.title}
                 />
-                <button type="submit" disabled={isSubmitting}>
+                <Button variant="outlined" type="submit" disabled={isSubmitting}>
                   Submit
-                </button>
+                </Button>
               </Form>
             )}
           </Formik>
