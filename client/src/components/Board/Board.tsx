@@ -3,12 +3,14 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import BoardColumn from '../BoardColumn/BoardColumn';
 import AddColumnWidget from '../AddColumnWidget/AddColumnWidget';
 import useStyles from './useStyles';
-import { Grid, Box } from '@material-ui/core';
+import { Grid, Box, Backdrop, CircularProgress } from '@material-ui/core';
 import NewColumnDialogBox from '../NewColumnDialogBox/NewColumnDialogBox';
 import { useBoard } from '../../context/useBoardContext';
+import { useBackdrop } from '../../context/useBackDropContext';
 
 const Board: FC = (): JSX.Element => {
   const { board, updateBoard } = useBoard();
+  const { backdropOpen } = useBackdrop();
   const [openNewColumnDialog, setOpenNewColumnDialog] = useState(false);
   const [showingWidgetLeft, setShowingWidgetLeft] = useState(false);
   const [showingWidgetRight, setShowingWidgetRight] = useState(false);
@@ -102,6 +104,9 @@ const Board: FC = (): JSX.Element => {
         handleClose={handleCloseAddColumnDialog}
         details={newColumnDetails}
       />
+      <Backdrop className={classes.backdrop} open={backdropOpen}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 };

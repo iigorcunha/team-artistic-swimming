@@ -7,7 +7,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
 import { BoardProvider } from './context/useBoardContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
-
+import { BackdropProvider } from './context/useBackDropContext';
 import './App.css';
 
 function App(): JSX.Element {
@@ -17,16 +17,18 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <AuthProvider>
             <BoardProvider>
-              <Switch>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <Route exact path="/dashboard">
-                  <Dashboard />
-                </Route>
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
-              </Switch>
+              <BackdropProvider>
+                <Switch>
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/signup" component={Signup} />
+                  <Route exact path="/dashboard">
+                    <Dashboard />
+                  </Route>
+                  <Route path="*">
+                    <Redirect to="/login" />
+                  </Route>
+                </Switch>
+              </BackdropProvider>
             </BoardProvider>
           </AuthProvider>
         </SnackBarProvider>

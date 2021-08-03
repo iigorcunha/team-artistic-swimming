@@ -1,14 +1,13 @@
 import { FC } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import * as yup from 'yup';
 import { Formik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import { useBoard } from '../../context/useBoardContext';
+import { useBackdrop } from '../../context/useBackDropContext';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from './useStyles';
@@ -22,6 +21,7 @@ interface ColumnDialogFormProps {
 
 const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ open, handleClose, details }): JSX.Element => {
   const { updateBoard } = useBoard();
+  const { backdropOpen, openBackdrop, closeBackdrop } = useBackdrop();
   const classes = useStyles();
   const doHandleClose = () => {
     details.draggedCardColumn.cards.splice(details.draggedCardIndex, 0, details.draggedCard);
@@ -49,6 +49,11 @@ const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ open, handleClose, deta
             })}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(false);
+              openBackdrop();
+              setTimeout(() => {
+                closeBackdrop();
+              }, 1200);
+              console.log(backdropOpen);
               if (details.position === 'left') {
                 updateBoard([
                   { cards: [{ ...details.draggedCard }], id: values.title, title: values.title },
@@ -70,6 +75,7 @@ const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ open, handleClose, deta
                   id="title"
                   name="title"
                   label="Add Title"
+                  autoComplete="off"
                   type="text"
                   value={values.title}
                   onChange={handleChange}

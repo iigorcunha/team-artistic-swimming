@@ -4,10 +4,13 @@ const useStyles = makeStyles(() => ({
   hiddenWidget: {
     visibility: 'hidden',
   },
-  visibleWidget: {},
+  visibleWidget: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
   addColumnDroppableArea: {
     width: 80,
-    height: '85vh',
+    height: '95vh',
     backgroundColor: '#cccccc',
     display: 'flex',
     justifyContent: 'center',

@@ -58,7 +58,9 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
                   }}
                 />
                 <Box className={classes.radionInputContainer}>
-                  <Typography color="textSecondary">Select Tag:</Typography>
+                  <Typography color="textSecondary" variant="subtitle2">
+                    Select Tag:
+                  </Typography>
                   <Box>
                     <Radio
                       checked={selectedColor === 'red'}
