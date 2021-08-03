@@ -6,7 +6,6 @@ import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
 import Board from '../../components/Board/Board';
-import { columns } from '../../mocks/mockBoardData';
 import { useEffect } from 'react';
 
 export default function Dashboard(): JSX.Element {
@@ -14,7 +13,6 @@ export default function Dashboard(): JSX.Element {
 
   const { loggedInUser } = useAuth();
   const { initSocket } = useSocket();
-
   const history = useHistory();
 
   useEffect(() => {
@@ -31,8 +29,7 @@ export default function Dashboard(): JSX.Element {
   return (
     <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
       <CssBaseline />
-      <Board columns={columns} />
+      <Board />
     </Grid>
   );
 }
-//USE BACKDROP AND CIRCULAR LOADER
