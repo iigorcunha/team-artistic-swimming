@@ -9,6 +9,10 @@ import * as yup from 'yup';
 import { Formik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import { useBoard } from '../../context/useBoardContext';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import useStyles from './useStyles';
+import Typography from '@material-ui/core/Typography';
 
 interface ColumnDialogFormProps {
   open: boolean;
@@ -18,6 +22,7 @@ interface ColumnDialogFormProps {
 
 const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ open, handleClose, details }): JSX.Element => {
   const { updateBoard } = useBoard();
+  const classes = useStyles();
   const doHandleClose = () => {
     details.draggedCardColumn.cards.splice(details.draggedCardIndex, 0, details.draggedCard);
     handleClose();
@@ -26,9 +31,17 @@ const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ open, handleClose, deta
   return (
     <div>
       <Dialog open={open} onClose={doHandleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle disableTypography className={classes.title}>
+          <Typography variant="h6" className={classes.text}>
+            Create a new column
+          </Typography>
+          {open ? (
+            <IconButton aria-label="close" className={classes.closeButton} onClick={doHandleClose}>
+              <CloseIcon />
+            </IconButton>
+          ) : null}
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>Form for a new Column</DialogContentText>
           <Formik
             initialValues={{ title: '' }}
             validationSchema={yup.object({
@@ -51,33 +64,32 @@ const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ open, handleClose, deta
             }}
           >
             {({ isSubmitting, touched, errors, values, handleChange }) => (
-              <Form>
+              <Form className={classes.newColumnForm}>
                 <TextField
-                  fullWidth
+                  variant="outlined"
                   id="title"
                   name="title"
-                  label="title"
+                  label="Add Title"
                   type="text"
                   value={values.title}
                   onChange={handleChange}
+                  className={classes.textField}
                   error={touched.title && Boolean(errors.title)}
                   helperText={touched.title && errors.title}
                 />
-                <Button variant="outlined" type="submit" disabled={isSubmitting}>
-                  Submit
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={classes.submitButton}
+                >
+                  Create
                 </Button>
               </Form>
             )}
           </Formik>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={doHandleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={doHandleClose} color="primary">
-            Subscribe
-          </Button>
-        </DialogActions>
       </Dialog>
     </div>
   );

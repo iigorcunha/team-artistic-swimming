@@ -1,5 +1,5 @@
-import { useState, useContext, createContext, FunctionComponent, useCallback, Dispatch, SetStateAction } from 'react';
-import { Card, Column } from '../interface/Column';
+import { useState, useContext, createContext, FunctionComponent, useCallback } from 'react';
+import { Column } from '../interface/Column';
 import { columns } from '../mocks/mockBoardData';
 
 interface IBoardContext {
