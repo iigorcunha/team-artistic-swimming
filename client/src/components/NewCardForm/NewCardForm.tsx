@@ -1,4 +1,4 @@
-import { Box, Button, FormControlLabel, Radio, RadioGroup, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Radio, TextField, Typography } from '@material-ui/core';
 import { FC, useState } from 'react';
 import useStyles from './useStyles';
 import { Formik, Form } from 'formik';
@@ -22,9 +22,9 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
     setSelectedColor(event.target.value);
   };
   return (
-    <Box>
+    <Box className={classes.cardFormContainer}>
       {open ? (
-        <Box className={classes.cardForm}>
+        <Box>
           <Formik
             initialValues={{ name: '', color: '' }}
             validationSchema={yup.object({
@@ -39,7 +39,7 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
               handleToggleForm();
             }}
           >
-            {({ isSubmitting, touched, errors, values, handleChange }) => (
+            {({ touched, errors, values, handleChange }) => (
               <Form>
                 <TextField
                   fullWidth
@@ -47,34 +47,58 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
                   name="name"
                   label="Add title..."
                   type="text"
+                  autoComplete="off"
                   value={values.name}
+                  className={classes.textInput}
                   onChange={handleChange}
                   error={touched.name && Boolean(errors.name)}
                   helperText={touched.name && errors.name}
+                  InputLabelProps={{
+                    style: { color: 'black', fontWeight: 'bold', margin: '0 0 2px 8px' },
+                  }}
                 />
-                <Radio
-                  checked={selectedColor === 'red'}
-                  onChange={handleRadioSelection}
-                  value="red"
-                  name="color"
-                  inputProps={{ 'aria-label': 'A' }}
-                />
-                <Radio
-                  checked={selectedColor === 'blue'}
-                  onChange={handleRadioSelection}
-                  value="blue"
-                  name="color"
-                  inputProps={{ 'aria-label': 'B' }}
-                />
-                <Radio
-                  checked={selectedColor === 'yellow'}
-                  onChange={handleRadioSelection}
-                  value="yellow"
-                  name="color"
-                  inputProps={{ 'aria-label': 'C' }}
-                />
-                <Button type="submit" variant="outlined" disabled={isSubmitting}>
-                  Submit
+                <Box className={classes.radionInputContainer}>
+                  <Typography color="textSecondary">Select Tag:</Typography>
+                  <Box>
+                    <Radio
+                      checked={selectedColor === 'red'}
+                      onChange={handleRadioSelection}
+                      className={classes.radioRed}
+                      value="red"
+                      name="color"
+                      inputProps={{ 'aria-label': 'red' }}
+                    />
+                    <Radio
+                      checked={selectedColor === 'blue'}
+                      onChange={handleRadioSelection}
+                      className={classes.radioBlue}
+                      value="blue"
+                      name="color"
+                      inputProps={{ 'aria-label': 'blue' }}
+                    />
+                    <Radio
+                      checked={selectedColor === 'yellow'}
+                      onChange={handleRadioSelection}
+                      className={classes.radioYellow}
+                      value="yellow"
+                      name="color"
+                      inputProps={{ 'aria-label': 'yellow' }}
+                    />
+                    <Radio
+                      checked={selectedColor === 'green'}
+                      onChange={handleRadioSelection}
+                      className={classes.radioGreen}
+                      value="green"
+                      name="color"
+                      inputProps={{ 'aria-label': 'green' }}
+                    />
+                  </Box>
+                </Box>
+                <Button type="submit" variant="contained" color="primary" className={classes.formButton}>
+                  Add a card
+                </Button>
+                <Button onClick={handleToggleForm} variant="contained" color="secondary" className={classes.formButton}>
+                  Cancel
                 </Button>
               </Form>
             )}
