@@ -3,8 +3,9 @@ import { FC } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { Card } from '../../interface/Column';
 import BoardCard from '../Card/Card';
+import NewCardForm from '../NewCardForm/NewCardForm';
 import useStyles from './useStyles';
-import NewCardDialogBox from '../NewCardDialogBox/NewCardDialogBox';
+// import NewCardDialogBox from '../NewCardDialogBox/NewCardDialogBox';
 
 interface ColumnProps {
   column: Card[];
@@ -29,7 +30,8 @@ const BoardColumn: FC<ColumnProps> = ({ column, droppableId, title, index }): JS
                   <BoardCard key={e.id} card={e} index={index} />
                 ))}
                 {provided.placeholder}
-                <NewCardDialogBox columnId={droppableId} />
+                {/* <NewCardDialogBox columnId={droppableId} /> */}
+                <NewCardForm columnId={droppableId} />
               </ul>
             )}
           </Droppable>
