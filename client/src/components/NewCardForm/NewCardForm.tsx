@@ -1,5 +1,5 @@
 import { Box, Button, Radio, TextField, Typography } from '@material-ui/core';
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import useStyles from './useStyles';
 import { Formik, Form } from 'formik';
 import { Column } from '../../interface/Column';
@@ -18,7 +18,7 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
   const handleToggleForm: () => void = () => {
     setOpen(!open);
   };
-  const handleRadioSelection: (event: any) => void = (event) => {
+  const handleRadioSelection: (event: ChangeEvent<HTMLInputElement>) => void = (event) => {
     setSelectedColor(event.target.value);
   };
   return (
@@ -33,10 +33,12 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(false);
               const modifiedBoard = Array.from(board);
-              const columnToAddCard: Column = modifiedBoard.find((e) => e.id === columnId)!;
-              columnToAddCard.cards.push({ ...values, id: values.name, color: selectedColor });
-              updateBoard(modifiedBoard);
-              handleToggleForm();
+              const columnToAddCard: Column | undefined = modifiedBoard.find((e) => e.id === columnId);
+              if (columnToAddCard) {
+                columnToAddCard.cards.push({ ...values, id: values.name, color: selectedColor });
+                updateBoard(modifiedBoard);
+                handleToggleForm();
+              }
             }}
           >
             {({ touched, errors, values, handleChange }) => (

@@ -53,7 +53,6 @@ const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ open, handleClose, deta
               setTimeout(() => {
                 closeBackdrop();
               }, 1200);
-              console.log(backdropOpen);
               if (details.position === 'left') {
                 updateBoard([
                   { cards: [{ ...details.draggedCard }], id: values.title, title: values.title },
