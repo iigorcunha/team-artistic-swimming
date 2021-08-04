@@ -13,7 +13,12 @@ const cardSchema = new mongoose.Schema({
   },
   colorCode: {
     type: String,
-    enum: ["red", "green", "blue", "yellow", null]
+  },
+  tags: {
+    type: [String]
+  },
+  attachments: {
+    type: [String]
   }
 }, {
   timestamps: true
