@@ -7,20 +7,23 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import register from '../../helpers/APICalls/register';
 import SignUpForm from './SignUpForm/SignUpForm';
-import AuthHeader from '../../components/AuthHeader/AuthHeader';
+import AuthFooter from '../../components/AuthFooter/AuthFooter';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
+import LoginSideImage from '../../components/LoginSideImage/LoginSideImage';
+interface Props {
+  handleDemoLogin: ({ demoUser, email, password }: { demoUser: boolean; email: string; password: string }) => void;
+}
 
-export default function Register(): JSX.Element {
+export default function Register({ handleDemoLogin }: Props): JSX.Element {
   const classes = useStyles();
   const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
-
   const handleSubmit = (
-    { username, email, password }: { email: string; password: string; username: string },
-    { setSubmitting }: FormikHelpers<{ email: string; password: string; username: string }>,
+    { email, password }: { email: string; password: string },
+    { setSubmitting }: FormikHelpers<{ email: string; password: string }>,
   ) => {
-    register(username, email, password).then((data) => {
+    register(email, password).then((data) => {
       if (data.error) {
         console.error({ error: data.error.message });
         setSubmitting(false);
@@ -40,20 +43,27 @@ export default function Register(): JSX.Element {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={12} sm={8} md={7} elevation={6} component={Paper} square>
+      <Grid item xs={12} sm={12} md={12} elevation={6} component={Paper} square>
         <Box className={classes.authWrapper}>
-          <AuthHeader linkTo="/login" asideText="Already have an account?" btnText="Login" />
-          <Box width="100%" maxWidth={450} p={3} alignSelf="center">
+          <Box width="100%" alignSelf="center">
             <Grid container>
               <Grid item xs>
-                <Typography className={classes.welcome} component="h1" variant="h5">
-                  Create an account
-                </Typography>
+                <LoginSideImage />
+              </Grid>
+              <Grid item xs>
+                <div style={{ height: 178 }} />
+                <Box className={classes.loginWrapper}>
+                  <Typography className={classes.welcome} component="h1" variant="h5">
+                    Sign up to Kanban
+                  </Typography>
+                  <SignUpForm handleSubmit={handleSubmit} handleDemoLogin={handleDemoLogin} />
+                </Box>
+                <Box borderTop={1} borderColor="grey.200">
+                  <AuthFooter linkTo="/login" asideText="Already have an account?" btnText="Login" btnDemo="Demo" />
+                </Box>
               </Grid>
             </Grid>
-            <SignUpForm handleSubmit={handleSubmit} />
           </Box>
-          <Box p={1} alignSelf="center" />
         </Box>
       </Grid>
     </Grid>
