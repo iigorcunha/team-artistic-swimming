@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { green, red, blue, yellow } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   cardFormContainer: {
