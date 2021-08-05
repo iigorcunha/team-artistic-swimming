@@ -9,3 +9,5 @@ export interface Column {
     id: string;
     title: string;
 }
+
+export type ColorTags = 'red' | 'blue' | 'yellow' | 'green' | ''

@@ -20,34 +20,38 @@ const useStyles = makeStyles((theme) => ({
     border: `2px solid ${theme.palette.primary.main}`,
     borderBottomStyle: 'none',
     backgroundColor: 'white',
-    borderRadius: '5px 5px 0 0',
-    padding: '0 3px',
+    borderRadius: '8px 8px 0 0',
+    '&:after': {
+      borderBottomStyle: 'none',
+    },
   },
-  radionInputContainer: {
+  radioInputContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     border: `2px solid ${theme.palette.primary.main}`,
     borderTopStyle: 'none',
     backgroundColor: 'white',
-    borderRadius: '0 0 5px 5px',
+    borderRadius: '0 0 8px 8px',
     paddingLeft: 5,
-  },
-  radioGreen: {
-    color: `${green[400]} !important`,
-  },
-  radioRed: {
-    color: `${red[400]} !important`,
-  },
-  radioBlue: {
-    color: `${blue[400]} !important`,
-  },
-  radioYellow: {
-    color: `${yellow[400]} !important`,
+    height: 45,
   },
   formButton: {
     margin: '12px 0',
     marginRight: 10,
+  },
+  badgesContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginLeft: 3,
+  },
+  badgeWrapper: {
+    marginRight: 10,
+    height: 20,
+    width: 20,
+    borderRadius: '50%',
+    cursor: 'pointer',
   },
 }));
 

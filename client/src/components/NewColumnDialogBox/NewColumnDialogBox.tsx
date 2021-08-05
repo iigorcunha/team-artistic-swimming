@@ -21,7 +21,7 @@ interface ColumnDialogFormProps {
 
 const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ open, handleClose, details }): JSX.Element => {
   const { updateBoard } = useBoard();
-  const { backdropOpen, openBackdrop, closeBackdrop } = useBackdrop();
+  const { openBackdrop, closeBackdrop } = useBackdrop();
   const classes = useStyles();
   const doHandleClose = () => {
     details.draggedCardColumn.cards.splice(details.draggedCardIndex, 0, details.draggedCard);
