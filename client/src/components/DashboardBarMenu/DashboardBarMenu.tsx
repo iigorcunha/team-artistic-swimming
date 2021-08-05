@@ -3,12 +3,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuIcon from '@material-ui/icons/Menu';
-import { useAuth } from '../../context/useAuthContext';
 
 const DashboardBarMenu = (): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const { logout } = useAuth();
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -16,11 +14,6 @@ const DashboardBarMenu = (): JSX.Element => {
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleLogout = () => {
-    handleClose();
-    logout();
   };
 
   return (
@@ -45,9 +38,7 @@ const DashboardBarMenu = (): JSX.Element => {
         }}
         getContentAnchorEl={null}
       >
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        <MenuItem onClick={(e) => e.preventDefault()}>Profile</MenuItem>
-        <MenuItem onClick={(e) => e.preventDefault()}>Update Profile Picture</MenuItem>
+        <MenuItem onClick={(e) => e.preventDefault()}>My School Board</MenuItem>
       </Menu>
     </div>
   );
