@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import useStyles from './useStyles';
-import CustomizedBadge from './ColorBadge';
+import ColorBadge from './ColorBadge';
 import { Box } from '@material-ui/core';
 import { ColorTags } from '../../interface/Column';
 
@@ -17,10 +17,10 @@ const BadgePalette: FC<BadgePaletteProps> = ({ dohandleSetColor }): JSX.Element 
   };
   return (
     <Box className={classes.badgesContainer}>
-      <CustomizedBadge color="red" checked={checkedBadge} onClick={() => onSelectBadge('red')} />
-      <CustomizedBadge color="blue" checked={checkedBadge} onClick={() => onSelectBadge('blue')} />
-      <CustomizedBadge color="yellow" checked={checkedBadge} onClick={() => onSelectBadge('yellow')} />
-      <CustomizedBadge color="green" checked={checkedBadge} onClick={() => onSelectBadge('green')} />
+      <ColorBadge color="#5ACD76" checked={checkedBadge} onClick={() => onSelectBadge('green')} />
+      <ColorBadge color="#FF5D48" checked={checkedBadge} onClick={() => onSelectBadge('red')} />
+      <ColorBadge color="#EDAB1D" checked={checkedBadge} onClick={() => onSelectBadge('yellow')} />
+      <ColorBadge color="#59B0FF" checked={checkedBadge} onClick={() => onSelectBadge('blue')} />
     </Box>
   );
 };

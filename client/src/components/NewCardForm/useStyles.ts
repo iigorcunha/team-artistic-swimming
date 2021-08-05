@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   cardFormContainer: {
     width: 235,
     borderRadius: 5,
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '6px 4px',
   },
   textInput: {
-    border: `2px solid ${theme.palette.primary.main}`,
+    border: `2px solid #A2BBFC`,
     borderBottomStyle: 'none',
     backgroundColor: 'white',
     borderRadius: '8px 8px 0 0',
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    border: `2px solid ${theme.palette.primary.main}`,
+    border: `2px solid #A2BBFC`,
     borderTopStyle: 'none',
     backgroundColor: 'white',
     borderRadius: '0 0 8px 8px',
@@ -38,6 +38,8 @@ const useStyles = makeStyles((theme) => ({
   formButton: {
     margin: '12px 0',
     marginRight: 10,
+    color: 'white',
+    backgroundColor: '#759CFC',
   },
   badgesContainer: {
     display: 'flex',

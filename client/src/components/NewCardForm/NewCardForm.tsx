@@ -66,22 +66,10 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
                   </Typography>
                   <BadgePalette dohandleSetColor={handleColorSelection} />
                 </Box>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  className={classes.formButton}
-                  disableElevation
-                >
+                <Button type="submit" variant="contained" className={classes.formButton} disableElevation>
                   Add a card
                 </Button>
-                <Button
-                  onClick={handleToggleForm}
-                  variant="contained"
-                  color="secondary"
-                  className={classes.formButton}
-                  disableElevation
-                >
+                <Button onClick={handleToggleForm} variant="outlined" disableElevation>
                   Cancel
                 </Button>
               </Form>
