@@ -8,22 +8,25 @@ const BoardColumn = require("../models/BoardColumn");
 // @access Private
 exports.listBoard = asyncHandler(async (req, res, next) => {
   
-  const board = await Board.find({
-    user: req.user.id
-  }).populate({
-    path: 'columns',
-    populate: {
-      path: 'cards'
-    }
-  });
+  
 
-  if(!board) {
+  try {
+
+    const board = await Board.find({
+      user: req.user.id
+    }).populate({
+      path: 'columns',
+      populate: {
+        path: 'cards'
+      }
+    });
+
+    res.status(200).json({ board });
+  } catch {
     res.status(404);
     throw new Error("No board found with given id");
   }
-
   
-  res.status(200).json({ board });
 });
 
 exports.handleBoard = asyncHandler(async (req, res, next) => {
@@ -60,7 +63,15 @@ exports.handleBoard = asyncHandler(async (req, res, next) => {
               description: card.description
             })
           }
-  
+          
+          // If card exists but the name if different update de card.
+          if(card.name !== cardExists.name) {
+            return Card.findOneAndUpdate({_id: card._id}, {
+              name: card.name,
+              description: card.description,
+            })
+          }
+
           return cardExists;
         }))
   
@@ -88,35 +99,3 @@ exports.handleBoard = asyncHandler(async (req, res, next) => {
   res.status(200).json({ board: updatedBoard })
 })
 
-
-exports.deleteColumn = asyncHandler(async (req, res, next) => {
-  const { column } = req.body;
-
-  if (column.cards) {
-    await Promise.all(column.cards.map(async card => {
-      await Card.deleteOne({_id: card._id});
-    }))
-  }
-
-  const deletedColumn = await BoardColumn.deleteOne({ _id: column._id })
-
-  if(deletedColumn.deletedCount === 0){
-    res.status(404);
-    throw new Error("Column can't be deleted with given id");
-  }
-
-  res.status(204).send()
-})
-
-exports.deleteCard = asyncHandler(async (req, res, next) => {
-  const { card } = req.body;
-
-  
-    const deletedCard = await Card.deleteOne({ _id: card._id })
-    if(deletedCard.deletedCount === 0){
-      res.status(404);
-      throw new Error("Card can't be deleted with given id");
-    }
-
-    res.status(204).send()
-})
