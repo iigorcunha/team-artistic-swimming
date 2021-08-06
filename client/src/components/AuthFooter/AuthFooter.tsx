@@ -29,11 +29,3 @@ const AuthFooter = ({ linkTo, asideText, btnText }: Props): JSX.Element => {
 };
 
 export default AuthFooter;
-
-//const AuthFooter = ({ linkTo, asideText, btnText, btnDemo }: Props): JSX.Element => {
-
-//<Link to={linkTo} className={classes.link}>
-//          <Button color="inherit" className={classes.accLabel}>
-//            {btnDemo}
-//          </Button>
-//        </Link>
