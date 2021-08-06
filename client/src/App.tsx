@@ -8,7 +8,6 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
-
 import ProtectedRoute from './components/ProtectedRoute';
 import Unauthorized from './pages/Unauthorized/Unauthorized';
 
@@ -59,5 +58,6 @@ function App(): JSX.Element {
 }
 
 export default App;
+
 
 //<Route exact path="/signup" component={Signup} />
