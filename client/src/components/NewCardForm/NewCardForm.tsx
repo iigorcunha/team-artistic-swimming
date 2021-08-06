@@ -2,7 +2,7 @@ import { Box, Button, TextField, Typography } from '@material-ui/core';
 import { FC, useState } from 'react';
 import useStyles from './useStyles';
 import { Formik, Form } from 'formik';
-import { Column } from '../../interface/Column';
+import { ColorTags, Column } from '../../interface/Column';
 import { useBoard } from '../../context/useBoardContext';
 import * as yup from 'yup';
 import BadgePalette from './ColorBadgePalette';
@@ -13,13 +13,13 @@ interface CardDialogFormProps {
 
 const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false);
-  const [selectedColor, setSelectedColor] = useState<string>('');
+  const [selectedColor, setSelectedColor] = useState<ColorTags>('');
   const { board, updateBoard } = useBoard();
   const classes = useStyles();
   const handleToggleForm: () => void = () => {
     setOpen(!open);
   };
-  const handleColorSelection: (color: string) => void = (color) => {
+  const handleColorSelection: (color: ColorTags) => void = (color) => {
     setSelectedColor(color);
   };
   return (

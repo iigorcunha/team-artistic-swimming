@@ -1,20 +1,20 @@
 import { FC } from 'react';
+import { ColorTags } from '../../interface/Column';
 import useStyles from './useStyles';
 
 interface CardBadgeProps {
-  color: string;
+  color: ColorTags;
 }
 const CardBadge: FC<CardBadgeProps> = ({ color }): JSX.Element => {
-  const mapColor = (color: string): string => {
-    let hexValue = '';
-    if (color == 'red') hexValue = '#FF5D48';
-    if (color == 'blue') hexValue = '#59B0FF';
-    if (color == 'yellow') hexValue = '#EDAB1D';
-    if (color == 'green') hexValue = '#5ACD76';
-    return hexValue;
+  const colors = {
+    red: '#FF5D48',
+    blue: '#59B0FF',
+    yellow: '#EDAB1D',
+    green: '#5ACD76',
+    '': '',
   };
   const classes = useStyles();
-  return <div className={classes.badge} style={{ backgroundColor: `${mapColor(color)}` }}></div>;
+  return <div className={classes.badge} style={{ backgroundColor: colors[color] }}></div>;
 };
 
 export default CardBadge;

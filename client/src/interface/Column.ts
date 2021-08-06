@@ -1,7 +1,7 @@
 export interface Card{
     id: string;
     name: string;
-    color: string;
+    color: ColorTags;
     deadline?: string
 }
 export interface Column {
