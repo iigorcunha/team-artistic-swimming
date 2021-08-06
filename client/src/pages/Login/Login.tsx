@@ -7,19 +7,24 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import login from '../../helpers/APICalls/login';
 import LoginForm from './LoginForm/LoginForm';
-import AuthHeader from '../../components/AuthHeader/AuthHeader';
+import AuthFooter from '../../components/AuthFooter/AuthFooter';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
+import LoginSideImage from '../../components/LoginSideImage/LoginSideImage';
+interface Props {
+  handleDemoLogin: ({ demoUser, email, password }: { demoUser: boolean; email: string; password: string }) => void;
+}
 
-export default function Login(): JSX.Element {
+export default function Login({ handleDemoLogin }: Props): JSX.Element {
   const classes = useStyles();
   const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
-
   const handleSubmit = (
     { email, password }: { email: string; password: string },
     { setSubmitting }: FormikHelpers<{ email: string; password: string }>,
   ) => {
+    console.log('login from submit: ', email);
+    console.log('password from submit: ', password);
     login(email, password).then((data) => {
       if (data.error) {
         setSubmitting(false);
@@ -39,20 +44,27 @@ export default function Login(): JSX.Element {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={12} sm={8} md={7} elevation={6} component={Paper} square>
+      <Grid item xs={12} sm={12} md={12} elevation={6} component={Paper} square>
         <Box className={classes.authWrapper}>
-          <AuthHeader linkTo="/signup" asideText="Don't have an account?" btnText="Create account" />
-          <Box width="100%" maxWidth={450} p={3} alignSelf="center">
+          <Box width="100%" alignSelf="center">
             <Grid container>
               <Grid item xs>
-                <Typography className={classes.welcome} component="h1" variant="h5">
-                  Welcome back!
-                </Typography>
+                <LoginSideImage />
+              </Grid>
+              <Grid item xs>
+                <div style={{ height: 178 }} />
+                <Box className={classes.loginWrapper}>
+                  <Typography className={classes.welcome} component="h1" variant="h5">
+                    Welcome back!
+                  </Typography>
+                  <LoginForm handleSubmit={handleSubmit} handleDemoLogin={handleDemoLogin} />
+                </Box>
+                <Box borderTop={1} borderColor="grey.200">
+                  <AuthFooter linkTo="/signup" asideText="Don't have an account?" btnText="Create" btnDemo="Demo" />
+                </Box>
               </Grid>
             </Grid>
-            <LoginForm handleSubmit={handleSubmit} />
           </Box>
-          <Box p={1} alignSelf="center" />
         </Box>
       </Grid>
     </Grid>

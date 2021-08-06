@@ -2,33 +2,68 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    width: '47%', // Fix IE 11 issue.
+    //marginTop: theme.spacing(1),
+    marginTop: 0,
+    marginBottom: 0,
+    marginLeft: 15,
   },
   label: {
-    fontSize: 19,
-    color: 'rgb(0,0,0,0.4)',
-    paddingLeft: '5px',
+    fontSize: 16,
+    fontWeight: 500,
+    color: 'black',
+    //color: 'rgb(0,0,0,0.4)', //light gray
+    paddingTop: '0px',
+    paddingLeft: '0px',
+    marginLeft: '140%',
+    width: '115px',
   },
   inputs: {
-    marginTop: '.8rem',
-    height: '2rem',
-    padding: '5px',
+    paddingTop: '0.75rem',
+    paddingBottom: '0.75rem',
+    height: '2.15rem',
+    fontSize: '16px',
+    borderRadius: theme.shape.borderRadius,
+    filter: 'drop-shadow(0px 2px 6px rgba(74,106,149,0.2))',
+    backgroundColor: '#ffffff',
+    textAlign: 'center',
+  },
+  inputEmail: {
+    '&::placeholder': {
+      fontStyle: 'normal',
+      color: 'black',
+      opacity: 1,
+      textAlign: 'center',
+    },
+  },
+  inputPassword: {
+    '&::placeholder': {
+      fontStyle: 'normal',
+      color: 'black',
+      opacity: 1,
+      textAlign: 'center',
+    },
   },
   forgot: {
     paddingRight: 10,
-    color: '#3a8dff',
+    color: '#759CFC', ////similar to nikko blue
   },
   submit: {
     margin: theme.spacing(3, 2, 2),
+    marginLeft: 18,
     padding: 10,
-    width: 160,
-    height: 56,
+    width: 140,
+    height: 48,
     borderRadius: theme.shape.borderRadius,
-    marginTop: 49,
     fontSize: 16,
-    backgroundColor: '#3a8dff',
-    fontWeight: 'bold',
+    fontWeight: 500,
+    backgroundColor: '#759CFC', ////similar to nikko blue
+  },
+  submitLogin: {
+    marginTop: 35,
+  },
+  submitDemo: {
+    marginTop: 0,
   },
 }));
 
