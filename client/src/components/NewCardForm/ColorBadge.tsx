@@ -17,13 +17,14 @@ interface CustomizedBadgeProps {
   color: string;
   checked: string;
   onClick: () => void;
+  id: string;
 }
 
-const CustomizedBadge: FC<CustomizedBadgeProps> = ({ color, checked, onClick }): JSX.Element => {
+const CustomizedBadge: FC<CustomizedBadgeProps> = ({ color, checked, onClick, id }): JSX.Element => {
   const classes = useStyles();
   return (
     <div className={classes.badgeWrapper} style={{ backgroundColor: color }} onClick={onClick}>
-      <StyledBadge badgeContent={checked === color ? <CheckRoundedIcon htmlColor="white" /> : null}>
+      <StyledBadge badgeContent={checked === id ? <CheckRoundedIcon htmlColor="white" /> : null}>
         {'\u00A0'}
       </StyledBadge>
     </div>

@@ -18,10 +18,30 @@ const BadgePalette: FC<BadgePaletteProps> = ({ dohandleSetColor }): JSX.Element 
   };
   return (
     <Box className={classes.badgesContainer}>
-      <ColorBadge color={theme.palette.greenTag.main} checked={checkedBadge} onClick={() => onSelectBadge('green')} />
-      <ColorBadge color={theme.palette.redTag.main} checked={checkedBadge} onClick={() => onSelectBadge('red')} />
-      <ColorBadge color={theme.palette.yellowTag.main} checked={checkedBadge} onClick={() => onSelectBadge('yellow')} />
-      <ColorBadge color={theme.palette.blueTag.main} checked={checkedBadge} onClick={() => onSelectBadge('blue')} />
+      <ColorBadge
+        id="green"
+        color={theme.palette.greenTag.main}
+        checked={checkedBadge}
+        onClick={() => onSelectBadge('green')}
+      />
+      <ColorBadge
+        id="red"
+        color={theme.palette.redTag.main}
+        checked={checkedBadge}
+        onClick={() => onSelectBadge('red')}
+      />
+      <ColorBadge
+        id="yellow"
+        color={theme.palette.yellowTag.main}
+        checked={checkedBadge}
+        onClick={() => onSelectBadge('yellow')}
+      />
+      <ColorBadge
+        id="blue"
+        color={theme.palette.blueTag.main}
+        checked={checkedBadge}
+        onClick={() => onSelectBadge('blue')}
+      />
     </Box>
   );
 };
