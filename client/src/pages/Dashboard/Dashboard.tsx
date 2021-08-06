@@ -16,4 +16,5 @@ export default function Dashboard(): JSX.Element {
       </Grid>
     </Grid>
   );
-}
+};
+
