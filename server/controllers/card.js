@@ -17,8 +17,8 @@ exports.editCard = asyncHandler(async (req, res, next) => {
     attachments
   } = req.body;
 
-  try {
-    await Card.findOneAndUpdate({_id}, {
+  
+    const card = await Card.findOneAndUpdate({_id}, {
       name,
       description,
       colorCode,
@@ -26,13 +26,16 @@ exports.editCard = asyncHandler(async (req, res, next) => {
       tags,
       attachments
     });
-  } catch (err) {
-    res.status(404)
+
+    if (!card) {
+      res.status(404)
     throw new Error("No card found with given id")
-  }
+    } else {
+      res.status(204).send()
+    }
 
   
-  res.status(204).send();
+  
 });
 
 
