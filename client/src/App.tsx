@@ -59,5 +59,4 @@ function App(): JSX.Element {
 
 export default App;
 
-
 //<Route exact path="/signup" component={Signup} />

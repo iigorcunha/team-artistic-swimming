@@ -8,6 +8,8 @@ import { useHistory } from 'react-router-dom';
 import ChatSideBanner from '../../components/ChatSideBanner/ChatSideBanner';
 import { useEffect } from 'react';
 import DashboardBar from '../../components/DashboardBar/DashboardBar';
+import Board from '../../components/Board/Board';
+import { columns } from '../../mocks/mockBoardData';
 
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
@@ -34,11 +36,8 @@ export default function Dashboard(): JSX.Element {
       <DashboardBar user={loggedInUser} boardName="My School Board" />
       <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
         <CssBaseline />
-        <Grid item className={classes.drawerWrapper}>
-          <ChatSideBanner loggedInUser={loggedInUser} />
-        </Grid>
+        <Board columns={columns} />
       </Grid>
     </>
   );
 }
-

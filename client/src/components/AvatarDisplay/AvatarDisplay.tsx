@@ -51,7 +51,6 @@ const AvatarDisplay = ({ user }: Props): JSX.Element => {
       </Menu>
     </>
   );
-
 };
 
 export default AvatarDisplay;
