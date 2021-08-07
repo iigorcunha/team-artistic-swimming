@@ -9,7 +9,6 @@ import ChatSideBanner from '../../components/ChatSideBanner/ChatSideBanner';
 import { useEffect } from 'react';
 import DashboardBar from '../../components/DashboardBar/DashboardBar';
 import Board from '../../components/Board/Board';
-import { columns } from '../../mocks/mockBoardData';
 
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
@@ -17,7 +16,6 @@ export default function Dashboard(): JSX.Element {
   const { loggedInUser } = useAuth();
 
   const { initSocket } = useSocket();
-
   const history = useHistory();
 
   useEffect(() => {
@@ -36,7 +34,7 @@ export default function Dashboard(): JSX.Element {
       <DashboardBar user={loggedInUser} boardName="My School Board" />
       <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
         <CssBaseline />
-        <Board columns={columns} />
+        <Board />
       </Grid>
     </>
   );

@@ -1,7 +1,7 @@
 export interface Card{
     id: string;
     name: string;
-    color: string;
+    color: ColorTags;
     deadline?: string
 }
 export interface Column {
@@ -9,3 +9,5 @@ export interface Column {
     id: string;
     title: string;
 }
+
+export type ColorTags = 'red' | 'blue' | 'yellow' | 'green' | ''
