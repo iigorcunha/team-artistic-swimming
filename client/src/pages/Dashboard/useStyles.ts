@@ -8,7 +8,6 @@ const useStyles = makeStyles(() => ({
     },
   },
   dashboard: { backgroundColor: '#FFFFFF' },
-  },
 }));
 
 export default useStyles;

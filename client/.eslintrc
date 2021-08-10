@@ -1,4 +1,8 @@
 {
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
       "ecmaVersion": 2021,
@@ -9,6 +13,12 @@
       "plugin:react/recommended",
       "plugin:prettier/recommended",
       "plugin:react-hooks/recommended"
+  ],
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "prettier"
   ],
   "settings": {
     "react": { "version": "detect"}

@@ -47,7 +47,7 @@ function App(): JSX.Element {
                   <ProtectedRoute exact path="/dashboard" demoUser={demoUser} component={Dashboard} />
                   <Route exact path="/unauthorized" component={Unauthorized} />
                   <Route path="*">
-                  <Redirect to="/login" />
+                    <Redirect to="/login" />
                   </Route>
                 </Switch>
               </BackdropProvider>
