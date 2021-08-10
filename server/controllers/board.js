@@ -7,7 +7,7 @@ const createBoardDocument = require("./utils/newBoard");
 // @route POST /users
 // @desc Search for users
 // @access Private
-exports.listBoard = asyncHandler(async (req, res, next) => {
+exports.listOneBoard = asyncHandler(async (req, res, next) => {
   
   const board = await Board.findById(req.params.id).populate({
     path: 'columns',
@@ -22,6 +22,18 @@ exports.listBoard = asyncHandler(async (req, res, next) => {
   }
   
   res.status(200).json(board);
+});
+
+exports.listAllBoards = asyncHandler(async (req, res, next) => {
+  
+  const boards = await Board.find({ user: req.user.id });
+
+  if(!boards) {
+    res.status(404);
+    throw new Error("There are no boards for this user");
+  }
+  
+  res.status(200).json(boards);
 });
 
 exports.createBoard = asyncHandler(async (req, res, next) => {
