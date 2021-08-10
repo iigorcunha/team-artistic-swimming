@@ -14,7 +14,7 @@ interface CardDialogFormProps {
 const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false);
   const [selectedColor, setSelectedColor] = useState<ColorTags>('');
-  const { board, updateBoard } = useBoard();
+  const { boardColumns, updateBoard } = useBoard();
   const classes = useStyles();
   const handleToggleForm: () => void = () => {
     setOpen(!open);
@@ -33,7 +33,7 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
             })}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(false);
-              const modifiedBoard = Array.from(board);
+              const modifiedBoard = Array.from(boardColumns);
               const columnToAddCard: Column | undefined = modifiedBoard.find((e) => e.id === columnId);
               if (columnToAddCard) {
                 columnToAddCard.cards.push({ ...values, id: values.name, color: selectedColor });

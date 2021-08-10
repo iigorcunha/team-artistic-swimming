@@ -10,7 +10,7 @@ import { useBackdrop } from '../../context/useBackDropContext';
 import { Column } from '../../interface/Column';
 
 const Board: FC = (): JSX.Element => {
-  const { board, updateBoard } = useBoard();
+  const { boardColumns, updateBoard } = useBoard();
   const { backdropOpen } = useBackdrop();
   const [openNewColumnDialog, setOpenNewColumnDialog] = useState<boolean>(false);
   const [showingWidgetLeft, setShowingWidgetLeft] = useState<boolean>(false);
@@ -27,7 +27,7 @@ const Board: FC = (): JSX.Element => {
       return;
     }
     if (destination.droppableId === 'addColumnLeft' || destination.droppableId === 'addColumnRight') {
-      const boardArrangement = Array.from(board);
+      const boardArrangement = Array.from(boardColumns);
       const draggedCardColumn: Column | undefined = boardArrangement.find((e) => e.id === source.droppableId);
       if (draggedCardColumn) {
         const [draggedCard] = draggedCardColumn.cards.splice(source.index, 1);
@@ -44,24 +44,24 @@ const Board: FC = (): JSX.Element => {
       }
     }
     if (result.type === 'column') {
-      const columnArrangement = Array.from(board);
+      const columnArrangement = Array.from(boardColumns);
       const [draggedColumn] = columnArrangement.splice(source.index, 1);
       columnArrangement.splice(destination.index, 0, draggedColumn);
       updateBoard(columnArrangement);
       return;
     }
-    const start: Column | undefined = board.find((e) => e.id === source.droppableId);
-    const finish: Column | undefined = board.find((e) => e.id === destination.droppableId);
+    const start: Column | undefined = boardColumns.find((e) => e.id === source.droppableId);
+    const finish: Column | undefined = boardColumns.find((e) => e.id === destination.droppableId);
     if (start && finish) {
       if (start.id === finish.id) {
         const [draggedCard] = start.cards.splice(source.index, 1);
         start.cards.splice(destination.index, 0, draggedCard);
-        updateBoard(board);
+        updateBoard(boardColumns);
         return;
       }
       const [draggedCard] = start.cards.splice(source.index, 1);
       finish.cards.splice(destination.index, 0, draggedCard);
-      updateBoard(board);
+      updateBoard(boardColumns);
       return;
     }
   };
@@ -92,7 +92,7 @@ const Board: FC = (): JSX.Element => {
             <div className={classes.board} {...provided.droppableProps} ref={provided.innerRef}>
               <AddColumnWidget droppableId="addColumnLeft" showing={showingWidgetLeft} />
               <Grid container>
-                {board.map((column, index) => (
+                {boardColumns.map((column, index) => (
                   <Box key={column.id}>
                     <BoardColumn column={column.cards} droppableId={column.id} title={column.title} index={index} />
                   </Box>

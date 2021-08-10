@@ -30,7 +30,7 @@ export default function Dashboard(): JSX.Element {
 
   return (
     <>
-      <DashboardBar user={loggedInUser} boardName="My School Board" />
+      <DashboardBar user={loggedInUser} />
       <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
         <CssBaseline />
         <Board />

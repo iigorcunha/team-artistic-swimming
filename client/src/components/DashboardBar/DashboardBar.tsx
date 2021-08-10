@@ -7,13 +7,16 @@ import DashboardBarMenu from '../DashboardBarMenu/DashboardBarMenu';
 import { User } from '../../interface/User';
 import useStyles from './useStyles';
 import logo from '../../Images/logo.png';
+import { useBoard } from '../../context/useBoardContext';
+
 interface Props {
-  boardName: string;
   user: User;
 }
 
-const DashboardBar = ({ boardName, user }: Props): JSX.Element => {
+const DashboardBar = ({ user }: Props): JSX.Element => {
   const classes = useStyles();
+  const { boardName } = useBoard();
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
