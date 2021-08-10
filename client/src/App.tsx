@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { MuiThemeProvider } from '@material-ui/core';
 import { theme } from './themes/theme';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
-import Unauthorized from './pages/Unauthorized/Unauthorized';
 import { BoardProvider } from './context/useBoardContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import { BackdropProvider } from './context/useBackDropContext';
-import './App.css';
+import ProtectedRoute from './components/ProtectedRoute';
+import Unauthorized from './pages/Unauthorized/Unauthorized';
 import './App.css';
 
 function App(): JSX.Element {
@@ -30,7 +29,7 @@ function App(): JSX.Element {
 
   return (
     <MuiThemeProvider theme={theme}>
-      <BrowserRouter>
+      <Router>
         <SnackBarProvider>
           <AuthProvider>
             <BoardProvider>
@@ -49,18 +48,16 @@ function App(): JSX.Element {
                   <ProtectedRoute exact path="/dashboard" demoUser={demoUser} component={Dashboard} />
                   <Route exact path="/unauthorized" component={Unauthorized} />
                   <Route path="*">
-                    <Redirect to="/login" />
+                  <Redirect to="/login" />
                   </Route>
                 </Switch>
               </BackdropProvider>
             </BoardProvider>
           </AuthProvider>
         </SnackBarProvider>
-      </BrowserRouter>
+      </Router>
     </MuiThemeProvider>
   );
 }
 
 export default App;
-
-//<Route exact path="/signup" component={Signup} />

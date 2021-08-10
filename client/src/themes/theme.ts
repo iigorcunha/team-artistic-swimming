@@ -17,7 +17,7 @@ declare module '@material-ui/core/styles/createPalette' {
 
 export const theme = createMuiTheme({
   typography: {
-    fontFamily: '"Open Sans", "sans-serif", "Roboto"',
+    fontFamily: '"Mundial", "Open Sans", "sans-serif", "Roboto"',
     fontSize: 12,
     button: {
       textTransform: 'none',

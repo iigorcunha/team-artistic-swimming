@@ -5,10 +5,10 @@ import useStyles from './useStyles';
 import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
-import ChatSideBanner from '../../components/ChatSideBanner/ChatSideBanner';
+import Board from '../../components/Board/Board';
 import { useEffect } from 'react';
 import DashboardBar from '../../components/DashboardBar/DashboardBar';
-import Board from '../../components/Board/Board';
+
 
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
