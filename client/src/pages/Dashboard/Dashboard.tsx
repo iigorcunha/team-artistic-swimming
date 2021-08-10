@@ -9,7 +9,6 @@ import Board from '../../components/Board/Board';
 import { useEffect } from 'react';
 import DashboardBar from '../../components/DashboardBar/DashboardBar';
 
-
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
 
