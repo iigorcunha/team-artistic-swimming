@@ -1,21 +1,24 @@
 import { FC, useState } from 'react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { Column } from '../../interface/Column';
+import { DragDropContext, DragUpdate, Droppable, DropResult } from 'react-beautiful-dnd';
 import BoardColumn from '../BoardColumn/BoardColumn';
 import AddColumnWidget from '../AddColumnWidget/AddColumnWidget';
 import useStyles from './useStyles';
-import { Grid, Box } from '@material-ui/core';
+import { Grid, Box, Backdrop, CircularProgress } from '@material-ui/core';
+import NewColumnDialogBox from '../NewColumnDialogBox/NewColumnDialogBox';
+import { useBoard } from '../../context/useBoardContext';
+import { useBackdrop } from '../../context/useBackDropContext';
+import { Column } from '../../interface/Column';
 
-interface BoardProps {
-  columns: Column[];
-}
-const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
-  const [board, setBoard] = useState(columns);
-  const [showingWidgetLeft, setShowingWidgetLeft] = useState(false);
-  const [showingWidgetRight, setShowingWidgetRight] = useState(false);
+const Board: FC = (): JSX.Element => {
+  const { board, updateBoard } = useBoard();
+  const { backdropOpen } = useBackdrop();
+  const [openNewColumnDialog, setOpenNewColumnDialog] = useState<boolean>(false);
+  const [showingWidgetLeft, setShowingWidgetLeft] = useState<boolean>(false);
+  const [showingWidgetRight, setShowingWidgetRight] = useState<boolean>(false);
+  const [newColumnDetails, setNewColumnDetails] = useState({});
   const classes = useStyles();
 
-  const handleOnDragEnd = (result: any) => {
+  const handleOnDragEnd = (result: DropResult) => {
     setShowingWidgetLeft(false);
     setShowingWidgetRight(false);
     const { destination, source } = result;
@@ -24,29 +27,46 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
       return;
     }
     if (destination.droppableId === 'addColumnLeft' || destination.droppableId === 'addColumnRight') {
-      console.log('Adding');
-      return;
+      const boardArrangement = Array.from(board);
+      const draggedCardColumn: Column | undefined = boardArrangement.find((e) => e.id === source.droppableId);
+      if (draggedCardColumn) {
+        const [draggedCard] = draggedCardColumn.cards.splice(source.index, 1);
+        const details = {
+          position: destination.droppableId === 'addColumnLeft' ? 'left' : 'right',
+          boardArrangement,
+          draggedCardColumn,
+          draggedCard,
+          draggedCardIndex: source.index,
+        };
+        setNewColumnDetails({ ...details });
+        setOpenNewColumnDialog(true);
+        return;
+      }
     }
     if (result.type === 'column') {
       const columnArrangement = Array.from(board);
       const [draggedColumn] = columnArrangement.splice(source.index, 1);
       columnArrangement.splice(destination.index, 0, draggedColumn);
-      setBoard(columnArrangement);
+      updateBoard(columnArrangement);
       return;
     }
-    const start: any = board.find((e) => e.id === source.droppableId);
-    const finish: any = board.find((e) => e.id === destination.droppableId);
-    if (start.id === finish.id) {
+    const start: Column | undefined = board.find((e) => e.id === source.droppableId);
+    const finish: Column | undefined = board.find((e) => e.id === destination.droppableId);
+    if (start && finish) {
+      if (start.id === finish.id) {
+        const [draggedCard] = start.cards.splice(source.index, 1);
+        start.cards.splice(destination.index, 0, draggedCard);
+        updateBoard(board);
+        return;
+      }
       const [draggedCard] = start.cards.splice(source.index, 1);
-      start.cards.splice(destination.index, 0, draggedCard);
+      finish.cards.splice(destination.index, 0, draggedCard);
+      updateBoard(board);
       return;
     }
-    const [draggedCard] = start.cards.splice(source.index, 1);
-    finish.cards.splice(destination.index, 0, draggedCard);
-    return;
   };
 
-  const handleOnDragUpdate = (update: any) => {
+  const handleOnDragUpdate = (update: DragUpdate) => {
     if (!update.destination) return;
     if (update.destination.droppableId === 'addColumnLeft') {
       setShowingWidgetLeft(true);
@@ -59,6 +79,11 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
       return;
     }
   };
+
+  const handleCloseAddColumnDialog = () => {
+    setOpenNewColumnDialog(false);
+  };
+
   return (
     <div>
       <DragDropContext onDragEnd={handleOnDragEnd} onDragUpdate={handleOnDragUpdate}>
@@ -79,6 +104,14 @@ const Board: FC<BoardProps> = ({ columns }): JSX.Element => {
           )}
         </Droppable>
       </DragDropContext>
+      <NewColumnDialogBox
+        open={openNewColumnDialog}
+        handleClose={handleCloseAddColumnDialog}
+        details={newColumnDetails}
+      />
+      <Backdrop className={classes.backdrop} open={backdropOpen}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 };

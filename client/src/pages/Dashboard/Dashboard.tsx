@@ -6,15 +6,15 @@ import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
 import Board from '../../components/Board/Board';
-import { columns } from '../../mocks/mockBoardData';
 import { useEffect } from 'react';
+import DashboardBar from '../../components/DashboardBar/DashboardBar';
 
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
 
   const { loggedInUser } = useAuth();
-  const { initSocket } = useSocket();
 
+  const { initSocket } = useSocket();
   const history = useHistory();
 
   useEffect(() => {
@@ -29,9 +29,13 @@ export default function Dashboard(): JSX.Element {
   }
 
   return (
-    <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
-      <CssBaseline />
-      <Board columns={columns} />
-    </Grid>
+    <>
+      <DashboardBar user={loggedInUser} boardName="My School Board" />
+      <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
+        <CssBaseline />
+        <Board />
+      </Grid>
+    </>
   );
 }
+
