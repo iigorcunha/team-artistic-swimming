@@ -42,7 +42,7 @@ exports.listAllBoards = asyncHandler(async (req, res, next) => {
   if (!lastViewedBoard) {
     let firstBoard = await Board.findOne({ user: req.user.id })
     firstBoard.lastViewed = true;
-    firstBoard.save();
+    await firstBoard.save();
   }
 
   res.status(200).json(boards);

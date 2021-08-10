@@ -19,7 +19,7 @@ interface BoardDialogFormProps {
 }
 
 const NewBoardDialogBox: FC<BoardDialogFormProps> = ({ details }): JSX.Element => {
-  const { updateBoard } = useBoard();
+  const { createNewBoard } = useBoard();
   const { openBackdrop, closeBackdrop } = useBackdrop();
   const [open, setOpen] = useState(false);
   const classes = useStyles();
@@ -62,7 +62,7 @@ const NewBoardDialogBox: FC<BoardDialogFormProps> = ({ details }): JSX.Element =
             })}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(false);
-              console.log(values);
+              createNewBoard(values.name);
               //   openBackdrop();
               //   setTimeout(() => {
               //     closeBackdrop();
@@ -78,7 +78,7 @@ const NewBoardDialogBox: FC<BoardDialogFormProps> = ({ details }): JSX.Element =
               //       { cards: [{ ...details.draggedCard }], id: values.title, title: values.title },
               //     ]);
               //   }
-              //   handleClose();
+              handleClose();
             }}
           >
             {({ isSubmitting, touched, errors, values, handleChange }) => (
