@@ -9,9 +9,9 @@ const createBoardDocument = async (name, userId) => {
             name: 'in progress'
           }, {
             name: 'completed'
-          }])
-        
-         const newBoard = await Board.create({
+        }])
+        await Board.findOneAndUpdate({user: userId, lastViewed: true}, {lastViewed: false})
+        const newBoard = await Board.create({
             user: userId,
             name: name,
             columns
@@ -19,6 +19,7 @@ const createBoardDocument = async (name, userId) => {
 
         user.boards.push(newBoard)
         user.save()
+       return newBoard;
     }
 }
 

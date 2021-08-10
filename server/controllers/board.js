@@ -2,15 +2,14 @@ const Board = require("../models/Board");
 const Card = require("../models/Card");
 const asyncHandler = require("express-async-handler");
 const BoardColumn = require("../models/BoardColumn");
+const createBoardDocument = require("./utils/newBoard");
 
 // @route POST /users
 // @desc Search for users
 // @access Private
 exports.listBoard = asyncHandler(async (req, res, next) => {
   
-  const board = await Board.find({
-    user: req.user.id
-  }).populate({
+  const board = await Board.findById(req.params.id).populate({
     path: 'columns',
     populate: {
       path: 'cards'
@@ -21,9 +20,21 @@ exports.listBoard = asyncHandler(async (req, res, next) => {
     res.status(404);
     throw new Error("No board found with given id");
   }
-
   
-  res.status(200).json({ board });
+  res.status(200).json(board);
+});
+
+exports.createBoard = asyncHandler(async (req, res, next) => {
+  const { name } = req.body
+  const userId = req.user.id
+  
+  const board = await createBoardDocument(name, userId);
+  if(!board) {
+    res.status(500);
+    throw new Error("Could not create board, try again");
+  }
+  
+  res.status(200).json(board);
 });
 
 exports.handleBoard = asyncHandler(async (req, res, next) => {
