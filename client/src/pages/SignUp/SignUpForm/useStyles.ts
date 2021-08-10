@@ -61,9 +61,11 @@ const useStyles = makeStyles((theme) => ({
   },
   submitLogin: {
     marginTop: 35,
+    color: 'white',
   },
   submitDemo: {
     marginTop: 0,
+    color: 'white',
   },
 }));
 

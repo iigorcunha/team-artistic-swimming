@@ -11,7 +11,7 @@ import DashboardBar from '../../components/DashboardBar/DashboardBar';
 import CalendarBoard from '../../components/CalendarBoard/CalendarBoard';
 import React from 'react';
 
-export default function Dashboard(): JSX.Element {
+export default function Calendar(): JSX.Element {
   const classes = useStyles();
 
   const loggedInUser = 'Demo user';
@@ -36,7 +36,9 @@ export default function Dashboard(): JSX.Element {
       <DashboardBar user={loggedInUser} boardName="My School Board" />
       <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
         <CssBaseline />
-        <Grid item className={classes.drawerWrapper}></Grid>
+        <Grid item className={classes.drawerWrapper}>
+          <CalendarBoard />
+        </Grid>
       </Grid>
     </React.Fragment>
   );
