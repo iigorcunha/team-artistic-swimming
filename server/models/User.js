@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  boards: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'board'
+  }],
   register_date: {
     type: Date,
     default: Date.now
