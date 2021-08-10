@@ -6,9 +6,8 @@ const {
   listAllBoards,
   createBoard,
   handleBoard,
-  deleteColumn,
-  deleteCard
 } = require('../controllers/board');
+const { validateHandleBoard } = require('../validations/board');
 
 router.route('/list/:id').get(protect, listOneBoard);
 router.route('/list').get(protect, listAllBoards);
