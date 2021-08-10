@@ -5,7 +5,7 @@ import useStyles from './useStyles';
 import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
-import ChatSideBanner from '../../components/ChatSideBanner/ChatSideBanner';
+import Board from '../../components/Board/Board';
 import { useEffect } from 'react';
 import DashboardBar from '../../components/DashboardBar/DashboardBar';
 
@@ -15,7 +15,6 @@ export default function Dashboard(): JSX.Element {
   const { loggedInUser } = useAuth();
 
   const { initSocket } = useSocket();
-
   const history = useHistory();
 
   useEffect(() => {
@@ -34,9 +33,7 @@ export default function Dashboard(): JSX.Element {
       <DashboardBar user={loggedInUser} boardName="My School Board" />
       <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
         <CssBaseline />
-        <Grid item className={classes.drawerWrapper}>
-          <ChatSideBanner loggedInUser={loggedInUser} />
-        </Grid>
+        <Board />
       </Grid>
     </>
   );

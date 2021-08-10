@@ -1,9 +1,9 @@
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import { FC } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { Card } from '../../interface/Column';
 import BoardCard from '../Card/Card';
+import NewCardForm from '../NewCardForm/NewCardForm';
 import useStyles from './useStyles';
 
 interface ColumnProps {
@@ -29,7 +29,7 @@ const BoardColumn: FC<ColumnProps> = ({ column, droppableId, title, index }): JS
                   <BoardCard key={e.id} card={e} index={index} />
                 ))}
                 {provided.placeholder}
-                <Button className={classes.addCardButton}>Add a card...</Button>
+                <NewCardForm columnId={droppableId} />
               </ul>
             )}
           </Droppable>
