@@ -38,7 +38,13 @@ exports.listAllBoards = asyncHandler(async (req, res, next) => {
     res.status(404);
     throw new Error("There are no boards for this user");
   }
-  
+  const lastViewedBoard = await Board.findOne({user: req.user.id, lastViewed: true})
+  if (!lastViewedBoard) {
+    let firstBoard = await Board.findOne({ user: req.user.id })
+    firstBoard.lastViewed = true;
+    firstBoard.save();
+  }
+
   res.status(200).json(boards);
 });
 
