@@ -1,8 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     minHeight: '100vh',
     '& .MuiInput-underline:before': {
@@ -10,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   dashboard: { backgroundColor: '#FFFFFF' },
+  /*
   drawerWrapper: {
     width: drawerWidth,
     [theme.breakpoints.up('md')]: {
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
       padding: 0,
       marginTop: '2.5%',
     },
-  },
+  },*/
 }));
 
 export default useStyles;

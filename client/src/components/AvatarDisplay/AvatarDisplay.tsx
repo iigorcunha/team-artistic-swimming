@@ -8,12 +8,12 @@ import { useAuth } from '../../context/useAuthContext';
 
 import useStyles from './useStyles';
 import avatarPic from '../../Images/demoUser1.png';
-interface Props {
+/*interface Props {
   loggedIn: boolean;
-  user: string; // user: User;
-}
+  user: User; //user: string;
+}*/
 
-const AvatarDisplay = ({ user }: Props): JSX.Element => {
+const AvatarDisplay = (): JSX.Element => {
   //return <Avatar alt="Profile Image" src={`https://robohash.org/${user.email}.png`} />;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

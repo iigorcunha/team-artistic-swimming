@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { validateRegister, validateLogin } = require('../validate');
+//const { validateRegister, validateLogin } = require('../validations/auth');
+const { validateRegister, validateLogin } = require('../validations/auth');
 const protect = require('../middleware/auth');
 const {
   registerUser,
