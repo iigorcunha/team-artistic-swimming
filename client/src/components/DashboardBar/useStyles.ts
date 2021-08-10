@@ -11,10 +11,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     alignSelf: 'center',
   },
-  endButtons: {
-    margin: theme.spacing(1),
-    alignSelf: 'flex-end',
-  },
   logo: {
     marginTop: theme.spacing(1),
     marginRight: theme.spacing(2),
