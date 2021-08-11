@@ -39,5 +39,4 @@ export default function Dashboard(): JSX.Element {
     </React.Fragment>
   );
 }
-
 //<DashboardBar user={loggedInUser} boardName="My School Board" />

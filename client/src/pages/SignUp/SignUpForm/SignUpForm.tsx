@@ -9,23 +9,12 @@ import { CircularProgress } from '@material-ui/core';
 //import { useAuth } from '../../../context/useAuthContext';
 import login from '../../../helpers/APICalls/login';
 import { useHistory } from 'react-router-dom';
+import { SignUpFormData } from '../../../interface/Auth';
 interface Props {
   handleDemoLogin: ({ demoUser, email, password }: { demoUser: boolean; email: string; password: string }) => void;
   handleSubmit: (
-    {
-      email,
-      password,
-    }: {
-      email: string;
-      password: string;
-    },
-    {
-      setStatus,
-      setSubmitting,
-    }: FormikHelpers<{
-      email: string;
-      password: string;
-    }>,
+    { username, email, password }: SignUpFormData,
+    { setStatus, setSubmitting }: FormikHelpers<SignUpFormData>,
   ) => void;
 }
 
@@ -51,12 +40,14 @@ const SignUpForm = ({ handleDemoLogin, handleSubmit }: Props): JSX.Element => {
   return (
     <Formik
       initialValues={{
+        username: '',
         email: '',
         password: '',
       }}
       validateOnChange={false}
       validateOnBlur={false}
       validationSchema={Yup.object().shape({
+        username: Yup.string().required('Username is required.').matches(/^\S+$/, "Username can't have blank spaces"),
         email: Yup.string().required('Email is required').email('Email is not valid'),
         password: Yup.string()
           .required('Password is required')
@@ -67,6 +58,27 @@ const SignUpForm = ({ handleDemoLogin, handleSubmit }: Props): JSX.Element => {
     >
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
+          <TextField
+            id="username"
+            //label={<Typography className={classes.label}>Enter email</Typography>}
+            placeholder="Enter username"
+            fullWidth
+            margin="none"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            InputProps={{
+              classes: { input: `${classes.inputs} ${classes.inputEmail}` },
+              disableUnderline: true,
+            }}
+            name="username"
+            helperText={touched.username && demoUserFlag === false ? errors.username : ' '}
+            error={touched.username && Boolean(errors.username)}
+            //value={values.email}
+            value={values.username}
+            variant="filled"
+            onChange={handleChange}
+          />
           <TextField
             id="email"
             //label={<Typography className={classes.label}>Enter email</Typography>}
