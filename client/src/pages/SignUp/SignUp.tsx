@@ -11,6 +11,8 @@ import AuthFooter from '../../components/AuthFooter/AuthFooter';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import LoginSideImage from '../../components/LoginSideImage/LoginSideImage';
+import { SignUpFormData } from '../../interface/Auth';
+
 interface Props {
   handleDemoLogin: ({ demoUser, email, password }: { demoUser: boolean; email: string; password: string }) => void;
 }
@@ -20,14 +22,14 @@ export default function Register({ handleDemoLogin }: Props): JSX.Element {
   const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
   const handleSubmit = (
-    { email, password }: { email: string; password: string },
-    { setSubmitting }: FormikHelpers<{ email: string; password: string }>,
+    { username, email, password }: SignUpFormData,
+    { setSubmitting }: FormikHelpers<SignUpFormData>,
   ) => {
-    register(email, password).then((data) => {
+    register(username, email, password).then((data) => {
       if (data.error) {
-        console.error({ error: data.error.message });
+        console.error({ error: data.error });
         setSubmitting(false);
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateLoginContext(data.success);
       } else {

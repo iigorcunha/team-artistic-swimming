@@ -16,7 +16,9 @@ const ProtectedRoute = ({ component: Component, demoUser, ...rest }: Props): JSX
     <Route
       {...rest}
       render={(props) => {
-        if (loggedInUser === undefined || !demoUser) {
+        if (loggedInUser || demoUser) {
+          return <Component {...rest} {...props} />;
+        } else {
           return (
             <Redirect
               to={{
@@ -27,21 +29,6 @@ const ProtectedRoute = ({ component: Component, demoUser, ...rest }: Props): JSX
               }}
             />
           );
-        } else {
-          if (loggedInUser || demoUser) {
-            return <Component {...rest} {...props} />;
-          } else {
-            return (
-              <Redirect
-                to={{
-                  pathname: '/login',
-                  state: {
-                    from: props.location,
-                  },
-                }}
-              />
-            );
-          }
         }
       }}
     />
