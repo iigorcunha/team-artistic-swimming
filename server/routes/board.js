@@ -12,9 +12,6 @@ const { validateHandleBoard } = require('../validations/board');
 router.route('/list/:id').get(protect, listOneBoard);
 router.route('/list').get(protect, listAllBoards);
 router.route('/create').post(protect, createBoard);
-router.route('/handle').put(protect, handleBoard);
-router.route('/delete-column').delete(protect, deleteColumn);
-router.route('/delete-card').delete(protect, deleteCard);
-
+router.route('/handle').put(protect, validateHandleBoard, handleBoard);
 
 module.exports = router;

@@ -2,7 +2,7 @@ import { Box, Button, TextField, Typography } from '@material-ui/core';
 import { FC, useState } from 'react';
 import useStyles from './useStyles';
 import { Formik, Form } from 'formik';
-import { ColorTags, Column } from '../../interface/Column';
+import { ColorTags, Column } from '../../interface/Board';
 import { useBoard } from '../../context/useBoardContext';
 import * as yup from 'yup';
 import BadgePalette from './ColorBadgePalette';
@@ -32,14 +32,15 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
               name: yup.string().required('Name is required'),
             })}
             onSubmit={(values, { setSubmitting }) => {
-              setSubmitting(false);
-              const modifiedBoard = Array.from(boardColumns);
-              const columnToAddCard: Column | undefined = modifiedBoard.find((e) => e.id === columnId);
-              if (columnToAddCard) {
-                columnToAddCard.cards.push({ ...values, id: values.name, color: selectedColor });
-                updateBoard(modifiedBoard);
-                handleToggleForm();
-              }
+              // IGOR IS WORKING ON THIS
+              // setSubmitting(false);
+              // const modifiedBoard = Array.from(boardColumns);
+              // const columnToAddCard: Column | undefined = modifiedBoard.find((e) => e.id === columnId);
+              // if (columnToAddCard) {
+              //   // columnToAddCard.cards.push({ ...values, _id: values.name, color: selectedColor });
+              //   updateBoard(modifiedBoard);
+              //   handleToggleForm();
+              // }
             }}
           >
             {({ touched, errors, values, handleChange }) => (

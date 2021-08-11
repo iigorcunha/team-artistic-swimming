@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ColorTags } from '../../interface/Column';
+import { ColorTags } from '../../interface/Board';
 import useStyles from './useStyles';
 
 interface CardBadgeProps {

@@ -28,7 +28,7 @@ const DashboardBar = ({ user }: Props): JSX.Element => {
           <Button className={classes.centerButtons} startIcon={<CalendarTodayOutlinedIcon />}>
             Calendar
           </Button>
-          <NewBoardDialogBox details={null} />
+          <NewBoardDialogBox />
           <AvatarDisplay loggedIn user={user}></AvatarDisplay>
         </Toolbar>
         <Toolbar className={classes.toolbar}>

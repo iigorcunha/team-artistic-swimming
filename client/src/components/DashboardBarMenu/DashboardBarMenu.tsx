@@ -40,11 +40,13 @@ const DashboardBarMenu = (): JSX.Element => {
         }}
         getContentAnchorEl={null}
       >
-        {boardList.map((e) => (
-          <MenuItem key={e._id} onClick={() => switchBoardInView(e._id)}>
-            {e.name}
-          </MenuItem>
-        ))}
+        {boardList
+          ? boardList.map((e) => (
+              <MenuItem key={e._id} onClick={() => switchBoardInView(e._id)}>
+                {e.name}
+              </MenuItem>
+            ))
+          : null}
       </Menu>
     </div>
   );

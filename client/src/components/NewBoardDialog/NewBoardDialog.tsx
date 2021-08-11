@@ -7,20 +7,14 @@ import * as yup from 'yup';
 import { Formik, Form } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import { useBoard } from '../../context/useBoardContext';
-import { useBackdrop } from '../../context/useBackDropContext';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from './useStyles';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 
-interface BoardDialogFormProps {
-  details: any;
-}
-
-const NewBoardDialogBox: FC<BoardDialogFormProps> = ({ details }): JSX.Element => {
+const NewBoardDialogBox: FC = (): JSX.Element => {
   const { createNewBoard } = useBoard();
-  const { openBackdrop, closeBackdrop } = useBackdrop();
   const [open, setOpen] = useState(false);
   const classes = useStyles();
 
@@ -63,21 +57,6 @@ const NewBoardDialogBox: FC<BoardDialogFormProps> = ({ details }): JSX.Element =
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(false);
               createNewBoard(values.name);
-              //   openBackdrop();
-              //   setTimeout(() => {
-              //     closeBackdrop();
-              //   }, 1200);
-              //   if (details.position === 'left') {
-              //     updateBoard([
-              //       { cards: [{ ...details.draggedCard }], id: values.title, title: values.title },
-              //       ...details.boardArrangement,
-              //     ]);
-              //   } else {
-              //     updateBoard([
-              //       ...details.boardArrangement,
-              //       { cards: [{ ...details.draggedCard }], id: values.title, title: values.title },
-              //     ]);
-              //   }
               handleClose();
             }}
           >
