@@ -11,7 +11,6 @@ interface IBoardContext {
   boardList: BoardWithoutNestedChildren[] | undefined;
   board: Board;
   boardName: string;
-  isSavingBoard: boolean;
   updateBoard: (columns: Column[]) => void;
   switchBoardInView: (boardId: string) => void;
   createNewBoard: (name: string) => void;
@@ -22,7 +21,6 @@ export const BoardContext = createContext<IBoardContext>({} as IBoardContext);
 
 export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [board, setBoard] = useState<Board>({} as Board);
-  const [isSavingBoard, setIsSavingBoard] = useState(false);
   const [boardList, setBoardList] = useState<BoardWithoutNestedChildren[]>([]);
   const [boardName, setBoardName] = useState<string>('');
 
@@ -53,21 +51,10 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
 
   const updateBoard = useCallback(
     async (columns: Column[]) => {
-      setBoard((oldBoard) => {
-        const newBoard = oldBoard;
-        newBoard.columns = columns;
-
-        return newBoard;
-      });
-
-      setTimeout(async () => {
-        setIsSavingBoard(true);
-        const boardResponse = await handleBoard(board._id, columns);
-        if (boardResponse.board) {
-          setBoard(boardResponse.board);
-        }
-        setIsSavingBoard(false);
-      }, 2000);
+      const boardResponse = await handleBoard(board._id, columns);
+      if (boardResponse.board) {
+        setBoard(boardResponse.board);
+      }
     },
     [board._id],
   );
@@ -86,8 +73,10 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const createNewBoard = useCallback(
     async (name) => {
       const newlyCreatedBoard = await createBoard(name);
-      if (newlyCreatedBoard.board) {
-        switchBoardInView(newlyCreatedBoard.board._id);
+      const { board } = newlyCreatedBoard;
+      if (board) {
+        switchBoardInView(board._id);
+        setBoardList((oldBoardList) => [...oldBoardList, board]);
       }
     },
     [switchBoardInView],
@@ -95,7 +84,6 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   return (
     <BoardContext.Provider
       value={{
-        isSavingBoard,
         boardList,
         board,
         boardName,
