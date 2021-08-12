@@ -67,7 +67,7 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
           setBoard(boardResponse.board);
         }
         setIsSavingBoard(false);
-      }, 5000);
+      }, 2000);
     },
     [board._id],
   );
