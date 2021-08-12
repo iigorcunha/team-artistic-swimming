@@ -86,12 +86,11 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const createNewBoard = useCallback(
     async (name) => {
       const newlyCreatedBoard = await createBoard(name);
-      if (newlyCreatedBoard.success) {
-        switchBoardInView(newlyCreatedBoard.success.board._id);
-        setBoardList([...boardList, newlyCreatedBoard.success?.board]);
+      if (newlyCreatedBoard.board) {
+        switchBoardInView(newlyCreatedBoard.board._id);
       }
     },
-    [switchBoardInView, boardList],
+    [switchBoardInView],
   );
   return (
     <BoardContext.Provider

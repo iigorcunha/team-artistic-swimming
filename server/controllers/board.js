@@ -64,7 +64,7 @@ exports.createBoard = asyncHandler(async (req, res, next) => {
     throw new Error("Could not create board, try again");
   }
 
-  res.status(200).json(board);
+  res.status(200).json({board});
 });
 
 exports.handleBoard = asyncHandler(async (req, res, next) => {

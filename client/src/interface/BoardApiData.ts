@@ -28,14 +28,9 @@ export interface AllBoardApiData {
   boards?: BoardWithoutNestedChildren[];
 }
 
-export interface CreateBoardSuccess {
-  message: string;
-  board: AllBoardResponse;
-}
-
 export interface CreateBoardApiData {
   error?: string;
-  success?: CreateBoardSuccess;
+  board?: Board;
 }
 
 export interface HandleBoardApiData {
