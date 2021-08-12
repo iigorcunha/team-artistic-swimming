@@ -51,6 +51,12 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
 
   const updateBoard = useCallback(
     async (columns: Column[]) => {
+      setBoard((oldBoard) => {
+        const newBoard = oldBoard;
+        newBoard.columns = columns;
+
+        return newBoard;
+      });
       const boardResponse = await handleBoard(board._id, columns);
       if (boardResponse.board) {
         setBoard(boardResponse.board);
