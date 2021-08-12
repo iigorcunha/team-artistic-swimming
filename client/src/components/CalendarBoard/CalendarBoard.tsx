@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import React, { useState, useRef } from 'react';
+import { Grid } from '@material-ui/core';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
@@ -72,7 +72,6 @@ const CalendarBoard = (): JSX.Element => {
     //console.log(event);
     const idx = events.indexOf(event);
     //console.log(idx);
-    //setAnchorEl(event.currentTarget);
   };
 
   const showSelectedSlot = (event: any): void => {
@@ -80,22 +79,6 @@ const CalendarBoard = (): JSX.Element => {
     //console.log(event);
     //console.log(event.box);
   };
-
-  /*
-  resizeEvent = (resizeType, { event, start, end }) => {
-    const { events } = this.state;
-
-    const nextEvents = events.map(existingEvent => {
-      return existingEvent.id == event.id
-        ? { ...existingEvent, start, end }
-        : existingEvent;
-    });
-
-    this.setState({
-      events: nextEvents
-    });
-  };
-  */
 
   return (
     <Grid container component="main" className={classes.root}>

@@ -12,7 +12,6 @@ import { useHistory } from 'react-router-dom';
 
 interface Props {
   boardName: string;
-  //user: User; //user: string;
 }
 
 const DashboardBar = ({ boardName }: Props): JSX.Element => {

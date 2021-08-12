@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, RouteProps, Redirect } from 'react-router-dom';
-import { useAuth } from './../context/useAuthContext';
-
+import { useAuth } from '../context/useAuthContext';
+import { useSocket } from '../context/useSocketContext';
+import { useEffect } from 'react';
 interface Props extends RouteProps {
   component: React.ComponentType;
   demoUser: boolean;
@@ -10,9 +11,12 @@ interface Props extends RouteProps {
 //#14 Protected route
 const ProtectedRoute = ({ component: Component, demoUser, ...rest }: Props): JSX.Element => {
   const { loggedInUser } = useAuth();
-  //console.log('demoUser from protected route: ', demoUser);
-  console.log('loggedinuser: ');
-  console.log(loggedInUser);
+  const { initSocket } = useSocket();
+
+  useEffect(() => {
+    initSocket();
+  }, [initSocket]);
+
   return (
     <Route
       {...rest}

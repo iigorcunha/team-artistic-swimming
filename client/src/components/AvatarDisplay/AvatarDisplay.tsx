@@ -1,23 +1,17 @@
 import { Box, IconButton } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
-import { User } from '../../interface/User';
 import React, { useState, MouseEvent } from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useAuth } from '../../context/useAuthContext';
-
 import useStyles from './useStyles';
 import avatarPic from '../../Images/demoUser1.png';
-/*interface Props {
-  loggedIn: boolean;
-  user: User; //user: string;
-}*/
 
 const AvatarDisplay = (): JSX.Element => {
-  //return <Avatar alt="Profile Image" src={`https://robohash.org/${user.email}.png`} />;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const { loggedInUser } = useAuth();
   const { logout } = useAuth();
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -32,7 +26,6 @@ const AvatarDisplay = (): JSX.Element => {
     logout();
   };
 
-  //<Avatar alt="Profile Image" src={`https://robohash.org/${user.email}.png`} />
   return (
     <Box className={classes.root}>
       <IconButton
@@ -42,7 +35,11 @@ const AvatarDisplay = (): JSX.Element => {
         onClick={handleClick}
         className={classes.iconButton}
       >
-        <Avatar alt="Profile Image" src={avatarPic} className={classes.avatar} />
+        <Avatar
+          alt="Profile Image"
+          src={loggedInUser ? `https://robohash.org/${loggedInUser.email}.png` : avatarPic}
+          className={classes.avatar}
+        />
       </IconButton>
       <Menu
         id="avatar-menu"
@@ -65,5 +62,3 @@ const AvatarDisplay = (): JSX.Element => {
 };
 
 export default AvatarDisplay;
-
-//<Avatar alt="Profile Image" src={`https://robohash.org/demouser.png`} />
