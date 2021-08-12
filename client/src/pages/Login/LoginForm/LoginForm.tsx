@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
 
-//import { useAuth } from '../../../context/useAuthContext';
+import { useAuth } from '../../../context/useAuthContext';
 import login from '../../../helpers/APICalls/login';
 import { useHistory } from 'react-router-dom';
 interface Props {
@@ -32,7 +32,7 @@ interface Props {
 
 export default function Login({ handleDemoLogin, handleSubmit }: Props): JSX.Element {
   const classes = useStyles();
-  //const { updateLoginContext } = useAuth();
+  const { updateLoginContext } = useAuth();
   const history = useHistory();
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');

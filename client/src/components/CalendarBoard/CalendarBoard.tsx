@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import Grid from '@material-ui/core/Grid';
+import React, { useEffect, useState, useRef } from 'react';
+import { Grid, Typography } from '@material-ui/core';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
@@ -13,7 +13,7 @@ import './customizedReactBigCalendar.css';
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar as any);
 
-import { Badge } from './Badge';
+import { Badge, MonthTitle } from './Badge';
 
 interface EventResizeProps {
   start: any;
@@ -32,11 +32,12 @@ const CalendarBoard = (): JSX.Element => {
   const classes = useStyles();
   //const [events, setEvent] = useState<IUserSchedule[]>(mockDatas);
   const [events, setEvents] = useState<DemoUserScheduleProps[]>(DemoUserData);
+
   /*
   const [events, setEvents] = useState({
     start: moment().toDate(),
     end: moment().add(1, 'days').toDate(),
-    title: 'Some title',
+    title: 'Some title',0
   });
   */
   const onEventResize = ({ start, end }: EventResizeProps): void => {
@@ -57,6 +58,29 @@ const CalendarBoard = (): JSX.Element => {
 
     setEvents(nextEvents);
   };
+
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    console.log('current target');
+  };
+
+  const showEventDoubleClick = (): void => {
+    //console.log('Event after double click');
+  };
+
+  const showEventSelected = (event: any): void => {
+    //console.log('Here show event details after event selection');
+    //console.log(event);
+    const idx = events.indexOf(event);
+    //console.log(idx);
+    //setAnchorEl(event.currentTarget);
+  };
+
+  const showSelectedSlot = (event: any): void => {
+    console.log('Slot selected:');
+    //console.log(event);
+    //console.log(event.box);
+  };
+
   /*
   resizeEvent = (resizeType, { event, start, end }) => {
     const { events } = this.state;
@@ -72,9 +96,6 @@ const CalendarBoard = (): JSX.Element => {
     });
   };
   */
-  const onEventDrop = (data: any) => {
-    console.log('onEventDrop data:', data);
-  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -88,10 +109,13 @@ const CalendarBoard = (): JSX.Element => {
         onEventDrop={moveEvent}
         //onEventResize={onEventResize}
         timeslots={2}
+        onDoubleClickEvent={showEventDoubleClick}
+        onSelectEvent={showEventSelected}
+        onSelectSlot={showSelectedSlot}
         popup={true}
         selectable
         resizable
-        components={{ event: Badge }}
+        components={{ event: Badge, toolbar: MonthTitle }}
       />
     </Grid>
   );

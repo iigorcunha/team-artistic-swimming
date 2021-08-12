@@ -10,8 +10,9 @@ interface Props extends RouteProps {
 //#14 Protected route
 const ProtectedRoute = ({ component: Component, demoUser, ...rest }: Props): JSX.Element => {
   const { loggedInUser } = useAuth();
-  console.log('demoUser from protected route: ', demoUser);
-
+  //console.log('demoUser from protected route: ', demoUser);
+  console.log('loggedinuser: ');
+  console.log(loggedInUser);
   return (
     <Route
       {...rest}

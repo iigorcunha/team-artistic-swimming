@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -20,6 +20,15 @@ const useStyles = makeStyles(() => ({
     marginRight: '2vw',
     height: '80vh',
     width: '91vw',
+  },
+  popover: {
+    pointerEvents: 'none',
+  },
+  paper: {
+    padding: theme.spacing(1),
+  },
+  typography: {
+    padding: theme.spacing(1),
   },
 }));
 

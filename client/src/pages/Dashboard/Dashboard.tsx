@@ -15,19 +15,19 @@ export default function Dashboard(): JSX.Element {
 
   const { loggedInUser } = useAuth();
 
-  //const { initSocket } = useSocket();
+  const { initSocket } = useSocket();
   const history = useHistory();
 
-  //useEffect(() => {
-  //  initSocket();
-  //}, [initSocket]);
+  useEffect(() => {
+    initSocket();
+  }, [initSocket]);
 
-  //if (loggedInUser === undefined) return <CircularProgress />;
-  //if (!loggedInUser) {
-  //  history.push('/login');
-  // loading for a split seconds until history.push works
-  //  return <CircularProgress />;
-  //}
+  if (loggedInUser === undefined) return <CircularProgress />;
+  if (!loggedInUser) {
+    //history.push('/login');
+    //loading for a split seconds until history.push works
+    //return <CircularProgress />;
+  }
 
   return (
     <React.Fragment>
@@ -40,3 +40,4 @@ export default function Dashboard(): JSX.Element {
   );
 }
 //<DashboardBar user={loggedInUser} boardName="My School Board" />
+//<DashboardBar boardName="My School Board" />

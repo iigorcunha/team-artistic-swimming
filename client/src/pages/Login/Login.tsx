@@ -48,10 +48,10 @@ export default function Login({ handleDemoLogin }: Props): JSX.Element {
         <Box className={classes.authWrapper}>
           <Box width="100%" alignSelf="center">
             <Grid container>
-              <Grid item xs>
+              <Grid className={classes.leftSectionWrapper}>
                 <LoginSideImage />
               </Grid>
-              <Grid item xs>
+              <Grid className={classes.rightSectionWrapper}>
                 <div style={{ height: 178 }} />
                 <Box className={classes.loginWrapper}>
                   <Typography className={classes.welcome} component="h1" variant="h5">
@@ -59,7 +59,7 @@ export default function Login({ handleDemoLogin }: Props): JSX.Element {
                   </Typography>
                   <LoginForm handleSubmit={handleSubmit} handleDemoLogin={handleDemoLogin} />
                 </Box>
-                <Box borderTop={1} borderColor="grey.200">
+                <Box borderTop={1} borderColor="grey.200" className={classes.authFooterContainer}>
                   <AuthFooter linkTo="/signup" asideText="Don't have an account?" btnText="Create" btnDemo="Demo" />
                 </Box>
               </Grid>
