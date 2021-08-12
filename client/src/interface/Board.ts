@@ -1,13 +1,18 @@
 export interface Card{
-    id: string;
+    _id: string;
     name: string;
     color: ColorTags;
-    deadline?: string
+    deadline?: string;
 }
 export interface Column {
+    _id: string;
     cards: Card[];
-    id: string;
-    title: string;
+    name: string;
 }
 
+export interface Board {
+    _id: string;
+    columns: Column[];
+    name: string;
+}
 export type ColorTags = 'red' | 'blue' | 'yellow' | 'green' | ''
