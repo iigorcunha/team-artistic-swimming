@@ -1,16 +1,18 @@
 import { useState, useContext, createContext, FunctionComponent, useCallback, useEffect } from 'react';
-import { Column } from '../interface/Board';
+import { Board, Column } from '../interface/Board';
 // import { columns } from '../mocks/mockBoardData';
 import getAllBoards from '../helpers/APICalls/getAllBoards';
 import getBoard from '../helpers/APICalls/getBoard';
 import createBoard from '../helpers/APICalls/createBoard';
-import { AllBoardResponse } from '../interface/BoardApiData';
+import { BoardWithoutNestedChildren } from '../interface/BoardApiData';
+import handleBoard from '../helpers/APICalls/handleBoard';
 
 interface IBoardContext {
-  boardList: AllBoardResponse[] | undefined;
-  boardColumns: Column[] | undefined;
+  boardList: BoardWithoutNestedChildren[] | undefined;
+  board: Board;
   boardName: string;
-  updateBoard: (board: Column[]) => void;
+  isSavingBoard: boolean;
+  updateBoard: (columns: Column[]) => void;
   switchBoardInView: (boardId: string) => void;
   createNewBoard: (name: string) => void;
   setInitialBoardList: () => Promise<void>;
@@ -19,45 +21,62 @@ interface IBoardContext {
 export const BoardContext = createContext<IBoardContext>({} as IBoardContext);
 
 export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
-  const [boardColumns, setBoardColumns] = useState<Column[]>();
-  const [boardList, setBoardList] = useState<AllBoardResponse[]>([]);
+  const [board, setBoard] = useState<Board>({} as Board);
+  const [isSavingBoard, setIsSavingBoard] = useState(false);
+  const [boardList, setBoardList] = useState<BoardWithoutNestedChildren[]>([]);
   const [boardName, setBoardName] = useState<string>('');
 
   const setInitialBoardList = useCallback(async () => {
     const allBoardResponse = await getAllBoards();
-    if (allBoardResponse.success) {
-      const { boardsList } = allBoardResponse.success;
-      setBoardList(boardsList);
-      const lastViewedBoard = boardsList.find((e: AllBoardResponse) => e.lastViewed === true);
+    if (allBoardResponse.boards) {
+      const { boards } = allBoardResponse;
+      setBoardList(boards);
+      const lastViewedBoard = boards.find((e: BoardWithoutNestedChildren) => e.lastViewed === true);
       if (lastViewedBoard) {
         const lastViewedBoardDetails = await getBoard(lastViewedBoard._id);
-        if (lastViewedBoardDetails.success) {
-          const { board } = lastViewedBoardDetails.success;
-          setBoardColumns(board.columns);
+        if (lastViewedBoardDetails.board) {
+          const { board } = lastViewedBoardDetails;
+          setBoard(board);
           setBoardName(board.name);
         }
       } else {
         // Incase there is no board marked as last viewed, the first board on the list will be rendered
-        const firstBoard = await getBoard(boardsList[0]._id);
-        if (firstBoard.success) {
-          const { board } = firstBoard.success;
-          setBoardColumns(board.columns);
+        const firstBoard = await getBoard(allBoardResponse.boards[0]._id);
+        if (firstBoard.board) {
+          const { board } = firstBoard;
+          setBoard(board);
           setBoardName(board.name);
         }
       }
     }
   }, []);
 
-  // IGOR IS WORKING ON THIS
-  const updateBoard = useCallback(() => {
-    // setBoard(newBoard);
-  }, []);
+  const updateBoard = useCallback(
+    async (columns: Column[]) => {
+      setBoard((oldBoard) => {
+        const newBoard = oldBoard;
+        newBoard.columns = columns;
+
+        return newBoard;
+      });
+
+      setTimeout(async () => {
+        setIsSavingBoard(true);
+        const boardResponse = await handleBoard(board._id, columns);
+        if (boardResponse.board) {
+          setBoard(boardResponse.board);
+        }
+        setIsSavingBoard(false);
+      }, 5000);
+    },
+    [board._id],
+  );
 
   const switchBoardInView = useCallback(async (boardId) => {
     const selectedBoardDetails = await getBoard(boardId);
-    if (selectedBoardDetails.success) {
-      const { board } = selectedBoardDetails.success;
-      setBoardColumns(board.columns);
+    if (selectedBoardDetails.board) {
+      const { board } = selectedBoardDetails;
+      setBoard(board);
       setBoardName(board.name);
       return;
     }
@@ -77,8 +96,9 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   return (
     <BoardContext.Provider
       value={{
+        isSavingBoard,
         boardList,
-        boardColumns,
+        board,
         boardName,
         setInitialBoardList,
         updateBoard,
