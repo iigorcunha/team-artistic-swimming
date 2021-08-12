@@ -30,7 +30,7 @@ export interface AllBoardApiData {
 
 export interface CreateBoardApiData {
   error?: string;
-  board?: Board;
+  board?: BoardWithoutNestedChildren;
 }
 
 export interface HandleBoardApiData {
