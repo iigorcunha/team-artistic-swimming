@@ -53,7 +53,7 @@ export default function Register({ handleDemoLogin }: Props): JSX.Element {
                 <LoginSideImage />
               </Grid>
               <Grid className={classes.rightSectionWrapper}>
-                <div style={{ height: 110 }} />
+                <div style={{ height: 120 }} />
                 <Box className={classes.loginWrapper}>
                   <Typography className={classes.welcome} component="h1" variant="h5">
                     Sign up to Kanban

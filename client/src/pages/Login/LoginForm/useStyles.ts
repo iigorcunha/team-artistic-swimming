@@ -49,26 +49,30 @@ const useStyles = makeStyles((theme) => ({
   },
   forgot: {
     paddingRight: 10,
-    color: '#759CFC', ////similar to nikko blue
+    color: '#759CFC',
+  },
+  submitsContainer: {
+    margin: 0,
+    padding: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
   submit: {
-    margin: theme.spacing(3, 2, 2),
-    marginLeft: 18,
-    padding: 10,
     width: 140,
     height: 48,
     borderRadius: theme.shape.borderRadius,
     fontSize: 16,
     fontWeight: 500,
-    backgroundColor: '#759CFC', ////similar to nikko blue
+    backgroundColor: '#759CFC',
+    color: 'white',
   },
   submitLogin: {
-    marginTop: 35,
-    color: 'white',
+    marginTop: 25,
   },
   submitDemo: {
-    marginTop: 0,
-    color: 'white',
+    marginTop: 20,
   },
 }));
 

@@ -124,7 +124,7 @@ const SignUpForm = ({ handleDemoLogin, handleSubmit }: Props): JSX.Element => {
             onChange={handleChange}
           />
 
-          <Box textAlign="center">
+          <Box className={classes.submitsContainer}>
             <Button
               type="submit"
               size="large"

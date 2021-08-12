@@ -6,7 +6,6 @@ import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
-
 import { useAuth } from '../../../context/useAuthContext';
 import login from '../../../helpers/APICalls/login';
 import { useHistory } from 'react-router-dom';
@@ -104,7 +103,7 @@ export default function Login({ handleDemoLogin, handleSubmit }: Props): JSX.Ele
             variant="filled"
             onChange={handleChange}
           />
-          <Box textAlign="center">
+          <Box className={classes.submitsContainer}>
             <Button
               type="submit"
               size="large"
