@@ -14,7 +14,7 @@ interface CardDialogFormProps {
 const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false);
   const [selectedColor, setSelectedColor] = useState<ColorTags>('');
-  const { boardColumns, updateBoard } = useBoard();
+  const { board, updateBoard } = useBoard();
   const classes = useStyles();
   const handleToggleForm: () => void = () => {
     setOpen(!open);
@@ -32,15 +32,14 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
               name: yup.string().required('Name is required'),
             })}
             onSubmit={(values, { setSubmitting }) => {
-              // IGOR IS WORKING ON THIS
-              // setSubmitting(false);
-              // const modifiedBoard = Array.from(boardColumns);
-              // const columnToAddCard: Column | undefined = modifiedBoard.find((e) => e.id === columnId);
-              // if (columnToAddCard) {
-              //   // columnToAddCard.cards.push({ ...values, _id: values.name, color: selectedColor });
-              //   updateBoard(modifiedBoard);
-              //   handleToggleForm();
-              // }
+              setSubmitting(false);
+              const modifiedBoard = Array.from(board.columns);
+              const columnToAddCard: Column | undefined = modifiedBoard.find((e) => e._id === columnId);
+              if (columnToAddCard) {
+                columnToAddCard.cards.push({ ...values, colorCode: selectedColor });
+                updateBoard(modifiedBoard);
+                handleToggleForm();
+              }
             }}
           >
             {({ touched, errors, values, handleChange }) => (
@@ -63,7 +62,7 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
                 />
                 <Box className={classes.radioInputContainer}>
                   <Typography color="textSecondary" variant="subtitle2">
-                    Select Tag:
+                    Select a color tag:
                   </Typography>
                   <BadgePalette dohandleSetColor={handleColorSelection} />
                 </Box>
