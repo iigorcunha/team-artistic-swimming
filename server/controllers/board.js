@@ -4,6 +4,7 @@ const asyncHandler = require("express-async-handler");
 const BoardColumn = require("../models/BoardColumn");
 const createBoardDocument = require("./utils/newBoard");
 const { isValidObjectId } = require("mongoose");
+const { findById } = require("../models/Board");
 
 // @route POST /users
 // @desc Search for users
@@ -64,7 +65,9 @@ exports.createBoard = asyncHandler(async (req, res, next) => {
     throw new Error("Could not create board, try again");
   }
 
-  res.status(200).json({board});
+  // const board = await Board.findById(boardCreated._id);
+
+  res.status(200).json({ board });
 });
 
 exports.handleBoard = asyncHandler(async (req, res, next) => {
