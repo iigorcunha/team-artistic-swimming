@@ -43,6 +43,14 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
             setBoardColumns(board.columns);
             setBoardName(board.name);
           }
+        } else {
+          // Incase there is no board marked as last viewed, the first board on the list will be rendered
+          const firstBoard = await getBoard(boardsList[0]._id);
+          if (firstBoard.success) {
+            const { board } = firstBoard.success;
+            setBoardColumns(board.columns);
+            setBoardName(board.name);
+          }
         }
       }
     };
