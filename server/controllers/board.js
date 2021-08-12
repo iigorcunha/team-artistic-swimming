@@ -3,12 +3,13 @@ const Card = require("../models/Card");
 const asyncHandler = require("express-async-handler");
 const BoardColumn = require("../models/BoardColumn");
 const createBoardDocument = require("./utils/newBoard");
+const { isValidObjectId } = require("mongoose");
 
 // @route POST /users
 // @desc Search for users
 // @access Private
 exports.listOneBoard = asyncHandler(async (req, res, next) => {
-  
+
   const board = await Board.findById(req.params.id).populate({
     path: 'columns',
     populate: {
@@ -20,49 +21,62 @@ exports.listOneBoard = asyncHandler(async (req, res, next) => {
     res.status(404);
     throw new Error("No board found with given id");
   }
-  const lastViewedBoard = await Board.findOne({user: req.user.id, lastViewed: true})
-  if (lastViewedBoard && board._id != lastViewedBoard._id) {
-    lastViewedBoard.lastViewed = false
-    await lastViewedBoard.save();
+
+  /**
+   * if current board is not lastViewed, first we try to set to false any
+   * board with lastViewed, Second set the current board to lastViewed.
+   *
+   * OBS: if current board is already lastViewed. just pass through.
+   */
+  if (board.lastViewed === false) {
+    await Board.findOneAndUpdate({user: req.user.id, lastViewed: true}, {
+      lastViewed: false,
+    })
+
+    await Board.findOneAndUpdate({user: req.user.id, _id: board._id}, {
+      lastViewed: true,
+    })
   }
-  board.lastViewed = true;
-  await board.save();
-  res.status(200).json(board);
+
+
+  res.status(200).json({ board });
 });
 
 exports.listAllBoards = asyncHandler(async (req, res, next) => {
-  
+
   const boards = await Board.find({ user: req.user.id });
 
   if(!boards) {
     res.status(404);
     throw new Error("There are no boards for this user");
   }
-  const lastViewedBoard = await Board.findOne({user: req.user.id, lastViewed: true})
-  if (!lastViewedBoard) {
-    let firstBoard = await Board.findOne({ user: req.user.id })
-    firstBoard.lastViewed = true;
-    await firstBoard.save();
-  }
 
-  res.status(200).json(boards);
+  res.status(200).json({ boards });
 });
 
 exports.createBoard = asyncHandler(async (req, res, next) => {
   const { name } = req.body
   const userId = req.user.id
-  
+
   const board = await createBoardDocument(name, userId);
   if(!board) {
     res.status(500);
     throw new Error("Could not create board, try again");
   }
-  
+
   res.status(200).json(board);
 });
 
 exports.handleBoard = asyncHandler(async (req, res, next) => {
   const { columns } = req.body;
+  const { boardId } = req.params;
+
+  const board = await Board.findOne({ _id: boardId, user: req.user.id });
+
+  if (!board) {
+    res.status(404)
+    throw new Error('Board not found with given id.')
+  }
 
   // Map the list of columns to check if column already exists or not
   const columnsList = await Promise.all(columns.map(async column => {
@@ -87,33 +101,34 @@ exports.handleBoard = asyncHandler(async (req, res, next) => {
         const cardsList = await Promise.all(column.cards.map(async card => {
           // Check if cards array already exists
           const cardExists = await Card.findOne({_id: card._id})
-  
+
           // If card no exist create a new one.
           if(!cardExists) {
             return Card.create({
               name: card.name,
-              description: card.description
+              description: card.description,
+              colorCode: card.colorCode,
             })
           }
-  
+
           return cardExists;
         }))
-  
-        columnUpdated = await BoardColumn.findOneAndUpdate({_id: columnUpdated._id}, {
+
+      await BoardColumn.findOneAndUpdate({_id: columnUpdated._id}, {
       cards: cardsList
      })
     }
 
-    return columnUpdated; 
+    return columnUpdated;
   }))
 
   // After findOrCreate columns set them to the respective board.
   // The board is find by authentication.
-  await Board.findOneAndUpdate({user: req.user.id}, {
-    columns: columnsList
+  await Board.findOneAndUpdate({ _id: boardId , user: req.user.id }, {
+    columns: columnsList,
   })
 
-  const updatedBoard = await Board.findOne({ user: req.user.id }).populate({
+  const updatedBoard = await Board.findOne({ _id: boardId , user: req.user.id }).populate({
     path: 'columns',
     populate: {
       path: 'cards'
@@ -146,7 +161,7 @@ exports.deleteColumn = asyncHandler(async (req, res, next) => {
 exports.deleteCard = asyncHandler(async (req, res, next) => {
   const { card } = req.body;
 
-  
+
     const deletedCard = await Card.deleteOne({ _id: card._id })
     if(deletedCard.deletedCount === 0){
       res.status(404);
