@@ -13,48 +13,39 @@ interface IBoardContext {
   updateBoard: (board: Column[]) => void;
   switchBoardInView: (boardId: string) => void;
   createNewBoard: (name: string) => void;
+  setInitialBoardList: () => Promise<void>;
 }
 
-export const BoardContext = createContext<IBoardContext>({
-  boardList: [],
-  boardColumns: [],
-  boardName: '',
-  updateBoard: () => null,
-  switchBoardInView: () => null,
-  createNewBoard: () => null,
-});
+export const BoardContext = createContext<IBoardContext>({} as IBoardContext);
 
 export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [boardColumns, setBoardColumns] = useState<Column[]>();
   const [boardList, setBoardList] = useState<AllBoardResponse[]>([]);
   const [boardName, setBoardName] = useState<string>('');
 
-  useEffect(() => {
-    const setInitialBoardList = async () => {
-      const allboardResponse = await getAllBoards();
-      if (allboardResponse.success) {
-        const { boardsList } = allboardResponse.success;
-        setBoardList(boardsList);
-        const lastViewedBoard = boardsList.find((e: AllBoardResponse) => e.lastViewed === true);
-        if (lastViewedBoard) {
-          const lastViewedBoardDetails = await getBoard(lastViewedBoard._id);
-          if (lastViewedBoardDetails.success) {
-            const { board } = lastViewedBoardDetails.success;
-            setBoardColumns(board.columns);
-            setBoardName(board.name);
-          }
-        } else {
-          // Incase there is no board marked as last viewed, the first board on the list will be rendered
-          const firstBoard = await getBoard(boardsList[0]._id);
-          if (firstBoard.success) {
-            const { board } = firstBoard.success;
-            setBoardColumns(board.columns);
-            setBoardName(board.name);
-          }
+  const setInitialBoardList = useCallback(async () => {
+    const allBoardResponse = await getAllBoards();
+    if (allBoardResponse.success) {
+      const { boardsList } = allBoardResponse.success;
+      setBoardList(boardsList);
+      const lastViewedBoard = boardsList.find((e: AllBoardResponse) => e.lastViewed === true);
+      if (lastViewedBoard) {
+        const lastViewedBoardDetails = await getBoard(lastViewedBoard._id);
+        if (lastViewedBoardDetails.success) {
+          const { board } = lastViewedBoardDetails.success;
+          setBoardColumns(board.columns);
+          setBoardName(board.name);
+        }
+      } else {
+        // Incase there is no board marked as last viewed, the first board on the list will be rendered
+        const firstBoard = await getBoard(boardsList[0]._id);
+        if (firstBoard.success) {
+          const { board } = firstBoard.success;
+          setBoardColumns(board.columns);
+          setBoardName(board.name);
         }
       }
-    };
-    setInitialBoardList();
+    }
   }, []);
 
   // IGOR IS WORKING ON THIS
@@ -85,7 +76,15 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   );
   return (
     <BoardContext.Provider
-      value={{ boardList, boardColumns, boardName, updateBoard, switchBoardInView, createNewBoard }}
+      value={{
+        boardList,
+        boardColumns,
+        boardName,
+        setInitialBoardList,
+        updateBoard,
+        switchBoardInView,
+        createNewBoard,
+      }}
     >
       {children}
     </BoardContext.Provider>

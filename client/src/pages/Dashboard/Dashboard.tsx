@@ -8,14 +8,20 @@ import { useHistory } from 'react-router-dom';
 import Board from '../../components/Board/Board';
 import { useEffect } from 'react';
 import DashboardBar from '../../components/DashboardBar/DashboardBar';
+import { useBoard } from '../../context/useBoardContext';
 
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
 
   const { loggedInUser } = useAuth();
+  const { setInitialBoardList } = useBoard();
 
   const { initSocket } = useSocket();
   const history = useHistory();
+
+  useEffect(() => {
+    setInitialBoardList();
+  }, [setInitialBoardList]);
 
   useEffect(() => {
     initSocket();
