@@ -27,7 +27,7 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
       {open ? (
         <Box>
           <Formik
-            initialValues={{ name: '', color: '' }}
+            initialValues={{ name: '', colorCode: '' }}
             validationSchema={yup.object({
               name: yup.string().required('Name is required'),
             })}
@@ -36,7 +36,7 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
               const modifiedBoard = Array.from(board.columns);
               const columnToAddCard: Column | undefined = modifiedBoard.find((e) => e._id === columnId);
               if (columnToAddCard) {
-                columnToAddCard.cards.push({ ...values, colorCode: selectedColor });
+                columnToAddCard.cards.push({ ...values, name: values.name, colorCode: selectedColor });
                 updateBoard(modifiedBoard);
                 handleToggleForm();
               }
