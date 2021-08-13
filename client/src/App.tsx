@@ -26,6 +26,7 @@ function App(): JSX.Element {
   //  setDemoUser(false);
   //  console.log('Inside HandleDemoLogout', demoUser);
   //};
+
   return (
     <MuiThemeProvider theme={theme}>
       <Router>

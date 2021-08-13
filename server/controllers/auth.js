@@ -1,8 +1,7 @@
 const User = require("../models/User");
-const Board = require("../models/Board");
 const asyncHandler = require("express-async-handler");
-const generateToken = require("../utils/generateToken");
-const BoardColumn = require("../models/BoardColumn");
+const generateToken = require("./utils/generateToken");
+const createBoardDocument = require("./utils/newBoard");
 
 // @route POST /auth/register
 // @desc Register user
@@ -30,23 +29,9 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
     password
   });
 
-
-
-  const columns = await BoardColumn.insertMany([{
-    name: 'in progress'
-  }, {
-    name: 'completed'
-  }])
-
-  await Board.create({
-    user: user._id,
-    columns
-  })
-
-
-
   if (user) {
-    const token = generateToken(user._id);
+    await createBoardDocument('My School Board', user._id)
+    const token = await generateToken(user._id);
     const secondsInWeek = 604800;
 
     res.cookie("token", token, {

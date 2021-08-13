@@ -2,31 +2,63 @@ const Board = require("../models/Board");
 const Card = require("../models/Card");
 const asyncHandler = require("express-async-handler");
 const BoardColumn = require("../models/BoardColumn");
+const createBoardDocument = require("./utils/newBoard");
 
 // @route POST /users
 // @desc Search for users
 // @access Private
-exports.listBoard = asyncHandler(async (req, res, next) => {
+exports.listOneBoard = asyncHandler(async (req, res, next) => {
   
-  
+  const board = await Board.findById(req.params.id).populate({
+    path: 'columns',
+    populate: {
+      path: 'cards'
+    }
+  });
 
-  try {
-
-    const board = await Board.find({
-      user: req.user.id
-    }).populate({
-      path: 'columns',
-      populate: {
-        path: 'cards'
-      }
-    });
-
-    res.status(200).json({ board });
-  } catch {
+  if(!board) {
     res.status(404);
     throw new Error("No board found with given id");
   }
+  const lastViewedBoard = await Board.findOne({user: req.user.id, lastViewed: true})
+  if (lastViewedBoard && board._id != lastViewedBoard._id) {
+    lastViewedBoard.lastViewed = false
+    await lastViewedBoard.save();
+  }
+  board.lastViewed = true;
+  await board.save();
+  res.status(200).json(board);
+});
+
+exports.listAllBoards = asyncHandler(async (req, res, next) => {
   
+  const boards = await Board.find({ user: req.user.id });
+
+  if(!boards) {
+    res.status(404);
+    throw new Error("There are no boards for this user");
+  }
+  const lastViewedBoard = await Board.findOne({user: req.user.id, lastViewed: true})
+  if (!lastViewedBoard) {
+    let firstBoard = await Board.findOne({ user: req.user.id })
+    firstBoard.lastViewed = true;
+    await firstBoard.save();
+  }
+
+  res.status(200).json(boards);
+});
+
+exports.createBoard = asyncHandler(async (req, res, next) => {
+  const { name } = req.body
+  const userId = req.user.id
+  
+  const board = await createBoardDocument(name, userId);
+  if(!board) {
+    res.status(500);
+    throw new Error("Could not create board, try again");
+  }
+  
+  res.status(200).json(board);
 });
 
 exports.handleBoard = asyncHandler(async (req, res, next) => {
@@ -63,15 +95,7 @@ exports.handleBoard = asyncHandler(async (req, res, next) => {
               description: card.description
             })
           }
-          
-          // If card exists but the name if different update de card.
-          if(card.name !== cardExists.name) {
-            return Card.findOneAndUpdate({_id: card._id}, {
-              name: card.name,
-              description: card.description,
-            })
-          }
-
+  
           return cardExists;
         }))
   
@@ -99,3 +123,35 @@ exports.handleBoard = asyncHandler(async (req, res, next) => {
   res.status(200).json({ board: updatedBoard })
 })
 
+
+exports.deleteColumn = asyncHandler(async (req, res, next) => {
+  const { column } = req.body;
+
+  if (column.cards) {
+    await Promise.all(column.cards.map(async card => {
+      await Card.deleteOne({_id: card._id});
+    }))
+  }
+
+  const deletedColumn = await BoardColumn.deleteOne({ _id: column._id })
+
+  if(deletedColumn.deletedCount === 0){
+    res.status(404);
+    throw new Error("Column can't be deleted with given id");
+  }
+
+  res.status(204).send()
+})
+
+exports.deleteCard = asyncHandler(async (req, res, next) => {
+  const { card } = req.body;
+
+  
+    const deletedCard = await Card.deleteOne({ _id: card._id })
+    if(deletedCard.deletedCount === 0){
+      res.status(404);
+      throw new Error("Card can't be deleted with given id");
+    }
+
+    res.status(204).send()
+})

@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 interface PropsButtons {
   colorDashboard: string;
-  colorCalendar: string; //user: User;
+  colorCalendar: string;
 }
 
 const useStyles = makeStyles({
@@ -41,12 +41,12 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
   },
   dashboardButton: (props: PropsButtons) => ({
-    color: props.colorDashboard, //'#666561' or '#759CFC'
+    color: props.colorDashboard,
     fontSize: 16,
     fontWeight: 400,
   }),
   calendarButton: (props: PropsButtons) => ({
-    color: props.colorCalendar, //'#666561' or '#759CFC'
+    color: props.colorCalendar,
     fontSize: 16,
     fontWeight: 400,
   }),
@@ -65,8 +65,6 @@ const useStyles = makeStyles({
   // ...
   menuButton: {
     alignSelf: 'flex-end',
-    //marginRight: theme.spacing(2),
-    //marginTop: theme.spacing(1),
   },
   toolbarTop: {
     minHeight: 33,

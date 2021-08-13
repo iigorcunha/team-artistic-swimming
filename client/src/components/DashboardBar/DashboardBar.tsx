@@ -1,23 +1,22 @@
 import { AppBar, Button, Toolbar, Typography, Box } from '@material-ui/core';
 import CalendarTodayOutlinedIcon from '@material-ui/icons/CalendarTodayOutlined';
 import DashboardOutlinedIcon from '@material-ui/icons/DashboardOutlined';
-import AddIcon from '@material-ui/icons/Add';
 import AvatarDisplay from '../AvatarDisplay/AvatarDisplay';
+import AddIcon from '@material-ui/icons/Add';
 import DashboardBarMenu from '../DashboardBarMenu/DashboardBarMenu';
 import { User } from '../../interface/User';
 import useStyles from './useStyles';
 import logo from '../../Images/logo.png';
 import LayoutIcon from '../LayoutIcon/LayoutIcon';
 import { useHistory } from 'react-router-dom';
+import { useBoard } from '../../context/useBoardContext';
+import NewBoardDialogBox from '../NewBoardDialog/NewBoardDialog';
 
-interface Props {
-  boardName: string;
-}
-
-const DashboardBar = ({ boardName }: Props): JSX.Element => {
+const DashboardBar = (): JSX.Element => {
   const PropsButtons = { colorDashboard: '#666561', colorCalendar: '#759CFC' };
   const classes = useStyles(PropsButtons);
   const history = useHistory();
+  const { boardName } = useBoard();
 
   const handleDashboardClick = async () => {
     history.push('/dashboard');
@@ -49,6 +48,7 @@ const DashboardBar = ({ boardName }: Props): JSX.Element => {
           <Button className={classes.createBoardButton} variant="contained" color="primary" startIcon={<AddIcon />}>
             Create Board
           </Button>
+          <NewBoardDialogBox />
           <Box className={classes.avatar}>
             <AvatarDisplay />
           </Box>

@@ -1,8 +1,8 @@
-import { Card, Column } from '../interface/Column';
+import { Card, Column } from '../interface/Board';
 
 const column1: Card[] = [
   {
-    id: 'christy',
+    _id: 'christy',
     name: 'Essay on the environment',
     color: 'green',
     deadline: 'July 12',
@@ -11,13 +11,13 @@ const column1: Card[] = [
 
 const column2: Card[] = [
   {
-    id: 'lisa',
+    _id: 'lisa',
     name: 'Midterm exam',
     color: 'red',
     deadline: 'March 10',
   },
   {
-    id: 'john',
+    _id: 'john',
     name: 'Practice exam',
     color: 'red',
   },
@@ -25,7 +25,7 @@ const column2: Card[] = [
 
 const column3: Card[] = [
   {
-    id: 'gammy',
+    _id: 'gammy',
     name: 'Homework',
     color: 'red',
   },
@@ -33,25 +33,25 @@ const column3: Card[] = [
 
 const column4: Card[] = [
   {
-    id: 'judith',
+    _id: 'judith',
     name: 'Workshop',
     color: 'yellow',
   },
   {
-    id: 'ferguson',
+    _id: 'ferguson',
     name: 'Practice exam',
     color: 'red',
   },
   {
-    id: 'pauly',
+    _id: 'pauly',
     name: 'Research',
     color: 'green',
     deadline: 'May 30',
   },
 ];
 export const columns: Column[] = [
-  { cards: column1, id: 'column1', title: 'Philosophy' },
-  { cards: column2, id: 'column2', title: 'Math' },
-  { cards: column3, id: 'column3', title: 'In Progress' },
-  { cards: column4, id: 'column4', title: 'Completed' },
+  { cards: column1, _id: 'column1', name: 'Philosophy' },
+  { cards: column2, _id: 'column2', name: 'Math' },
+  { cards: column3, _id: 'column3', name: 'In Progress' },
+  { cards: column4, _id: 'column4', name: 'Completed' },
 ];
