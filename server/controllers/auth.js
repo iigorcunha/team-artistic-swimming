@@ -34,6 +34,8 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
     const token = await generateToken(user._id);
     const secondsInWeek = 604800;
 
+    sendWelcomeEmail(user.email);
+
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: secondsInWeek * 1000
