@@ -12,6 +12,7 @@ import { BackdropProvider } from './context/useBackDropContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Unauthorized from './pages/Unauthorized/Unauthorized';
 import './App.css';
+import { TeamBoardProvider } from './context/useTeamBoardContext';
 
 function App(): JSX.Element {
   const [demoUser, setDemoUser] = useState(false);
@@ -34,23 +35,29 @@ function App(): JSX.Element {
           <AuthProvider>
             <BoardProvider>
               <BackdropProvider>
-                <Switch>
-                  <Route
-                    exact
-                    path="/login"
-                    render={(props: any) => <Login {...props} demoUser={demoUser} handleDemoLogin={handleDemoLogin} />}
-                  />
-                  <Route
-                    exact
-                    path="/signup"
-                    render={(props: any) => <Signup {...props} demoUser={demoUser} handleDemoLogin={handleDemoLogin} />}
-                  />
-                  <ProtectedRoute exact path="/dashboard" demoUser={demoUser} component={Dashboard} />
-                  <Route exact path="/unauthorized" component={Unauthorized} />
-                  <Route path="*">
-                    <Redirect to="/login" />
-                  </Route>
-                </Switch>
+                <TeamBoardProvider>
+                  <Switch>
+                    <Route
+                      exact
+                      path="/login"
+                      render={(props: any) => (
+                        <Login {...props} demoUser={demoUser} handleDemoLogin={handleDemoLogin} />
+                      )}
+                    />
+                    <Route
+                      exact
+                      path="/signup"
+                      render={(props: any) => (
+                        <Signup {...props} demoUser={demoUser} handleDemoLogin={handleDemoLogin} />
+                      )}
+                    />
+                    <ProtectedRoute exact path="/dashboard" demoUser={demoUser} component={Dashboard} />
+                    <Route exact path="/unauthorized" component={Unauthorized} />
+                    <Route path="*">
+                      <Redirect to="/login" />
+                    </Route>
+                  </Switch>
+                </TeamBoardProvider>
               </BackdropProvider>
             </BoardProvider>
           </AuthProvider>
