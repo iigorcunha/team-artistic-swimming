@@ -18,6 +18,14 @@ const boardSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'boardColumn'
   }],
-});
+}, { discriminatorKey: 'kanban' });
 
-module.exports = Board = mongoose.model("board", boardSchema);
+const Board = mongoose.model("board", boardSchema);
+
+const TeamBoard = Board.discriminator('teamBoard',
+new mongoose.Schema({ team: String }, { discriminatorKey: 'kanban' }))
+
+module.exports = {
+  Board,
+  TeamBoard
+}
