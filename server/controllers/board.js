@@ -1,4 +1,4 @@
-const Board = require("../models/Board");
+const { Board } = require("../models/Board");
 const Card = require("../models/Card");
 const asyncHandler = require("express-async-handler");
 const BoardColumn = require("../models/BoardColumn");
