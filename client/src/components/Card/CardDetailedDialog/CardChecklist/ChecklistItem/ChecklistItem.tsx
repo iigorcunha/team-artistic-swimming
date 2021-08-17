@@ -36,8 +36,6 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({ item }) => {
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(false);
 
-          console.log(values);
-
           updateItem({ _id: item._id, name: values.name, done: values.done });
 
           editItem && handleItem('closed');

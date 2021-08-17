@@ -16,7 +16,7 @@ const ChecklistForm: React.FC = () => {
         validationSchema={yup.object({
           name: yup.string().required('A checklist name is required.'),
         })}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(false);
 
           if (card.checklists) {
@@ -24,6 +24,8 @@ const ChecklistForm: React.FC = () => {
           } else {
             updateCard({ _id: card._id, checklists: [{ name: values.name }] });
           }
+
+          resetForm();
         }}
       >
         {({ isSubmitting, touched, errors, values, handleChange }) => (

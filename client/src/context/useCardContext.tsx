@@ -86,8 +86,6 @@ export const CardProvider: React.FC = ({ children }): JSX.Element => {
   async function removeItem(itemId: string) {
     const response = await deleteItem(itemId);
 
-    console.log(response);
-
     if (response.success) {
       await refetchCard(card._id);
     }
