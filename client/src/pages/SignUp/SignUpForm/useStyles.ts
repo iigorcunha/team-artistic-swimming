@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   form: {
     width: '47%', // Fix IE 11 issue.
-    //marginTop: theme.spacing(1),
     marginTop: 0,
     marginBottom: 0,
     marginLeft: 15,
@@ -12,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 16,
     fontWeight: 500,
     color: 'black',
-    //color: 'rgb(0,0,0,0.4)', //light gray
     paddingTop: '0px',
     paddingLeft: '0px',
     marginLeft: '140%',
@@ -46,24 +44,30 @@ const useStyles = makeStyles((theme) => ({
   },
   forgot: {
     paddingRight: 10,
-    color: '#759CFC', ////similar to nikko blue
+    color: '#759CFC',
+  },
+  submitsContainer: {
+    margin: 0,
+    padding: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
   submit: {
-    margin: theme.spacing(3, 2, 2),
-    marginLeft: 18,
-    padding: 10,
     width: 140,
     height: 48,
     borderRadius: theme.shape.borderRadius,
     fontSize: 16,
     fontWeight: 500,
-    backgroundColor: '#759CFC', ////similar to nikko blue
+    backgroundColor: '#759CFC',
+    color: 'white',
   },
   submitLogin: {
-    marginTop: 35,
+    marginTop: 25,
   },
   submitDemo: {
-    marginTop: 0,
+    marginTop: 20,
   },
 }));
 

@@ -24,6 +24,9 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'team'
   }],
+  lastViewedBoard: {
+    type: String,
+  },
   register_date: {
     type: Date,
     default: Date.now
