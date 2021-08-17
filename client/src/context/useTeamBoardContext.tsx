@@ -14,9 +14,7 @@ export const TeamBoardProvider: FunctionComponent = ({ children }): JSX.Element 
   const [teams, setTeams] = useState<string>('');
   const [activeTeam, setActiveTeam] = useState<string>('');
 
-  return (
-    <TeamBoardContext.Provider value={{ teams, activeTeam }}>{children}</TeamBoardContext.Provider>
-  );
+  return <TeamBoardContext.Provider value={{ teams, activeTeam }}>{children}</TeamBoardContext.Provider>;
 };
 
 export function useTeamBoard(): ITeamBoardContext {

@@ -1,4 +1,4 @@
-export interface TeamBoardsAction {
+export interface ActiveTeamAction {
   type: string;
   team: any;
 }
