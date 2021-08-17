@@ -1,6 +1,5 @@
-import { useState, useContext, createContext, FunctionComponent, useCallback, useEffect } from 'react';
-import { Column } from '../interface/Board';
-// import { columns } from '../mocks/mockBoardData';
+import { useState, useContext, createContext, FunctionComponent, useCallback } from 'react';
+import { Card, Column } from '../interface/Board';
 import getAllBoards from '../helpers/APICalls/getAllBoards';
 import getBoard from '../helpers/APICalls/getBoard';
 import createBoard from '../helpers/APICalls/createBoard';
