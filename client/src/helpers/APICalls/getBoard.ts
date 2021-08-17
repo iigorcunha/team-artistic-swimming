@@ -9,14 +9,8 @@ const getBoard = async (boardId: string): Promise<BoardApiData> => {
   };
   return await fetch(`/board/list/${boardId}`, fetchOptions)
     .then((res) => res.json())
-    .then((data) => ({
-      success: {
-        message: 'fetched sucessfully',
-        board: data,
-      },
-    }))
     .catch(() => ({
-      error: { message: 'Unable to connect to server. Please try again' },
+      error: 'Unable to connect to server. Please try again',
     }));
 };
 
