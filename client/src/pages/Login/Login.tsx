@@ -48,11 +48,11 @@ export default function Login({ handleDemoLogin }: Props): JSX.Element {
         <Box className={classes.authWrapper}>
           <Box width="100%" alignSelf="center">
             <Grid container>
-              <Grid item xs>
+              <Grid className={classes.leftSectionWrapper}>
                 <LoginSideImage />
               </Grid>
-              <Grid item xs>
-                <div style={{ height: 178 }} />
+              <Grid className={classes.rightSectionWrapper}>
+                <div style={{ height: 158 }} />
                 <Box className={classes.loginWrapper}>
                   <Typography className={classes.welcome} component="h1" variant="h5">
                     Welcome back!

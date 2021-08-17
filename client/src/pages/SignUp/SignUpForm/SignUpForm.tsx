@@ -6,7 +6,7 @@ import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
-//import { useAuth } from '../../../context/useAuthContext';
+import { useAuth } from '../../../context/useAuthContext';
 import login from '../../../helpers/APICalls/login';
 import { useHistory } from 'react-router-dom';
 import { SignUpFormData } from '../../../interface/Auth';
@@ -20,7 +20,7 @@ interface Props {
 
 const SignUpForm = ({ handleDemoLogin, handleSubmit }: Props): JSX.Element => {
   const classes = useStyles();
-  //const { updateLoginContext } = useAuth();
+  const { updateLoginContext } = useAuth();
   const history = useHistory();
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
@@ -124,7 +124,7 @@ const SignUpForm = ({ handleDemoLogin, handleSubmit }: Props): JSX.Element => {
             onChange={handleChange}
           />
 
-          <Box textAlign="center">
+          <Box className={classes.submitsContainer}>
             <Button
               type="submit"
               size="large"

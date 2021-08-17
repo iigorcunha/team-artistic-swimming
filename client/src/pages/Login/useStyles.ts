@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-//import { normalize } from 'path';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -16,6 +15,16 @@ const useStyles = makeStyles(() => ({
     minHeight: '100vh',
     paddingTop: 0,
     paddingBottom: 0,
+  },
+  leftSectionWrapper: {
+    margin: 0,
+    padding: 0,
+    width: '51.4%',
+  },
+  rightSectionWrapper: {
+    margin: 0,
+    padding: 0,
+    width: '48.6%',
   },
   loginWrapper: {
     display: 'flex',
@@ -47,8 +56,10 @@ const useStyles = makeStyles(() => ({
     paddingTop: 10,
     paddingBottom: 0,
   },
+  authFooterContainer: {
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
 }));
 
 export default useStyles;
-
-//fontFamily: "'Open Sans'",

@@ -2,6 +2,7 @@ const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("./utils/generateToken");
 const createBoardDocument = require("./utils/newBoard");
+const sendWelcomeEmail = require("./utils/sendWelcomeEmail");
 
 // @route POST /auth/register
 // @desc Register user
@@ -33,6 +34,8 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
     await createBoardDocument('My School Board', user._id)
     const token = await generateToken(user._id);
     const secondsInWeek = 604800;
+
+    sendWelcomeEmail(user.email);
 
     res.cookie("token", token, {
       httpOnly: true,
