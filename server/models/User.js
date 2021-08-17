@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'board'
   }],
+  teams: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'team'
+  }],
   register_date: {
     type: Date,
     default: Date.now
