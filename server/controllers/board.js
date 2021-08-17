@@ -1,5 +1,6 @@
 const Board = require("../models/Board");
 const Card = require("../models/Card");
+const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const BoardColumn = require("../models/BoardColumn");
 const createBoardDocument = require("./utils/newBoard");
@@ -34,6 +35,11 @@ exports.listOneBoard = asyncHandler(async (req, res, next) => {
       lastViewed: false,
     })
 
+    // set lastViewedBoard on User model
+    await User.findByIdAndUpdate({_id: req.user.id}, {
+      lastViewedBoard: board._id,
+    })
+
     await Board.findOneAndUpdate({user: req.user.id, _id: board._id}, {
       lastViewed: true,
     })
@@ -65,7 +71,10 @@ exports.createBoard = asyncHandler(async (req, res, next) => {
     throw new Error("Could not create board, try again");
   }
 
-  // const board = await Board.findById(boardCreated._id);
+  // set lastViewedBoard on User model
+  await User.findByIdAndUpdate({_id: req.user.id}, {
+    lastViewedBoard: board._id,
+  })
 
   res.status(200).json({ board });
 });
