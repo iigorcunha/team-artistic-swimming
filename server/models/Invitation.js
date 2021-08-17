@@ -10,7 +10,8 @@ const invitationSchema = new mongoose.Schema({
   },
   team: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'team'
+    ref: 'team',
+    required: true,
   },
 });
 
