@@ -11,7 +11,7 @@ export default function Calendar(): JSX.Element {
 
   return (
     <React.Fragment>
-      <DashboardBar boardName="My School Board" />
+      <DashboardBar />
       <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
         <CssBaseline />
         <Grid item className={classes.drawerWrapper}>

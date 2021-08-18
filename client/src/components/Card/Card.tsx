@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
 import { FC } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { Card } from '../../interface/Column';
+import { Card } from '../../interface/Board';
 import CardBadge from '../CardBadge/CardBadge';
 import useStyles from './useStyles';
 
@@ -14,7 +14,7 @@ const BoardCard: FC<CardProps> = ({ card, index }): JSX.Element => {
   const classes = useStyles();
   return (
     <div>
-      <Draggable key={card.id} draggableId={card.id} index={index}>
+      <Draggable key={card._id} draggableId={card._id} index={index}>
         {(provided) => (
           <li
             className={classes.card}

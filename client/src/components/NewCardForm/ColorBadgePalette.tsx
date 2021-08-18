@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import useStyles from './useStyles';
 import ColorBadge from './ColorBadge';
 import { Box, useTheme } from '@material-ui/core';
-import { ColorTags } from '../../interface/Column';
+import { ColorTags } from '../../interface/Board';
 
 interface BadgePaletteProps {
   dohandleSetColor: (color: ColorTags) => void;

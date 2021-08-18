@@ -4,13 +4,28 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import useStyles from './useStyles';
 import Board from '../../components/Board/Board';
 import DashboardBar from '../../components/DashboardBar/DashboardBar';
+import { useBoard } from '../../context/useBoardContext';
+import { useAuth } from '../../context/useAuthContext';
+import { useSocket } from '../../context/useSocketContext';
+import { useEffect } from 'react';
 
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
+  const { setInitialBoardList } = useBoard();
+
+  const { initSocket } = useSocket();
+
+  useEffect(() => {
+    setInitialBoardList();
+  }, [setInitialBoardList]);
+
+  useEffect(() => {
+    initSocket();
+  }, [initSocket]);
 
   return (
     <React.Fragment>
-      <DashboardBar boardName="My School Board" />
+      <DashboardBar />
       <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
         <CssBaseline />
         <Board />
