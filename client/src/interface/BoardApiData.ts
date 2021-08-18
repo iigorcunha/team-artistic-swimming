@@ -1,4 +1,4 @@
-import { Board } from './Board';
+import { Board, Column } from './Board';
 
 export interface BoardWithoutNestedChildren {
   _id: string;
@@ -36,4 +36,10 @@ export interface CreateBoardApiData {
 export interface HandleBoardApiData {
   error?: string;
   board?: Board;
+}
+
+export interface ColumnApiData {
+  error?: string;
+  success?: boolean;
+  column?: Column;
 }

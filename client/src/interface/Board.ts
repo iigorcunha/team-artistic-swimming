@@ -40,7 +40,8 @@ export interface CreateCard {
   colorCode?: string;
 }
 
-export interface CreateColumn {
+export interface UpdateColumn {
+  _id: string;
   name: string;
 }
 
