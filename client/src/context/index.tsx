@@ -3,6 +3,7 @@ import { BackdropProvider } from './useBackDropContext';
 import { BoardProvider } from './useBoardContext';
 import { CardProvider } from './useCardContext';
 import { ChecklistProvider } from './useChecklistContext';
+import { DialogProvider } from './useDialogContext';
 import { PopoverProvider } from './usePopoverContext';
 import { SnackBarProvider } from './useSnackbarContext';
 
@@ -14,7 +15,9 @@ const AppProvider: React.FC = ({ children }) => {
           <CardProvider>
             <ChecklistProvider>
               <BackdropProvider>
-                <PopoverProvider>{children}</PopoverProvider>
+                <DialogProvider>
+                  <PopoverProvider>{children}</PopoverProvider>
+                </DialogProvider>
               </BackdropProvider>
             </ChecklistProvider>
           </CardProvider>

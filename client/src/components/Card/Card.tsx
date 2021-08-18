@@ -1,8 +1,8 @@
 import { Typography } from '@material-ui/core';
 import { FC } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { useBackdrop } from '../../context/useBackDropContext';
 import { useCard } from '../../context/useCardContext';
+import { useDialog } from '../../context/useDialogContext';
 import { dateFormat } from '../../helpers/date/dateFormat';
 import { Card } from '../../interface/Board';
 import CardBadge from '../CardBadge/CardBadge';
@@ -19,12 +19,12 @@ const BoardCard: FC<CardProps> = ({ card, index }): JSX.Element => {
 
   const { getCard, card: selectedCard, isFetching } = useCard();
 
-  const { backdropOpen, openBackdrop, closeBackdrop } = useBackdrop();
+  const { handleDialog, openedDialog, onClose } = useDialog();
 
   async function handleDetailedCard(): Promise<void> {
     getCard(card._id);
 
-    openBackdrop();
+    handleDialog(card._id);
   }
   return (
     <>
@@ -44,7 +44,7 @@ const BoardCard: FC<CardProps> = ({ card, index }): JSX.Element => {
           )}
         </Draggable>
       </div>
-      {!!selectedCard && !isFetching && <CardDetailedDialog open={backdropOpen} handleClose={closeBackdrop} />}
+      {!!selectedCard && !isFetching && <CardDetailedDialog open={openedDialog === card._id} handleClose={onClose} />}
     </>
   );
 };
