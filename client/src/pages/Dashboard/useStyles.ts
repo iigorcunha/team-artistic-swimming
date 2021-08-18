@@ -8,16 +8,6 @@ const useStyles = makeStyles(() => ({
     },
   },
   dashboard: { backgroundColor: '#FFFFFF' },
-  /*
-  drawerWrapper: {
-    width: drawerWidth,
-    [theme.breakpoints.up('md')]: {
-      width: '100%',
-      margin: 0,
-      padding: 0,
-      marginTop: '2.5%',
-    },
-  },*/
 }));
 
 export default useStyles;
