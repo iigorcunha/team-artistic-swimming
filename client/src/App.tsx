@@ -6,12 +6,9 @@ import Login from './pages/Login/Login';
 import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Calendar from './pages/Calendar/Calendar';
-import { AuthProvider } from './context/useAuthContext';
-import { BoardProvider } from './context/useBoardContext';
-import { SnackBarProvider } from './context/useSnackbarContext';
-import { BackdropProvider } from './context/useBackDropContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
+import { AppProvider } from './context';
 
 function App(): JSX.Element {
   const [demoUser, setDemoUser] = useState(false);
@@ -30,31 +27,26 @@ function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
       <Router>
-        <SnackBarProvider>
-          <AuthProvider>
-            <BoardProvider>
-              <BackdropProvider>
-                <Switch>
-                  <Route
-                    exact
-                    path="/login"
-                    render={(props: any) => <Login {...props} demoUser={demoUser} handleDemoLogin={handleDemoLogin} />}
-                  />
-                  <Route
-                    exact
-                    path="/signup"
-                    render={(props: any) => <Signup {...props} demoUser={demoUser} handleDemoLogin={handleDemoLogin} />}
-                  />
-                  <ProtectedRoute exact path="/dashboard" demoUser={demoUser} component={Dashboard} />
-                  <ProtectedRoute exact path="/calendar" demoUser={demoUser} component={Calendar} />
-                  <Route path="*">
-                    <Redirect to="/login" />
-                  </Route>
-                </Switch>
-              </BackdropProvider>
-            </BoardProvider>
-          </AuthProvider>
-        </SnackBarProvider>
+        <AppProvider>
+          <Switch>
+            <Route
+              exact
+              path="/login"
+              render={(props: any) => <Login {...props} demoUser={demoUser} handleDemoLogin={handleDemoLogin} />}
+            />
+            <Route
+              exact
+              path="/signup"
+              render={(props: any) => <Signup {...props} demoUser={demoUser} handleDemoLogin={handleDemoLogin} />}
+            />
+            <ProtectedRoute exact path="/dashboard" demoUser={demoUser} component={Dashboard} />
+            <ProtectedRoute exact path="/calendar" demoUser={demoUser} component={Calendar} />
+            <Route exact path="/unauthorized" component={Unauthorized} />
+            <Route path="*">
+              <Redirect to="/login" />
+            </Route>
+          </Switch>
+        </AppProvider>
       </Router>
     </MuiThemeProvider>
   );

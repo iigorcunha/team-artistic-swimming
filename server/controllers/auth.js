@@ -2,6 +2,7 @@ const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("./utils/generateToken");
 const createBoardDocument = require("./utils/newBoard");
+const sendWelcomeEmail = require("./utils/sendWelcomeEmail");
 
 // @route POST /auth/register
 // @desc Register user
@@ -34,6 +35,8 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
     const token = await generateToken(user._id);
     const secondsInWeek = 604800;
 
+    sendWelcomeEmail(user.email);
+
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: secondsInWeek * 1000
@@ -44,7 +47,8 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
         user: {
           id: user._id,
           username: user.username,
-          email: user.email
+          email: user.email,
+          lastViewedBoard: user.lastViewedBoard
         }
       }
     });
@@ -76,7 +80,8 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
         user: {
           id: user._id,
           username: user.username,
-          email: user.email
+          email: user.email,
+          lastViewedBoard: user.lastViewedBoard
         }
       }
     });
@@ -102,7 +107,8 @@ exports.loadUser = asyncHandler(async (req, res, next) => {
       user: {
         id: user._id,
         username: user.username,
-        email: user.email
+        email: user.email,
+        lastViewedBoard: user.lastViewedBoard
       }
     }
   });

@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-//import { normalize } from 'path';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -64,5 +63,3 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default useStyles;
-
-//fontFamily: "'Open Sans'",
