@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import { FC } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { FiTrash2 } from 'react-icons/fi';
+import { FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { usePopover } from '../../context/usePopoverContext';
 import { Card } from '../../interface/Board';
 import BoardCard from '../Card/Card';
@@ -30,7 +30,7 @@ const BoardColumn: FC<ColumnProps> = ({ column, droppableId, name, index }): JSX
     <Draggable draggableId={droppableId} index={index}>
       {(provided) => (
         <div className={classes.columnContainer} {...provided.draggableProps} ref={provided.innerRef}>
-          <Box className={classes.columnTitleContainer}>
+          <Box className={classes.columnTitleContainer} {...provided.dragHandleProps}>
             <Formik
               enableReinitialize
               initialValues={{ name: name }}
@@ -47,7 +47,6 @@ const BoardColumn: FC<ColumnProps> = ({ column, droppableId, name, index }): JSX
             >
               {({ touched, errors, values, handleChange, submitForm }) => (
                 <Input
-                  {...provided.dragHandleProps}
                   autoFocus={editableColumn === droppableId}
                   id="name"
                   name="name"
@@ -55,7 +54,6 @@ const BoardColumn: FC<ColumnProps> = ({ column, droppableId, name, index }): JSX
                   disabled={!(editableColumn === droppableId)}
                   disableUnderline
                   onChange={handleChange}
-                  onClick={() => !(editableColumn === droppableId) && handleEditColumn(droppableId)}
                   onKeyPress={(event) => event.key === 'Enter' && submitForm()}
                   className={classes.columnTitle}
                   error={touched.name && Boolean(errors.name)}
@@ -64,6 +62,14 @@ const BoardColumn: FC<ColumnProps> = ({ column, droppableId, name, index }): JSX
               )}
             </Formik>
 
+            <IconButton
+              className={classes.deleteButton}
+              onClick={() =>
+                !(editableColumn === droppableId) ? handleEditColumn(droppableId) : handleEditColumn('closed')
+              }
+            >
+              <FiEdit2 />
+            </IconButton>
             <IconButton onClick={handleOpenPopover} id={droppableId} className={classes.deleteButton}>
               <FiTrash2 />
             </IconButton>
