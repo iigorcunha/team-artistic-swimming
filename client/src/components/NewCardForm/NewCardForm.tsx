@@ -6,6 +6,7 @@ import { ColorTags, Column } from '../../interface/Board';
 import { useBoard } from '../../context/useBoardContext';
 import * as yup from 'yup';
 import BadgePalette from './ColorBadgePalette';
+import { useCard } from '../../context/useCardContext';
 
 interface CardDialogFormProps {
   columnId: string;
@@ -15,6 +16,7 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false);
   const [selectedColor, setSelectedColor] = useState<ColorTags>('');
   const { board, updateBoard } = useBoard();
+  const { createCard } = useCard();
   const classes = useStyles();
   const handleToggleForm: () => void = () => {
     setOpen(!open);
@@ -31,14 +33,19 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
             validationSchema={yup.object({
               name: yup.string().required('Name is required'),
             })}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={async (values, { setSubmitting }) => {
               setSubmitting(false);
               const modifiedBoard = Array.from(board.columns);
               const columnToAddCard: Column | undefined = modifiedBoard.find((e) => e._id === columnId);
               if (columnToAddCard) {
-                columnToAddCard.cards.push({ ...values, name: values.name, colorCode: selectedColor });
-                updateBoard(modifiedBoard);
-                handleToggleForm();
+                createCard({ name: values.name, colorCode: selectedColor }).then((card) => {
+                  if (card) {
+                    columnToAddCard.cards.push({ _id: card._id, name: card.name, colorCode: card.colorCode });
+
+                    updateBoard(modifiedBoard);
+                    handleToggleForm();
+                  }
+                });
               }
             }}
           >

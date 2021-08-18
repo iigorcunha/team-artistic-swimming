@@ -35,6 +35,15 @@ export interface Card {
   comments?: Comment[];
 }
 
+export interface CreateCard {
+  name: string;
+  colorCode?: string;
+}
+
+export interface CreateColumn {
+  name: string;
+}
+
 export interface Column {
   _id: string;
   cards: Card[];
