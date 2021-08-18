@@ -151,3 +151,15 @@ exports.deleteCard = asyncHandler(async (req, res, next) => {
       res.status(200).json({ success: true })
     }
 })
+
+
+exports.createCard = asyncHandler(async (req, res, next) => {
+  const { name, colorCode } = req.body;
+
+  const card = await Card.create({
+    name,
+    colorCode,
+  });
+
+  res.status(200).json({ card })
+})

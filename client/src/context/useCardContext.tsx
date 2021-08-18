@@ -6,13 +6,15 @@ import deleteItem from '../helpers/APICalls/deleteItem';
 import listOneCard from '../helpers/APICalls/listOneCard';
 import patchChecklist from '../helpers/APICalls/patchChecklist';
 import patchItem from '../helpers/APICalls/patchItem';
-import { Card } from '../interface/Board';
+import postCard from '../helpers/APICalls/postCard';
+import { Card, CreateCard } from '../interface/Board';
 import { UpdatedCard } from '../interface/CardApiData';
 import { CreateItem, UpdatedItem } from '../interface/ChecklistApiData';
 
 interface ICardContext {
   card: Card;
   isFetching: boolean;
+  createCard: (card: CreateCard) => Promise<Card | undefined>;
   getCard: (cardId: string) => void;
   updateCard: (card: UpdatedCard) => void;
   updateItem: (item: UpdatedItem) => void;
@@ -32,6 +34,16 @@ export const CardProvider: React.FC = ({ children }): JSX.Element => {
     const response = await listOneCard(cardId);
     if (response.card) {
       setCard(response.card);
+    } else {
+      console.error(response.error);
+    }
+  }
+
+  async function createCard(card: CreateCard) {
+    const response = await postCard(card);
+
+    if (response.card) {
+      return response.card;
     } else {
       console.error(response.error);
     }
@@ -122,6 +134,7 @@ export const CardProvider: React.FC = ({ children }): JSX.Element => {
       value={{
         card,
         isFetching,
+        createCard,
         getCard,
         updateCard,
         updateItem,

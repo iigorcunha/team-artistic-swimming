@@ -1,5 +1,5 @@
 import { useState, useContext, createContext, FunctionComponent, useCallback } from 'react';
-import { Card, Column } from '../interface/Board';
+import { Board, Column } from '../interface/Board';
 import getAllBoards from '../helpers/APICalls/getAllBoards';
 import getBoard from '../helpers/APICalls/getBoard';
 import createBoard from '../helpers/APICalls/createBoard';
@@ -52,6 +52,7 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
     async (columns: Column[]) => {
       setBoard((oldBoard) => {
         const newBoard = oldBoard;
+
         newBoard.columns = columns;
 
         return newBoard;
@@ -86,6 +87,7 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
     },
     [switchBoardInView],
   );
+
   return (
     <BoardContext.Provider
       value={{
