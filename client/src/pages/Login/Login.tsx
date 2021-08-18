@@ -59,7 +59,7 @@ export default function Login({ handleDemoLogin }: Props): JSX.Element {
                   </Typography>
                   <LoginForm handleSubmit={handleSubmit} handleDemoLogin={handleDemoLogin} />
                 </Box>
-                <Box borderTop={1} borderColor="grey.200">
+                <Box borderTop={1} borderColor="grey.200" className={classes.authFooterContainer}>
                   <AuthFooter linkTo="/signup" asideText="Don't have an account?" btnText="Create" btnDemo="Demo" />
                 </Box>
               </Grid>

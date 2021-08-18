@@ -5,8 +5,8 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import Login from './pages/Login/Login';
 import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Calendar from './pages/Calendar/Calendar';
 import ProtectedRoute from './components/ProtectedRoute';
-import Unauthorized from './pages/Unauthorized/Unauthorized';
 import './App.css';
 import { AppProvider } from './context';
 
@@ -40,6 +40,7 @@ function App(): JSX.Element {
               render={(props: any) => <Signup {...props} demoUser={demoUser} handleDemoLogin={handleDemoLogin} />}
             />
             <ProtectedRoute exact path="/dashboard" demoUser={demoUser} component={Dashboard} />
+            <ProtectedRoute exact path="/calendar" demoUser={demoUser} component={Calendar} />
             <Route exact path="/unauthorized" component={Unauthorized} />
             <Route path="*">
               <Redirect to="/login" />
