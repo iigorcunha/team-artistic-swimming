@@ -43,9 +43,9 @@ const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ open, handleClose, deta
         </DialogTitle>
         <DialogContent>
           <Formik
-            initialValues={{ title: '' }}
+            initialValues={{ name: '' }}
             validationSchema={yup.object({
-              title: yup.string().required('Title is required'),
+              name: yup.string().required('Name is required'),
             })}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(false);
@@ -54,15 +54,9 @@ const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ open, handleClose, deta
                 closeBackdrop();
               }, 1200);
               if (details.position === 'left') {
-                updateBoard([
-                  { cards: [{ ...details.draggedCard }], id: values.title, title: values.title },
-                  ...details.boardArrangement,
-                ]);
+                updateBoard([{ cards: [{ ...details.draggedCard }], name: values.name }, ...details.boardArrangement]);
               } else {
-                updateBoard([
-                  ...details.boardArrangement,
-                  { cards: [{ ...details.draggedCard }], id: values.title, title: values.title },
-                ]);
+                updateBoard([...details.boardArrangement, { cards: [{ ...details.draggedCard }], name: values.name }]);
               }
               handleClose();
             }}
@@ -71,16 +65,16 @@ const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ open, handleClose, deta
               <Form className={classes.newColumnForm}>
                 <TextField
                   variant="outlined"
-                  id="title"
-                  name="title"
-                  label="Add Title"
+                  id="name"
+                  name="name"
+                  label="Add name"
                   autoComplete="off"
                   type="text"
-                  value={values.title}
+                  value={values.name}
                   onChange={handleChange}
                   className={classes.textField}
-                  error={touched.title && Boolean(errors.title)}
-                  helperText={touched.title && errors.title}
+                  error={touched.name && Boolean(errors.name)}
+                  helperText={touched.name && errors.name}
                 />
                 <Button
                   variant="contained"

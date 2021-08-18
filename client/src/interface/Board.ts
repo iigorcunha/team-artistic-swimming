@@ -34,6 +34,7 @@ export interface Card {
   checklists?: Checklist[];
   comments?: Comment[];
 }
+
 export interface Column {
   _id: string;
   cards: Card[];
@@ -44,5 +45,6 @@ export interface Board {
   _id: string;
   columns: Column[];
   name: string;
+  lastViewed: boolean;
 }
 export type ColorTags = 'red' | 'blue' | 'yellow' | 'green' | '';
