@@ -1,3 +1,4 @@
+import { Team } from '../../interface/Team';
 import { ActiveTeamAction } from '../../interface/TeamBoardActions';
 import {
   addCollaboratorsToTeam,
@@ -14,49 +15,49 @@ const SET_TEAM_BOARD = 'SET_TEAM_BOARD';
 const DELETE_TEAM_BOARD = 'DELETE_TEAM_BOARD';
 const HANDLE_TEAM_BOARD_REARRANGEMENT = 'HANDLE_TEAM_BOARD_REARRANGEMENT';
 
-export const invitedCollaboator = (team: any): ActiveTeamAction => {
+export const invitedCollaboator = (team: Team): ActiveTeamAction => {
   return {
     type: INVITE_COLLABORATOR,
     team,
   };
 };
 
-export const createdNewTeamBoard = (team: any): ActiveTeamAction => {
+export const createdNewTeamBoard = (team: Team): ActiveTeamAction => {
   return {
     type: CREATE_TEAM_BOARD,
     team,
   };
 };
 
-export const gotAllTeamBoards = (team: any): ActiveTeamAction => {
+export const gotAllTeamBoards = (team: Team): ActiveTeamAction => {
   return {
     type: GET_ALL_TEAM_BOARDS,
     team,
   };
 };
 
-export const setTeamBoard = (team: any): ActiveTeamAction => {
+export const setTeamBoard = (team: Team): ActiveTeamAction => {
   return {
     type: SET_TEAM_BOARD,
     team,
   };
 };
 
-export const removeTeamBoard = (team: any): ActiveTeamAction => {
+export const removeTeamBoard = (team: Team): ActiveTeamAction => {
   return {
     type: DELETE_TEAM_BOARD,
     team,
   };
 };
 
-export const reArrangeTeamBoard = (team: any): ActiveTeamAction => {
+export const reArrangeTeamBoard = (team: Team): ActiveTeamAction => {
   return {
     type: HANDLE_TEAM_BOARD_REARRANGEMENT,
     team,
   };
 };
 
-export default function reducer(draft: any, action: ActiveTeamAction): void {
+export default function reducer(draft: Team, action: ActiveTeamAction): void {
   switch (action.type) {
     case INVITE_COLLABORATOR:
       return addCollaboratorsToTeam(draft, action);
@@ -71,6 +72,6 @@ export default function reducer(draft: any, action: ActiveTeamAction): void {
     case HANDLE_TEAM_BOARD_REARRANGEMENT:
       return handleDragAndDropOfTeamBoard(draft, action);
     default:
-      return draft;
+      return;
   }
 }

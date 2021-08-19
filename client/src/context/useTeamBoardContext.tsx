@@ -1,18 +1,20 @@
-import { useState, useContext, createContext, FunctionComponent } from 'react';
+import { useContext, createContext, FunctionComponent } from 'react';
+import { Team, TeamsList } from '../interface/Team';
+import { useImmer } from 'use-immer';
 
 interface ITeamBoardContext {
-  teams: any;
-  activeTeam: any;
+  teams: TeamsList;
+  activeTeam: Team;
 }
 
 export const TeamBoardContext = createContext<ITeamBoardContext>({
-  teams: '',
-  activeTeam: '',
+  teams: {} as TeamsList,
+  activeTeam: {} as Team,
 });
 
 export const TeamBoardProvider: FunctionComponent = ({ children }): JSX.Element => {
-  const [teams, setTeams] = useState<string>('');
-  const [activeTeam, setActiveTeam] = useState<string>('');
+  const [teams, setTeams] = useImmer<TeamsList>({} as TeamsList);
+  const [activeTeam, setActiveTeam] = useImmer<Team>({} as Team);
 
   return <TeamBoardContext.Provider value={{ teams, activeTeam }}>{children}</TeamBoardContext.Provider>;
 };

@@ -1,23 +1,26 @@
-export function addAndSwitchToNewTeam(state: any, action: any) {
+import { Team, TeamsList } from "../../interface/Team";
+import { ActiveTeamAction, UserTeamAction } from "../../interface/TeamBoardActions";
+
+export function addAndSwitchToNewTeam(state: TeamsList, action: UserTeamAction) {
   console.log(action, 'New Team will be added to user on dispatch');
 }
 
-export function addCollaboratorsToTeam(state: any, action: any) {
+export function addCollaboratorsToTeam(state: Team, action: ActiveTeamAction) {
   console.log(action, 'New Collaborator will be added to team on dispatch');
 }
 
-export function addNewBoardToTeam(state: any, action: any) {
+export function addNewBoardToTeam(state: Team, action: ActiveTeamAction) {
   console.log(action, 'New Board will be added to team on dispatch');
 }
 
-export function setSelectedTeamBoard(state: any, action: any) {
+export function setSelectedTeamBoard(state: Team, action: ActiveTeamAction) {
   console.log(action, 'New Board will be displayed to user on dispatch');
 }
 
-export function removeDeletedTeamBoardFromList(state: any, action: any) {
+export function removeDeletedTeamBoardFromList(state: Team, action: ActiveTeamAction) {
   console.log(action, 'A Board will be removed from team board list to team on dispatch');
 }
 
-export function handleDragAndDropOfTeamBoard(state: any, action: any) {
+export function handleDragAndDropOfTeamBoard(state: Team, action: ActiveTeamAction) {
   console.log(action, 'Board will be rearranged on dispatch');
 }
