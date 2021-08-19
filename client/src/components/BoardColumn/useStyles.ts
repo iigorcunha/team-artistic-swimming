@@ -43,6 +43,14 @@ const useStyles = makeStyles<Theme, BoardColumnStyleProps>((theme) => ({
       color: 'black',
     },
   },
+  pointer: {
+    '&:hover': {
+      cursor: 'pointer',
+    },
+    '&:focus': {
+      cursor: 'text',
+    },
+  },
   deleteButton: {
     padding: theme.spacing(1),
     fontSize: theme.spacing(2),

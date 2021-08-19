@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import { FC } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { FiEdit2, FiTrash2 } from 'react-icons/fi';
+import { FiTrash2 } from 'react-icons/fi';
 import { usePopover } from '../../context/usePopoverContext';
 import { Card } from '../../interface/Board';
 import BoardCard from '../Card/Card';
@@ -12,6 +12,7 @@ import { Popover } from '../Popover/Popover';
 import { BoardColumnDelete } from './BoardColumnDelete/BoardColumnDelete';
 import useStyles from './useStyles';
 import { useBoard } from '../../context/useBoardContext';
+import { useRef } from 'react';
 
 interface ColumnProps {
   column: Card[];
@@ -23,8 +24,16 @@ interface ColumnProps {
 const BoardColumn: FC<ColumnProps> = ({ column, droppableId, name, index }): JSX.Element => {
   const { handleOpenPopover, handleClosePopover } = usePopover();
   const { editableColumn, handleEditColumn, updateColumn } = useBoard();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const classes = useStyles({ editColumn: editableColumn === droppableId });
+
+  function handleInput(columnId: string) {
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100);
+    handleEditColumn(columnId);
+  }
 
   return (
     <Draggable draggableId={droppableId} index={index}>
@@ -47,13 +56,18 @@ const BoardColumn: FC<ColumnProps> = ({ column, droppableId, name, index }): JSX
             >
               {({ touched, errors, values, handleChange, submitForm }) => (
                 <Input
-                  autoFocus={editableColumn === droppableId}
                   id="name"
                   name="name"
                   value={values.name}
-                  disabled={!(editableColumn === droppableId)}
+                  inputProps={{
+                    className: classes.pointer,
+                  }}
+                  autoComplete="off"
+                  inputRef={inputRef}
+                  disabled={!(droppableId === editableColumn)}
                   disableUnderline
                   onChange={handleChange}
+                  onClick={() => !(droppableId === editableColumn) && handleInput(droppableId)}
                   onKeyPress={(event) => event.key === 'Enter' && submitForm()}
                   className={classes.columnTitle}
                   error={touched.name && Boolean(errors.name)}
@@ -61,15 +75,6 @@ const BoardColumn: FC<ColumnProps> = ({ column, droppableId, name, index }): JSX
                 />
               )}
             </Formik>
-
-            <IconButton
-              className={classes.deleteButton}
-              onClick={() =>
-                !(editableColumn === droppableId) ? handleEditColumn(droppableId) : handleEditColumn('closed')
-              }
-            >
-              <FiEdit2 />
-            </IconButton>
             <IconButton onClick={handleOpenPopover} id={droppableId} className={classes.deleteButton}>
               <FiTrash2 />
             </IconButton>
