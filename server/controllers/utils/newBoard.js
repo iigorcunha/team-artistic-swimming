@@ -1,4 +1,4 @@
-const Board = require("../../models/Board");
+const { Board } = require("../../models/Board");
 const BoardColumn = require("../../models/BoardColumn");
 const User = require("../../models/User");
 

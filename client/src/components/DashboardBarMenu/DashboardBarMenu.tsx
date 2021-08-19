@@ -3,9 +3,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuIcon from '@material-ui/icons/Menu';
+import useStyles from './useStyles';
 import { useBoard } from '../../context/useBoardContext';
 
 const DashboardBarMenu = (): JSX.Element => {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const { boardList, switchBoardInView } = useBoard();
@@ -26,7 +28,7 @@ const DashboardBarMenu = (): JSX.Element => {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <MenuIcon />
+        <MenuIcon className={classes.menuIcon} />
       </IconButton>
       <Menu
         id="dashboard-bar-menu"

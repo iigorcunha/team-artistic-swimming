@@ -26,6 +26,8 @@ export const theme = createMuiTheme({
   },
   palette: {
     primary: { main: '#759CFC' },
+    secondary: { main: '#F4F6FF' },
+    text: { secondary: '#9BA9CC' },
     greenTag: { main: '#5ACD76' },
     redTag: { main: '#FF5D48' },
     yellowTag: { main: '#EDAB1D' },

@@ -10,14 +10,8 @@ const register = async (name: string): Promise<CreateBoardApiData> => {
   };
   return await fetch(`/board/create`, fetchOptions)
     .then((res) => res.json())
-    .then((data) => ({
-      success: {
-        message: 'created new board sucessfully',
-        board: data,
-      },
-    }))
     .catch(() => ({
-      error: { message: 'Unable to connect to server. Please try again' },
+      error: 'Unable to connect to server. Please try again',
     }));
 };
 

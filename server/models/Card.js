@@ -17,11 +17,20 @@ const cardSchema = new mongoose.Schema({
   tags: {
     type: [String]
   },
-  attachments: {
-    type: [String]
-  }
+  attachments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'attachment'
+  }],
+  checklists: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'checklist'
+  }],
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'comment'
+  }],
 }, {
   timestamps: true
 });
 
-module.exports = BoardColumns = mongoose.model("card", cardSchema);
+module.exports = Card = mongoose.model("card", cardSchema);

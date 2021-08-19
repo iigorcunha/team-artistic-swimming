@@ -6,6 +6,7 @@ import { ColorTags, Column } from '../../interface/Board';
 import { useBoard } from '../../context/useBoardContext';
 import * as yup from 'yup';
 import BadgePalette from './ColorBadgePalette';
+import { useCard } from '../../context/useCardContext';
 
 interface CardDialogFormProps {
   columnId: string;
@@ -14,7 +15,8 @@ interface CardDialogFormProps {
 const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false);
   const [selectedColor, setSelectedColor] = useState<ColorTags>('');
-  const { boardColumns, updateBoard } = useBoard();
+  const { board, updateBoard } = useBoard();
+  const { createCard } = useCard();
   const classes = useStyles();
   const handleToggleForm: () => void = () => {
     setOpen(!open);
@@ -27,20 +29,24 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
       {open ? (
         <Box>
           <Formik
-            initialValues={{ name: '', color: '' }}
+            initialValues={{ name: '', colorCode: '' }}
             validationSchema={yup.object({
               name: yup.string().required('Name is required'),
             })}
-            onSubmit={(values, { setSubmitting }) => {
-              // IGOR IS WORKING ON THIS
-              // setSubmitting(false);
-              // const modifiedBoard = Array.from(boardColumns);
-              // const columnToAddCard: Column | undefined = modifiedBoard.find((e) => e.id === columnId);
-              // if (columnToAddCard) {
-              //   // columnToAddCard.cards.push({ ...values, _id: values.name, color: selectedColor });
-              //   updateBoard(modifiedBoard);
-              //   handleToggleForm();
-              // }
+            onSubmit={async (values, { setSubmitting }) => {
+              setSubmitting(false);
+              const modifiedBoard = Array.from(board.columns);
+              const columnToAddCard: Column | undefined = modifiedBoard.find((e) => e._id === columnId);
+              if (columnToAddCard) {
+                createCard({ name: values.name, colorCode: selectedColor }).then((card) => {
+                  if (card) {
+                    columnToAddCard.cards.push({ _id: card._id, name: card.name, colorCode: card.colorCode });
+
+                    updateBoard(modifiedBoard);
+                    handleToggleForm();
+                  }
+                });
+              }
             }}
           >
             {({ touched, errors, values, handleChange }) => (
@@ -63,7 +69,7 @@ const NewCardForm: FC<CardDialogFormProps> = ({ columnId }): JSX.Element => {
                 />
                 <Box className={classes.radioInputContainer}>
                   <Typography color="textSecondary" variant="subtitle2">
-                    Select Tag:
+                    Select a color tag:
                   </Typography>
                   <BadgePalette dohandleSetColor={handleColorSelection} />
                 </Box>

@@ -4,8 +4,7 @@ const column1: Card[] = [
   {
     _id: 'christy',
     name: 'Essay on the environment',
-    color: 'green',
-    deadline: 'July 12',
+    colorCode: 'green',
   },
 ];
 
@@ -13,13 +12,12 @@ const column2: Card[] = [
   {
     _id: 'lisa',
     name: 'Midterm exam',
-    color: 'red',
-    deadline: 'March 10',
+    colorCode: 'red',
   },
   {
     _id: 'john',
     name: 'Practice exam',
-    color: 'red',
+    colorCode: 'red',
   },
 ];
 
@@ -27,7 +25,7 @@ const column3: Card[] = [
   {
     _id: 'gammy',
     name: 'Homework',
-    color: 'red',
+    colorCode: 'red',
   },
 ];
 
@@ -35,18 +33,17 @@ const column4: Card[] = [
   {
     _id: 'judith',
     name: 'Workshop',
-    color: 'yellow',
+    colorCode: 'yellow',
   },
   {
     _id: 'ferguson',
     name: 'Practice exam',
-    color: 'red',
+    colorCode: 'red',
   },
   {
     _id: 'pauly',
     name: 'Research',
-    color: 'green',
-    deadline: 'May 30',
+    colorCode: 'green',
   },
 ];
 export const columns: Column[] = [

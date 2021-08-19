@@ -16,6 +16,16 @@ const useStyles = makeStyles(() => ({
     paddingTop: 0,
     paddingBottom: 0,
   },
+  leftSectionWrapper: {
+    margin: 0,
+    padding: 0,
+    width: '51.4%',
+  },
+  rightSectionWrapper: {
+    margin: 0,
+    padding: 0,
+    width: '48.6%',
+  },
   loginWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -43,6 +53,10 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     minHeight: '100vh',
     paddingTop: 10,
+    paddingBottom: 0,
+  },
+  authFooterContainer: {
+    paddingTop: 0,
     paddingBottom: 0,
   },
 }));
