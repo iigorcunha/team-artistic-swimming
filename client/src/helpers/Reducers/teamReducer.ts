@@ -19,13 +19,13 @@ export const gotAllTeams = (teams: TeamsList): UserTeamAction => {
   };
 };
 
-export default function reducer(draft: TeamsList, action: UserTeamAction): void {
+export default function reducer(draft: TeamsList, action: UserTeamAction): TeamsList {
   switch (action.type) {
     case CREATE_TEAM:
       return addAndSwitchToNewTeam(draft, action);
     case GET_ALL_TEAMS_LIST:
       return action.teams;
     default:
-      return;
+      return draft;
   }
 }

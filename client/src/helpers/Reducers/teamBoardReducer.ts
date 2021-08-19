@@ -57,7 +57,7 @@ export const reArrangeTeamBoard = (team: Team): ActiveTeamAction => {
   };
 };
 
-export default function reducer(draft: Team, action: ActiveTeamAction): void {
+export default function reducer(draft: Team, action: ActiveTeamAction): Team {
   switch (action.type) {
     case INVITE_COLLABORATOR:
       return addCollaboratorsToTeam(draft, action);
@@ -72,6 +72,6 @@ export default function reducer(draft: Team, action: ActiveTeamAction): void {
     case HANDLE_TEAM_BOARD_REARRANGEMENT:
       return handleDragAndDropOfTeamBoard(draft, action);
     default:
-      return;
+      return draft;
   }
 }

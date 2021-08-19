@@ -1,9 +1,11 @@
+import { Team, TeamsList } from "./Team";
+
 export interface ActiveTeamAction {
   type: string;
-  team: any;
+  team: Team;
 }
 
 export interface UserTeamAction {
   type: string;
-  teams: any;
+  teams: TeamsList;
 }
