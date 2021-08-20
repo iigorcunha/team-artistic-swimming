@@ -45,7 +45,7 @@ export interface CreateColumn {
 }
 
 export interface Column {
-  _id: string;
+  _id?: string;
   cards: Card[];
   name: string;
 }

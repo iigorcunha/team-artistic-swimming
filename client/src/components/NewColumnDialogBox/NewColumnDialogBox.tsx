@@ -13,16 +13,19 @@ import CloseIcon from '@material-ui/icons/Close';
 import useStyles from './useStyles';
 import Typography from '@material-ui/core/Typography';
 
-interface ColumnDialogFormProps {
-  details: any;
-}
-
-const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ details }): JSX.Element => {
-  const { updateBoard, newColumnDialogOpen, toggleNewColumnDialog } = useBoard();
+const NewColumnDialogBox: FC = (): JSX.Element => {
+  const { updateBoard, newColumnDialogOpen, toggleNewColumnDialog, clearNewColumnDetails, newColumnDetails, board } =
+    useBoard();
   const { openBackdrop, closeBackdrop } = useBackdrop();
   const classes = useStyles();
   const doHandleClose = () => {
-    details.draggedCardColumn.cards.splice(details.draggedCardIndex, 0, details.draggedCard);
+    if (newColumnDetails.position) {
+      newColumnDetails.draggedCardColumn.cards.splice(
+        newColumnDetails.draggedCardIndex,
+        0,
+        newColumnDetails.draggedCard,
+      );
+    }
     toggleNewColumnDialog();
   };
 
@@ -51,11 +54,23 @@ const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ details }): JSX.Element
               setTimeout(() => {
                 closeBackdrop();
               }, 1200);
-              if (details.position === 'left') {
-                updateBoard([{ cards: [{ ...details.draggedCard }], name: values.name }, ...details.boardArrangement]);
+              if (!newColumnDetails.position) {
+                updateBoard([{ cards: [], name: values.name }, ...board.columns]);
+              } else if (newColumnDetails.position === 'left') {
+                updateBoard([
+                  {
+                    cards: [{ ...newColumnDetails.draggedCard }],
+                    name: values.name,
+                  },
+                  ...newColumnDetails.boardArrangement,
+                ]);
               } else {
-                updateBoard([...details.boardArrangement, { cards: [{ ...details.draggedCard }], name: values.name }]);
+                updateBoard([
+                  ...newColumnDetails.boardArrangement,
+                  { cards: [{ ...newColumnDetails.draggedCard }], name: values.name },
+                ]);
               }
+              clearNewColumnDetails();
               toggleNewColumnDialog();
             }}
           >

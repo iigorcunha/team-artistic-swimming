@@ -16,7 +16,7 @@ const DashboardBar = (): JSX.Element => {
   const PropsButtons = { colorDashboard: '#666561', colorCalendar: '#759CFC' };
   const classes = useStyles(PropsButtons);
   const history = useHistory();
-  const { boardName } = useBoard();
+  const { boardName, toggleNewColumnDialog } = useBoard();
 
   const handleDashboardClick = async () => {
     history.push('/dashboard');
@@ -52,6 +52,9 @@ const DashboardBar = (): JSX.Element => {
         </Toolbar>
         <Toolbar className={classes.toolbarBottom}>
           <Typography className={classes.titleBottom}>{boardName}</Typography>
+          <Button variant="outlined" className={classes.addColumnButton} onClick={toggleNewColumnDialog}>
+            Add Column
+          </Button>
           <DashboardBarMenu />
         </Toolbar>
       </AppBar>

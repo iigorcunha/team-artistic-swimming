@@ -5,12 +5,16 @@ import getBoard from '../helpers/APICalls/getBoard';
 import createBoard from '../helpers/APICalls/createBoard';
 import { BoardWithoutNestedChildren } from '../interface/BoardApiData';
 import handleBoard from '../helpers/APICalls/handleBoard';
+import { NewColumDetails } from '../interface/NewColumnDetails';
 
 interface IBoardContext {
   boardList: BoardWithoutNestedChildren[] | undefined;
   board: Board;
   boardName: string;
   newColumnDialogOpen: boolean;
+  newColumnDetails: NewColumDetails;
+  clearNewColumnDetails: () => void;
+  addNewColumnDetails: (data: NewColumDetails) => void;
   toggleNewColumnDialog: () => void;
   updateBoard: (columns: Column[]) => void;
   switchBoardInView: (boardId: string) => void;
@@ -24,6 +28,7 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [board, setBoard] = useState<Board>({} as Board);
   const [boardList, setBoardList] = useState<BoardWithoutNestedChildren[]>([]);
   const [newColumnDialogOpen, setNewColumnDialog] = useState<boolean>(false);
+  const [newColumnDetails, setNewColumnDetails] = useState<NewColumDetails>({} as NewColumDetails);
   const [boardName, setBoardName] = useState<string>('');
 
   const setInitialBoardList = useCallback(async () => {
@@ -94,6 +99,14 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const toggleNewColumnDialog = () => {
     setNewColumnDialog(!newColumnDialogOpen);
   };
+
+  const clearNewColumnDetails = () => {
+    setNewColumnDetails({} as NewColumDetails);
+  };
+
+  const addNewColumnDetails = (data: NewColumDetails) => {
+    setNewColumnDetails(data);
+  };
   return (
     <BoardContext.Provider
       value={{
@@ -101,6 +114,9 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
         board,
         boardName,
         newColumnDialogOpen,
+        newColumnDetails,
+        clearNewColumnDetails,
+        addNewColumnDetails,
         toggleNewColumnDialog,
         setInitialBoardList,
         updateBoard,

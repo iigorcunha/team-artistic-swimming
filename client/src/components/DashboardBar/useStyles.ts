@@ -82,6 +82,10 @@ const useStyles = makeStyles({
     marginLeft: 28,
     marginTop: 14,
   },
+  addColumnButton: {
+    color: 'white',
+    margin: 'auto 0',
+  },
 });
 
 export default useStyles;

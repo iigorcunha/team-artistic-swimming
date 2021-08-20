@@ -10,11 +10,10 @@ import { useBackdrop } from '../../context/useBackDropContext';
 import { Column } from '../../interface/Board';
 
 const Board: FC = (): JSX.Element => {
-  const { board, updateBoard, toggleNewColumnDialog } = useBoard();
+  const { board, updateBoard, toggleNewColumnDialog, addNewColumnDetails } = useBoard();
   const { backdropOpen } = useBackdrop();
   const [showingWidgetLeft, setShowingWidgetLeft] = useState<boolean>(false);
   const [showingWidgetRight, setShowingWidgetRight] = useState<boolean>(false);
-  const [newColumnDetails, setNewColumnDetails] = useState({});
   const classes = useStyles();
 
   const handleOnDragEnd = (result: DropResult) => {
@@ -38,7 +37,7 @@ const Board: FC = (): JSX.Element => {
             draggedCard,
             draggedCardIndex: source.index,
           };
-          setNewColumnDetails({ ...details });
+          addNewColumnDetails({ ...details });
           toggleNewColumnDialog();
           return;
         }
@@ -111,7 +110,7 @@ const Board: FC = (): JSX.Element => {
           )}
         </Droppable>
       </DragDropContext>
-      <NewColumnDialogBox details={newColumnDetails} />
+      <NewColumnDialogBox />
       <Backdrop className={classes.backdrop} open={backdropOpen}>
         <CircularProgress color="inherit" />
       </Backdrop>
