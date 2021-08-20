@@ -29,7 +29,7 @@ const NewBoardDialogBox: FC = (): JSX.Element => {
   return (
     <div>
       <Button
-        className={classes.endButtons}
+        className={classes.createBoardButton}
         onClick={handleClickOpen}
         variant="contained"
         color="primary"
