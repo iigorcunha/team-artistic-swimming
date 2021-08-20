@@ -1,10 +1,12 @@
 import { useState, useContext, createContext, FunctionComponent, useCallback } from 'react';
-import { Board, Column } from '../interface/Board';
+import { Board, Column, UpdateColumn } from '../interface/Board';
 import getAllBoards from '../helpers/APICalls/getAllBoards';
 import getBoard from '../helpers/APICalls/getBoard';
 import createBoard from '../helpers/APICalls/createBoard';
 import { BoardWithoutNestedChildren } from '../interface/BoardApiData';
 import handleBoard from '../helpers/APICalls/handleBoard';
+import deleteColumn from '../helpers/APICalls/deleteColumn';
+import patchColumn from '../helpers/APICalls/patchColumn';
 
 interface IBoardContext {
   boardList: BoardWithoutNestedChildren[] | undefined;
@@ -14,6 +16,11 @@ interface IBoardContext {
   switchBoardInView: (boardId: string) => void;
   createNewBoard: (name: string) => void;
   setInitialBoardList: () => Promise<void>;
+  fetchBoard: (boardId: string) => Promise<Board | void>;
+  removeColumn: (columnId: string) => Promise<void>;
+  editableColumn: string;
+  handleEditColumn: (columnId: string) => void;
+  updateColumn: (column: UpdateColumn) => Promise<void>;
 }
 
 export const BoardContext = createContext<IBoardContext>({} as IBoardContext);
@@ -22,6 +29,19 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [board, setBoard] = useState<Board>({} as Board);
   const [boardList, setBoardList] = useState<BoardWithoutNestedChildren[]>([]);
   const [boardName, setBoardName] = useState<string>('');
+  const [editableColumn, setEditableColumn] = useState('');
+
+  async function fetchBoard(boardId: string): Promise<Board | void> {
+    const response = await getBoard(boardId);
+
+    if (response.board) {
+      setBoard(response.board);
+    }
+
+    if (response.error) {
+      console.error(response.error);
+    }
+  }
 
   const setInitialBoardList = useCallback(async () => {
     const allBoardResponse = await getAllBoards();
@@ -88,6 +108,34 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
     [switchBoardInView],
   );
 
+  async function removeColumn(columnId: string) {
+    const response = await deleteColumn(columnId);
+
+    if (response.success) {
+      fetchBoard(board._id);
+    }
+
+    if (response.error) {
+      console.error(response.error);
+    }
+  }
+
+  async function updateColumn(column: UpdateColumn) {
+    const response = await patchColumn(column);
+
+    if (response.column) {
+      await fetchBoard(board._id);
+    }
+
+    if (response.error) {
+      console.error(response.error);
+    }
+  }
+
+  function handleEditColumn(columnId: string) {
+    setEditableColumn(columnId);
+  }
+
   return (
     <BoardContext.Provider
       value={{
@@ -98,6 +146,11 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
         updateBoard,
         switchBoardInView,
         createNewBoard,
+        fetchBoard,
+        removeColumn,
+        editableColumn,
+        handleEditColumn,
+        updateColumn,
       }}
     >
       {children}

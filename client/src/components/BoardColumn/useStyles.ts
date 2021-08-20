@@ -1,6 +1,10 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+interface BoardColumnStyleProps {
+  editColumn: boolean;
+}
+
+const useStyles = makeStyles<Theme, BoardColumnStyleProps>((theme) => ({
   columnContainer: {
     marginLeft: 10,
   },
@@ -10,18 +14,46 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#F4F6FF',
+    backgroundColor: theme.palette.secondary.main,
     padding: 0,
     margin: 0,
-    marginBottom: 15,
-    borderRadius: '0 0 8px 8px',
+    marginBottom: theme.spacing(5),
+    borderBottomLeftRadius: theme.shape.borderRadius,
+    borderBottomRightRadius: theme.shape.borderRadius,
+  },
+  columnTitleContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: theme.palette.secondary.main,
+    borderTopLeftRadius: theme.shape.borderRadius,
+    borderTopRightRadius: theme.shape.borderRadius,
+    width: 250,
   },
   columnTitle: {
     padding: 10,
-    width: 250,
+    outline: 'none',
     fontWeight: 'bold',
-    backgroundColor: '#F4F6FF',
-    borderRadius: '8px 8px 0 0',
+    margin: theme.spacing(1),
+    height: theme.spacing(4),
+    borderRadius: theme.shape.borderRadius,
+    border: ({ editColumn }) => (editColumn ? `1px solid ${theme.palette.primary.main}` : '1px solid transparent'),
+    backgroundColor: ({ editColumn }) => (editColumn ? 'white' : theme.palette.secondary.main),
+    '& .MuiInputBase-input.MuiInput-input.Mui-disabled': {
+      color: 'black',
+    },
+  },
+  pointer: {
+    '&:hover': {
+      cursor: 'pointer',
+    },
+    '&:focus': {
+      cursor: 'text',
+    },
+  },
+  deleteButton: {
+    padding: theme.spacing(1),
+    fontSize: theme.spacing(2),
   },
 }));
 

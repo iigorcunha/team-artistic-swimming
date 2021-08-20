@@ -1,10 +1,7 @@
 import { AppBar, Button, Toolbar, Typography, Box } from '@material-ui/core';
 import CalendarTodayOutlinedIcon from '@material-ui/icons/CalendarTodayOutlined';
-import DashboardOutlinedIcon from '@material-ui/icons/DashboardOutlined';
 import AvatarDisplay from '../AvatarDisplay/AvatarDisplay';
-import AddIcon from '@material-ui/icons/Add';
 import DashboardBarMenu from '../DashboardBarMenu/DashboardBarMenu';
-import { User } from '../../interface/User';
 import useStyles from './useStyles';
 import logo from '../../Images/logo.png';
 import LayoutIcon from '../LayoutIcon/LayoutIcon';
@@ -45,9 +42,6 @@ const DashboardBar = (): JSX.Element => {
               Calendar
             </Button>
           </Box>
-          <Button className={classes.createBoardButton} variant="contained" color="primary" startIcon={<AddIcon />}>
-            Create Board
-          </Button>
           <NewBoardDialogBox />
           <Box className={classes.avatar}>
             <AvatarDisplay />

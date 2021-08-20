@@ -30,6 +30,15 @@ const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(1),
   },
+  toolbarButtons: {
+    padding: theme.spacing(1),
+    color: theme.palette.primary.main,
+    fontSize: 30,
+    '&:hover': {
+      color: theme.palette.primary.main,
+      filter: 'brightness(0.9)',
+    },
+  },
 }));
 
 export default useStyles;

@@ -1,6 +1,7 @@
 import { Typography } from '@material-ui/core';
 import { FC } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import { useBoard } from '../../context/useBoardContext';
 import { useCard } from '../../context/useCardContext';
 import { useDialog } from '../../context/useDialogContext';
 import { dateFormat } from '../../helpers/date/dateFormat';
@@ -19,12 +20,19 @@ const BoardCard: FC<CardProps> = ({ card, index }): JSX.Element => {
 
   const { getCard, card: selectedCard, isFetching } = useCard();
 
+  const { fetchBoard, board } = useBoard();
+
   const { handleDialog, openedDialog, onClose } = useDialog();
 
   async function handleDetailedCard(): Promise<void> {
     getCard(card._id);
 
     handleDialog(card._id);
+  }
+
+  async function handleCloseCard(): Promise<void> {
+    onClose();
+    fetchBoard(board._id);
   }
   return (
     <>
@@ -44,7 +52,9 @@ const BoardCard: FC<CardProps> = ({ card, index }): JSX.Element => {
           )}
         </Draggable>
       </div>
-      {!!selectedCard && !isFetching && <CardDetailedDialog open={openedDialog === card._id} handleClose={onClose} />}
+      {!!selectedCard && !isFetching && (
+        <CardDetailedDialog open={openedDialog === card._id} handleClose={handleCloseCard} />
+      )}
     </>
   );
 };

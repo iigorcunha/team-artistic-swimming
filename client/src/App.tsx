@@ -41,7 +41,6 @@ function App(): JSX.Element {
             />
             <ProtectedRoute exact path="/dashboard" demoUser={demoUser} component={Dashboard} />
             <ProtectedRoute exact path="/calendar" demoUser={demoUser} component={Calendar} />
-            <Route exact path="/unauthorized" component={Unauthorized} />
             <Route path="*">
               <Redirect to="/login" />
             </Route>
