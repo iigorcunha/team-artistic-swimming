@@ -14,6 +14,7 @@ interface IBoardContext {
   switchBoardInView: (boardId: string) => void;
   createNewBoard: (name: string) => void;
   setInitialBoardList: () => Promise<void>;
+  fetchBoard: (boardId: string) => Promise<Board | void>;
 }
 
 export const BoardContext = createContext<IBoardContext>({} as IBoardContext);
@@ -22,6 +23,18 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [board, setBoard] = useState<Board>({} as Board);
   const [boardList, setBoardList] = useState<BoardWithoutNestedChildren[]>([]);
   const [boardName, setBoardName] = useState<string>('');
+
+  async function fetchBoard(boardId: string): Promise<Board | void> {
+    const response = await getBoard(boardId);
+
+    if (response.board) {
+      setBoard(response.board);
+    }
+
+    if (response.error) {
+      console.error(response.error);
+    }
+  }
 
   const setInitialBoardList = useCallback(async () => {
     const allBoardResponse = await getAllBoards();
@@ -98,6 +111,7 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
         updateBoard,
         switchBoardInView,
         createNewBoard,
+        fetchBoard,
       }}
     >
       {children}
