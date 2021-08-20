@@ -10,6 +10,8 @@ interface IBoardContext {
   boardList: BoardWithoutNestedChildren[] | undefined;
   board: Board;
   boardName: string;
+  newColumnDialogOpen: boolean;
+  toggleNewColumnDialog: () => void;
   updateBoard: (columns: Column[]) => void;
   switchBoardInView: (boardId: string) => void;
   createNewBoard: (name: string) => void;
@@ -21,6 +23,7 @@ export const BoardContext = createContext<IBoardContext>({} as IBoardContext);
 export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [board, setBoard] = useState<Board>({} as Board);
   const [boardList, setBoardList] = useState<BoardWithoutNestedChildren[]>([]);
+  const [newColumnDialogOpen, setNewColumnDialog] = useState<boolean>(false);
   const [boardName, setBoardName] = useState<string>('');
 
   const setInitialBoardList = useCallback(async () => {
@@ -88,12 +91,17 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
     [switchBoardInView],
   );
 
+  const toggleNewColumnDialog = () => {
+    setNewColumnDialog(!newColumnDialogOpen);
+  };
   return (
     <BoardContext.Provider
       value={{
         boardList,
         board,
         boardName,
+        newColumnDialogOpen,
+        toggleNewColumnDialog,
         setInitialBoardList,
         updateBoard,
         switchBoardInView,

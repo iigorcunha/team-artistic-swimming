@@ -14,28 +14,26 @@ import useStyles from './useStyles';
 import Typography from '@material-ui/core/Typography';
 
 interface ColumnDialogFormProps {
-  open: boolean;
-  handleClose: () => void;
   details: any;
 }
 
-const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ open, handleClose, details }): JSX.Element => {
-  const { updateBoard } = useBoard();
+const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ details }): JSX.Element => {
+  const { updateBoard, newColumnDialogOpen, toggleNewColumnDialog } = useBoard();
   const { openBackdrop, closeBackdrop } = useBackdrop();
   const classes = useStyles();
   const doHandleClose = () => {
     details.draggedCardColumn.cards.splice(details.draggedCardIndex, 0, details.draggedCard);
-    handleClose();
+    toggleNewColumnDialog();
   };
 
   return (
     <div>
-      <Dialog open={open} onClose={doHandleClose} aria-labelledby="form-dialog-title">
+      <Dialog open={newColumnDialogOpen} onClose={doHandleClose} aria-labelledby="form-dialog-title">
         <DialogTitle disableTypography className={classes.title}>
           <Typography variant="h6" className={classes.text}>
             Create a new column
           </Typography>
-          {open ? (
+          {newColumnDialogOpen ? (
             <IconButton aria-label="close" className={classes.closeButton} onClick={doHandleClose}>
               <CloseIcon />
             </IconButton>
@@ -58,7 +56,7 @@ const NewColumnDialogBox: FC<ColumnDialogFormProps> = ({ open, handleClose, deta
               } else {
                 updateBoard([...details.boardArrangement, { cards: [{ ...details.draggedCard }], name: values.name }]);
               }
-              handleClose();
+              toggleNewColumnDialog();
             }}
           >
             {({ isSubmitting, touched, errors, values, handleChange }) => (
