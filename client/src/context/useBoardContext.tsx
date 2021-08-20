@@ -16,6 +16,7 @@ interface IBoardContext {
   switchBoardInView: (boardId: string) => void;
   createNewBoard: (name: string) => void;
   setInitialBoardList: () => Promise<void>;
+  fetchBoard: (boardId: string) => Promise<Board | void>;
   removeColumn: (columnId: string) => Promise<void>;
   editableColumn: string;
   handleEditColumn: (columnId: string) => void;
@@ -145,6 +146,7 @@ export const BoardProvider: FunctionComponent = ({ children }): JSX.Element => {
         updateBoard,
         switchBoardInView,
         createNewBoard,
+        fetchBoard,
         removeColumn,
         editableColumn,
         handleEditColumn,

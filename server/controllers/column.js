@@ -5,21 +5,14 @@ const BoardColumn = require("../models/BoardColumn");
 exports.deleteColumn = asyncHandler(async (req, res, next) => {
   const { _id } = req.params;
 
- try {
-  const boardColumn = await BoardColumn.findOne({ _id }).populate('cards')
+  const boardColumn = await BoardColumn.deleteOne({ _id })
 
-    if (boardColumn.cards) {
-      await Promise.all(boardColumn.cards.map(async card => {
-        await Card.deleteOne({_id: card._id});
-      }))
-    }
-    await BoardColumn.deleteOne({ _id })
+  if (boardColumn.deletedCount === 0) {
+    res.status(404);
+    throw new Error("Column can't be deleted with given id");
+  }
 
-    res.status(200).send({ success: true })
- } catch {
-  res.status(404);
-  throw new Error("Column can't be deleted with given id");
- }
+  res.status(204).send()
 
 })
 

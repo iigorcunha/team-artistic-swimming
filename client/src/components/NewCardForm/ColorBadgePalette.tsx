@@ -2,48 +2,47 @@ import { FC, useState } from 'react';
 import useStyles from './useStyles';
 import ColorBadge from './ColorBadge';
 import { Box, useTheme } from '@material-ui/core';
-import { ColorTags } from '../../interface/Board';
 
 interface BadgePaletteProps {
-  dohandleSetColor: (color: ColorTags) => void;
+  dohandleSetColor: (color: string) => void;
 }
 
 const BadgePalette: FC<BadgePaletteProps> = ({ dohandleSetColor }): JSX.Element => {
-  const [checkedBadge, setCheckedBadge] = useState<ColorTags>('');
+  const [checkedBadge, setCheckedBadge] = useState('');
   const theme = useTheme();
   const classes = useStyles();
-  const onSelectBadge = (color: ColorTags) => {
+  const onSelectBadge = (color: string) => {
     dohandleSetColor(color);
     setCheckedBadge(color);
   };
   return (
     <Box className={classes.badgesContainer}>
       <ColorBadge
-        id="green"
+        id="#5ACD76"
         color={theme.palette.greenTag.main}
         checked={checkedBadge}
-        onClick={() => onSelectBadge('green')}
+        onClick={() => onSelectBadge('#5ACD76')}
       />
       <ColorBadge
-        id="red"
+        id="#FF5D48"
         color={theme.palette.redTag.main}
         checked={checkedBadge}
-        onClick={() => onSelectBadge('red')}
+        onClick={() => onSelectBadge('#FF5D48')}
       />
       <ColorBadge
-        id="yellow"
+        id="#EDAB1D"
         color={theme.palette.yellowTag.main}
         checked={checkedBadge}
-        onClick={() => onSelectBadge('yellow')}
+        onClick={() => onSelectBadge('#EDAB1D')}
       />
       <ColorBadge
-        id="blue"
+        id="#59B0FF"
         color={theme.palette.blueTag.main}
         checked={checkedBadge}
-        onClick={() => onSelectBadge('blue')}
+        onClick={() => onSelectBadge('#59B0FF')}
       />
     </Box>
   );
 };
 
-export default BadgePalette;
+export { BadgePalette };

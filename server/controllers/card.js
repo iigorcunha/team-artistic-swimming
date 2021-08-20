@@ -142,7 +142,7 @@ exports.deleteCard = asyncHandler(async (req, res, next) => {
   const { _id } = req.params;
 
 
-    const card = await Card.findOneAndDelete({ _id })
+    const card = await Card.findOne({ _id }).deleteMany();
 
     if (!card) {
       res.status(404);
@@ -154,12 +154,28 @@ exports.deleteCard = asyncHandler(async (req, res, next) => {
 
 
 exports.createCard = asyncHandler(async (req, res, next) => {
-  const { name, colorCode } = req.body;
+  const { name, colorCode, boardId } = req.body;
 
   const card = await Card.create({
     name,
     colorCode,
+    user: req.user.id,
+    board: boardId,
   });
 
   res.status(200).json({ card })
 })
+
+
+exports.listCalendarCards = asyncHandler(async (req, res, next) => {
+  const { boardId } = req.params;
+  const { date } = req.query;
+
+  const startDate = dayjs(date).startOf('month');
+  const endDate = dayjs(date).endOf('month');
+
+  const cards = await Card.find({ user: req.user.id, board: boardId, deadline: { $gte: startDate, $lte: endDate } });
+
+  res.status(200).json({ cards })
+})
+

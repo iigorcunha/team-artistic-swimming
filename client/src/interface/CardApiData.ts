@@ -1,4 +1,4 @@
-import { Attachment, Card, ColorTags, Item } from './Board';
+import { Attachment, Card, Item } from './Board';
 
 export interface UpdatedChecklist {
   _id?: string;
@@ -16,7 +16,7 @@ export interface UpdatedComment {
 export interface UpdatedCard {
   _id: string;
   name?: string;
-  colorCode?: ColorTags;
+  colorCode?: string;
   deadline?: string;
   description?: string;
   tags?: string[];
@@ -29,4 +29,5 @@ export interface CardApiData {
   error?: string;
   success?: boolean;
   card?: Card;
+  cards?: Card[];
 }
