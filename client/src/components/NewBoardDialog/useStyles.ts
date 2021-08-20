@@ -17,10 +17,13 @@ const useStyles = makeStyles((theme) => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
-  endButtons: {
-    margin: theme.spacing(1),
-    alignSelf: 'flex-end',
+  createBoardButton: {
+    margin: 0,
     color: 'white',
+    fontSize: '1rem',
+    fontWeight: 500,
+    padding: '10px 32px',
+    marginLeft: 135,
   },
   newBoardForm: {
     display: 'flex',

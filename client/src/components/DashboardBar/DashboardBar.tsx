@@ -45,9 +45,6 @@ const DashboardBar = (): JSX.Element => {
               Calendar
             </Button>
           </Box>
-          <Button className={classes.createBoardButton} variant="contained" color="primary" startIcon={<AddIcon />}>
-            Create Board
-          </Button>
           <NewBoardDialogBox />
           <Box className={classes.avatar}>
             <AvatarDisplay />
