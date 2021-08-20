@@ -15,7 +15,7 @@ const uploadToS3 = multer({
         s3: s3,
         bucket: process.env.BUCKET_NAME,
         key: function(req, file, cb) {
-          let toSplitFile = file.originalname.split(".");
+          const toSplitFile = file.originalname.split(".");
           const fileExtension = toSplitFile[toSplitFile.length - 1];
           cb(null, `images/${uuidv4()}.${fileExtension}`);
         }
