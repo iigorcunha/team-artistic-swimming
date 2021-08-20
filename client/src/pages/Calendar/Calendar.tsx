@@ -4,10 +4,19 @@ import useStyles from './useStyles';
 import DashboardBar from '../../components/DashboardBar/DashboardBar';
 
 import CalendarBoard from '../../components/CalendarBoard/CalendarBoard';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useCard } from '../../context/useCardContext';
+import { useCalendar } from '../../context/useCalendarContext';
 
 export default function Calendar(): JSX.Element {
   const classes = useStyles();
+
+  const { listCalendarCards } = useCard();
+  const { currentMonth } = useCalendar();
+
+  useEffect(() => {
+    listCalendarCards(currentMonth);
+  }, [listCalendarCards, currentMonth]);
 
   return (
     <React.Fragment>
