@@ -6,6 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useAuth } from '../../context/useAuthContext';
 import useStyles from './useStyles';
 import avatarPic from '../../Images/demoUser1.png';
+import { useHistory } from 'react-router-dom';
 
 const AvatarDisplay = (): JSX.Element => {
   const classes = useStyles();
@@ -13,6 +14,7 @@ const AvatarDisplay = (): JSX.Element => {
   const open = Boolean(anchorEl);
   const { loggedInUser } = useAuth();
   const { logout } = useAuth();
+  const history = useHistory();
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -24,6 +26,10 @@ const AvatarDisplay = (): JSX.Element => {
   const handleLogout = () => {
     handleClose();
     logout();
+  };
+
+  const handleUpdateProfilePicture = async () => {
+    history.push('/testpage');
   };
 
   return (
@@ -55,7 +61,7 @@ const AvatarDisplay = (): JSX.Element => {
       >
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
         <MenuItem onClick={(e) => e.preventDefault()}>Profile</MenuItem>
-        <MenuItem onClick={(e) => e.preventDefault()}>Update Profile Picture</MenuItem>
+        <MenuItem onClick={handleUpdateProfilePicture}>Update Profile Picture</MenuItem>
       </Menu>
     </Box>
   );

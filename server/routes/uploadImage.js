@@ -24,7 +24,10 @@ const uploadToS3 = multer({
 
 router.route('/').post(protect, uploadToS3, (req, res, next) => {
   if (req.file) {
-    res.status(200).json({ msg: 'File uploaded successfully!' });
+    res.status(200).json({
+      fileName: req.file.originalname,
+      fileLocation: req.file.location,
+    });
   } else {
     res.status(400).json({ msg: 'File not uploaded. Try again.' });
   }  

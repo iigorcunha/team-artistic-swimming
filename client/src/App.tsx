@@ -9,6 +9,7 @@ import Calendar from './pages/Calendar/Calendar';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 import { AppProvider } from './context';
+import TestPage from './pages/TestPage/TestPage';
 
 function App(): JSX.Element {
   const [demoUser, setDemoUser] = useState(false);
@@ -41,7 +42,7 @@ function App(): JSX.Element {
             />
             <ProtectedRoute exact path="/dashboard" demoUser={demoUser} component={Dashboard} />
             <ProtectedRoute exact path="/calendar" demoUser={demoUser} component={Calendar} />
-            <Route exact path="/unauthorized" component={Unauthorized} />
+            <ProtectedRoute exact path="/testpage" demoUser={demoUser} component={TestPage} />
             <Route path="*">
               <Redirect to="/login" />
             </Route>
