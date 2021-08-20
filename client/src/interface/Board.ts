@@ -26,7 +26,8 @@ export interface Attachment {
 export interface Card {
   _id: string;
   name: string;
-  colorCode: ColorTags;
+  colorCode: string;
+  board: string;
   deadline?: Date;
   description?: string;
   tags?: string[];
@@ -38,6 +39,7 @@ export interface Card {
 export interface CreateCard {
   name: string;
   colorCode?: string;
+  boardId?: string;
 }
 
 export interface CreateColumn {
@@ -50,10 +52,17 @@ export interface Column {
   name: string;
 }
 
+export interface CalendarCards {
+  _id: string;
+  title: string;
+  resource: string;
+  start?: Date;
+  end?: Date;
+}
+
 export interface Board {
   _id: string;
   columns: Column[];
   name: string;
   lastViewed: boolean;
 }
-export type ColorTags = 'red' | 'blue' | 'yellow' | 'green' | '';
