@@ -13,6 +13,7 @@ const Popover: React.FC<PopoverProps> = ({ name, onClose, children }) => {
   const { anchorEl, openedPopover } = usePopover();
   return (
     <MaterialPopover
+      elevation={5}
       className={classes.popover}
       id={name}
       anchorEl={anchorEl}
