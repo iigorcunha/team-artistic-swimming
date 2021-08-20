@@ -3,6 +3,7 @@ import { Button } from '@material-ui/core';
 import { useBackdrop } from '../../../../../context/useBackDropContext';
 import { useBoard } from '../../../../../context/useBoardContext';
 import { useCard } from '../../../../../context/useCardContext';
+import { usePopover } from '../../../../../context/usePopoverContext';
 import { FormBase } from '../FormBase/FormBase';
 import useStyles from './useStyles';
 
@@ -12,11 +13,13 @@ const DeleteCardForm: React.FC = () => {
   const { card, removeCard } = useCard();
   const { closeBackdrop } = useBackdrop();
   const { setInitialBoardList } = useBoard();
+  const { setPopoverIsOpen } = usePopover();
 
   function handleDelete() {
     removeCard(card._id);
     closeBackdrop();
     setInitialBoardList();
+    setPopoverIsOpen({ anchorEl: null, openedPopover: '' });
   }
 
   return (
