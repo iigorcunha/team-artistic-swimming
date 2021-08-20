@@ -94,21 +94,20 @@ const Board: FC = (): JSX.Element => {
             <div className={classes.board} {...provided.droppableProps} ref={provided.innerRef}>
               <AddColumnWidget droppableId="addColumnLeft" showing={showingWidgetLeft} />
               <Grid container>
-                {board.columns
-                  ? board.columns.map(
-                      (column, index) =>
-                        column._id && (
-                          <Box key={column._id}>
-                            <BoardColumn
-                              column={column.cards}
-                              droppableId={column._id}
-                              name={column.name}
-                              index={index}
-                            />
-                          </Box>
-                        ),
-                    )
-                  : null}
+                {board.columns &&
+                  board.columns.map(
+                    (column, index) =>
+                      column._id && (
+                        <Box key={column._id}>
+                          <BoardColumn
+                            column={column.cards}
+                            droppableId={column._id}
+                            name={column.name}
+                            index={index}
+                          />
+                        </Box>
+                      ),
+                  )}
               </Grid>
               <AddColumnWidget droppableId="addColumnRight" showing={showingWidgetRight} />
               {provided.placeholder}

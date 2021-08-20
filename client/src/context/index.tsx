@@ -7,23 +7,26 @@ import { ChecklistProvider } from './useChecklistContext';
 import { DialogProvider } from './useDialogContext';
 import { PopoverProvider } from './usePopoverContext';
 import { SnackBarProvider } from './useSnackbarContext';
+import { TeamBoardProvider } from './useTeamBoardContext';
 
 const AppProvider: React.FC = ({ children }) => {
   return (
     <SnackBarProvider>
       <AuthProvider>
         <BoardProvider>
-          <CardProvider>
-            <ChecklistProvider>
-              <CalendarProvider>
-                <BackdropProvider>
-                  <DialogProvider>
-                    <PopoverProvider>{children}</PopoverProvider>
-                  </DialogProvider>
-                </BackdropProvider>
-              </CalendarProvider>
-            </ChecklistProvider>
-          </CardProvider>
+          <TeamBoardProvider>
+            <CardProvider>
+              <ChecklistProvider>
+                <CalendarProvider>
+                  <BackdropProvider>
+                    <DialogProvider>
+                      <PopoverProvider>{children}</PopoverProvider>
+                    </DialogProvider>
+                  </BackdropProvider>
+                </CalendarProvider>
+              </ChecklistProvider>
+            </CardProvider>
+          </TeamBoardProvider>
         </BoardProvider>
       </AuthProvider>
     </SnackBarProvider>

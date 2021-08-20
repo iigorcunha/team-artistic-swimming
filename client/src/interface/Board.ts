@@ -42,7 +42,8 @@ export interface CreateCard {
   boardId?: string;
 }
 
-export interface CreateColumn {
+export interface UpdateColumn {
+  _id: string;
   name: string;
 }
 

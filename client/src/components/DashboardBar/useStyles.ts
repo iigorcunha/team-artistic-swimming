@@ -50,19 +50,10 @@ const useStyles = makeStyles({
     fontSize: 16,
     fontWeight: 400,
   }),
-  createBoardButton: {
-    margin: 0,
-    color: 'white',
-    fontSize: '1rem',
-    fontWeight: 500,
-    padding: '10px 32px',
-    marginLeft: 135,
-  },
   avatar: {
     margin: 0,
     padding: 0,
   },
-  // ...
   menuButton: {
     alignSelf: 'flex-end',
   },

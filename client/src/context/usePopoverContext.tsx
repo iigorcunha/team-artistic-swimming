@@ -9,6 +9,8 @@ interface IPopoverContext {
   anchorEl: Element | null;
   openedPopover: string;
   setPopoverIsOpen: (data: PopoverUpdate) => void;
+  handleOpenPopover: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  handleClosePopover: () => void;
 }
 
 export const PopoverContext = createContext<IPopoverContext>({} as IPopoverContext);
@@ -22,12 +24,22 @@ export const PopoverProvider: React.FC = ({ children }): JSX.Element => {
     setOpenedPopover(data.openedPopover);
   }
 
+  const handleOpenPopover = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setPopoverIsOpen({ anchorEl: event.currentTarget, openedPopover: event.currentTarget.id });
+  };
+
+  const handleClosePopover = () => {
+    setPopoverIsOpen({ anchorEl: null, openedPopover: '' });
+  };
+
   return (
     <PopoverContext.Provider
       value={{
         setPopoverIsOpen,
         openedPopover,
         anchorEl,
+        handleOpenPopover,
+        handleClosePopover,
       }}
     >
       {children}
