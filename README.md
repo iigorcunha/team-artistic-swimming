@@ -4,7 +4,7 @@ This is a little description about your project.
 
 **Tech Stack:** MongoDB, Express.js, React.js, Node.js, Typescript
 
-**Contributors**: [Hatchways](https://github.com/hatchways) (replace)
+**Contributors**: [Hector Palacios](https://github.com/hapalacios) - [Igor Cunha](https://github.com/iigorcunha) - [Robert Orazu](https://github.com/Robertito1) - [Rishabh Bajpai](https://github.com/Rishiswaz)
 
 ---
 
@@ -29,6 +29,8 @@ This is a little description about your project.
 2. Run `npm install` to install packages
 3. Run `npm start` to start the client side
 
+
+
 ---
 
 ### Demo
@@ -39,4 +41,28 @@ This is a little description about your project.
 
 2. Dashboard. Here is a description about what a user can expect to see
 
-![Dashboard](demo/images/dashboard.png)
+![Dashboard](demo/images/initial-dashboard.png)
+
+3. Card. Here is an short video as example how to create cards.
+
+https://user-images.githubusercontent.com/52304812/130674244-9ff6b245-31ce-47d7-846c-1ad5c81bbabd.mov
+
+
+4. Card Detail. Here is a video example what you can do inside of a card. 
+
+
+https://user-images.githubusercontent.com/52304812/130674623-8e8301c4-e92d-49e5-b1f0-1b0eef4a9a8f.mov
+
+
+5. Card with deadline. 
+
+![Card](demo/images/card-deadline.png)
+
+6. Column. Here is other example video how to create column and edit their titles.
+
+https://user-images.githubusercontent.com/52304812/130674102-7ab80ff1-517c-4b07-a4ba-5cbe2b075c94.mov
+
+
+7. Calendar view. 
+
+![Calendar](demo/images/calendar-view.png)
