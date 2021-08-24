@@ -51,7 +51,7 @@ https://user-images.githubusercontent.com/52304812/130674244-9ff6b245-31ce-47d7-
 4. Card Detail. Here is a video example what you can do inside of a card. 
 
 
-https://user-images.githubusercontent.com/52304812/130674210-2d7a054e-f0dc-4b69-b35e-14dfe601c4b4.mov
+https://user-images.githubusercontent.com/52304812/130674623-8e8301c4-e92d-49e5-b1f0-1b0eef4a9a8f.mov
 
 
 5. Card with deadline. 
