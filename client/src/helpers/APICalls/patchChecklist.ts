@@ -8,7 +8,7 @@ const patchChecklist = async (checklistId: string, items: CreateItem[]): Promise
     body: JSON.stringify({ items }),
     credentials: 'include',
   };
-  return await fetch(`/card/checklist/${checklistId}`, fetchOptions)
+  return await fetch(`/api/card/checklist/${checklistId}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: 'Unable to connect to server. Please try again',

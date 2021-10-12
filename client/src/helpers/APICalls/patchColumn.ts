@@ -9,7 +9,7 @@ const patchColumn = async (column: UpdateColumn): Promise<ColumnApiData> => {
     body: JSON.stringify(column),
     credentials: 'include',
   };
-  return await fetch(`/column/edit/${column._id}`, fetchOptions)
+  return await fetch(`/api/column/edit/${column._id}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: 'Unable to connect to server. Please try again',

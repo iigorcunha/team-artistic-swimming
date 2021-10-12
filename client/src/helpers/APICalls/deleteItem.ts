@@ -7,7 +7,7 @@ const deleteItem = async (itemId: string): Promise<ItemApiData> => {
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   };
-  return await fetch(`/card/checklist/item/${itemId}`, fetchOptions)
+  return await fetch(`/api/card/checklist/item/${itemId}`, fetchOptions)
     .then((res) => res.json().then((data) => data))
     .catch(() => ({
       error: 'Unable to connect to server. Please try again',

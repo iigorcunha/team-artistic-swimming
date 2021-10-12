@@ -8,7 +8,7 @@ const patchItem = async (item: UpdatedItem): Promise<ItemApiData> => {
     body: JSON.stringify(item),
     credentials: 'include',
   };
-  return await fetch(`/card/checklist/item/${item._id}`, fetchOptions)
+  return await fetch(`/api/card/checklist/item/${item._id}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: 'Unable to connect to server. Please try again',

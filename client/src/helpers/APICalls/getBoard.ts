@@ -7,7 +7,7 @@ const getBoard = async (boardId: string): Promise<BoardApiData> => {
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   };
-  return await fetch(`/board/list/${boardId}`, fetchOptions)
+  return await fetch(`/api/board/list/${boardId}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: 'Unable to connect to server. Please try again',

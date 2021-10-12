@@ -7,7 +7,7 @@ const getCards = async (boardId: string, currentMonth: Date): Promise<CardApiDat
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   };
-  return await fetch(`/card/calendar/${boardId}?date=${currentMonth}`, fetchOptions)
+  return await fetch(`/api/card/calendar/${boardId}?date=${currentMonth}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: 'Unable to connect to server. Please try again',

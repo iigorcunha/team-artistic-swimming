@@ -7,7 +7,7 @@ const deleteColumn = async (columnId: string): Promise<ColumnApiData> => {
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   };
-  return await fetch(`/column/${columnId}`, fetchOptions)
+  return await fetch(`/api/column/${columnId}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: 'Unable to connect to server. Please try again',

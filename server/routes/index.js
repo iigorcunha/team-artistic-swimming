@@ -9,12 +9,12 @@ const uploadsRouter = require("./uploadImages");
 
 const routes = Router();
 
-routes.use("/auth", authRouter);
-routes.use("/users", userRouter);
-routes.use("/board", boardRouter);
-routes.use("/card", cardRouter);
-routes.use("/column", columnRouter);
-routes.use("/upload-image", uploadRouter);
-routes.use("/upload-images", uploadsRouter);
+routes.use("/api/auth", authRouter);
+routes.use("/api/users", userRouter);
+routes.use("/api/board", boardRouter);
+routes.use("/api/card", cardRouter);
+routes.use("/api/column", columnRouter);
+routes.use("/api/upload-image", uploadRouter);
+routes.use("/api/upload-images", uploadsRouter);
 
 module.exports = routes;

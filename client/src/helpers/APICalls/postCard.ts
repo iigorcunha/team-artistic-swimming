@@ -9,7 +9,7 @@ const postCard = async (card: CreateCard): Promise<CardApiData> => {
     body: JSON.stringify(card),
     credentials: 'include',
   };
-  return await fetch(`/card/create`, fetchOptions)
+  return await fetch(`/api/card/create`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: 'Unable to connect to server. Please try again',

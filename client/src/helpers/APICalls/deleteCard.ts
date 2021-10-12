@@ -7,7 +7,7 @@ const deleteCard = async (cardId: string): Promise<CardApiData> => {
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   };
-  return await fetch(`/card/${cardId}`, fetchOptions)
+  return await fetch(`/api/card/${cardId}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: 'Unable to connect to server. Please try again',

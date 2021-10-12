@@ -20,15 +20,15 @@ emailJobsQueue;
 const app = express();
 const server = http.createServer(app);
 
-// const io = socketio(server, {
-//   cors: {
-//     origin: "*",
-//   },
-// });
+const io = socketio(server, {
+  cors: {
+    origin: "*",
+  },
+});
 
-// io.on("connection", (socket) => {
-//   console.log("connected");
-// });
+io.on("connection", (socket) => {
+  console.log("connected");
+});
 
 if (process.env.NODE_ENV === "development") {
   app.use(logger("dev"));
@@ -38,12 +38,13 @@ app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 
-// app.use((req, res, next) => {
-//   req.io = io;
-//   next();
-// });
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
 
 app.use(routes);
+
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));

@@ -7,7 +7,7 @@ const deleteChecklist = async (checklistId: string): Promise<ChecklistApiData> =
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   };
-  return await fetch(`/card/checklist/${checklistId}`, fetchOptions)
+  return await fetch(`/api/card/checklist/${checklistId}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: 'Unable to connect to server. Please try again',

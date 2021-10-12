@@ -9,7 +9,7 @@ const handleBoard = async (boardId: string, columns: Column[]): Promise<HandleBo
     body: JSON.stringify({ columns }),
     credentials: 'include',
   };
-  return await fetch(`/board/handle/${boardId}`, fetchOptions)
+  return await fetch(`/api/board/handle/${boardId}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: 'Unable to connect to server. Please try again',

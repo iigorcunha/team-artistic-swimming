@@ -8,7 +8,7 @@ const cardDetails = async (card: UpdatedCard): Promise<CardApiData> => {
     body: JSON.stringify(card),
     credentials: 'include',
   };
-  return await fetch(`/card/edit/${card._id}`, fetchOptions)
+  return await fetch(`/api/card/edit/${card._id}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: 'Unable to connect to server. Please try again',
