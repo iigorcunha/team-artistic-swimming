@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c315ded6.chunk.css",
+    "main.js": "/static/js/main.890f71bd.chunk.js",
+    "main.js.map": "/static/js/main.890f71bd.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.71c5bbf3.js",
+    "runtime-main.js.map": "/static/js/runtime-main.71c5bbf3.js.map",
+    "static/css/2.906d343b.chunk.css": "/static/css/2.906d343b.chunk.css",
+    "static/js/2.ebf6a787.chunk.js": "/static/js/2.ebf6a787.chunk.js",
+    "static/js/2.ebf6a787.chunk.js.map": "/static/js/2.ebf6a787.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.906d343b.chunk.css.map": "/static/css/2.906d343b.chunk.css.map",
+    "static/css/main.c315ded6.chunk.css.map": "/static/css/main.c315ded6.chunk.css.map",
+    "static/js/2.ebf6a787.chunk.js.LICENSE.txt": "/static/js/2.ebf6a787.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/static/media/MundialRegular.6463abd8.otf",
+    "static/media/demoUser1.2d73966a.png": "/static/media/demoUser1.2d73966a.png",
+    "static/media/layoutIcon.1cd7f414.svg": "/static/media/layoutIcon.1cd7f414.svg",
+    "static/media/loginImage.78943795.png": "/static/media/loginImage.78943795.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.71c5bbf3.js",
+    "static/css/2.906d343b.chunk.css",
+    "static/js/2.ebf6a787.chunk.js",
+    "static/css/main.c315ded6.chunk.css",
+    "static/js/main.890f71bd.chunk.js"
+  ]
+}
